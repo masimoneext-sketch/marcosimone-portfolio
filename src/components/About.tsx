@@ -143,7 +143,7 @@ export default function About() {
             <div className="text-[#AFA9EC] leading-relaxed space-y-4 text-base">
               <p>
                 Sono Marco Simone, Team Leader IT Service Desk presso IWS Consulting,
-                dove supporto l'università LUISS Guido Carli. Con oltre 5 anni nel settore
+                con gestione del team IT e supporto tecnico avanzato. Con oltre 5 anni nel settore
                 IT e 17 anni di esperienza nella gestione di team, ho sviluppato una
                 visione pratica e orientata alle soluzioni.
               </p>

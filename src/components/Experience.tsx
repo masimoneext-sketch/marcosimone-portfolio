@@ -22,7 +22,7 @@ const experiences: Experience[] = [
     period: 'Dicembre 2020 – Presente',
     duration: '4+ anni',
     description:
-      'Supporto tecnico specializzato presso LUISS Guido Carli. Gestione team IT, Microsoft Dynamics, troubleshooting avanzato su oltre 42 aree tecniche.',
+      'Gestione team IT, supporto tecnico avanzato, Microsoft Dynamics e troubleshooting su oltre 42 aree tecniche.',
     tech: [
       'Windows Server',
       'Active Directory',
