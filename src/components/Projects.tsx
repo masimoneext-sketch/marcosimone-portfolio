@@ -23,7 +23,7 @@ const projects: Project[] = [
     name: 'Asset Management Portal',
     tagline: 'Gestione asset IT enterprise su scala',
     description:
-      'Portale completo per la gestione di 6.368 asset IT aziendali. Import massivo da XLS legacy, lifecycle tracking, gestione documenti allegati e ruoli avanzati.',
+      'Portale completo per la gestione degli asset IT aziendali. Import massivo da XLS legacy, lifecycle tracking, gestione documenti allegati e ruoli avanzati.',
     stack: ['Laravel 11', 'React 18', 'MySQL', 'Docker', 'JWT', 'TypeScript'],
     category: 'Enterprise',
     marketApp:
@@ -31,7 +31,7 @@ const projects: Project[] = [
     status: 'Live',
     color: 'purple',
     icon: '🏗️',
-    features: ['6.368 asset gestiti', 'Import CSV/XLS', 'Multi-ruolo', 'Docker deploy'],
+    features: ['Asset aziendali', 'Import CSV/XLS', 'Multi-ruolo', 'Docker deploy'],
   },
   {
     id: 2,
