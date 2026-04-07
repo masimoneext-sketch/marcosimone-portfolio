@@ -41,7 +41,7 @@ const experiences: Experience[] = [
     period: '2008 – Presente',
     duration: '17+ anni',
     description:
-      'Consulenza autonoma su sistemi Windows Desktop e Server, DHCP, DNS, Active Directory. Assemblaggio PC gaming high-performance e ottimizzazione sistemi.',
+      'Consulenza autonoma su sistemi Windows Desktop e Server, DHCP, DNS, Active Directory. Configurazione e ottimizzazione workstation ad alte prestazioni, diagnosi e risoluzione guasti hardware e software.',
     tech: [
       'Windows Server',
       'DHCP',
