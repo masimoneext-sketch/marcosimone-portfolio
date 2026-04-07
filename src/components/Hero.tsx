@@ -1,67 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import Particles, { initParticlesEngine } from '@tsparticles/react'
-import { loadSlim } from '@tsparticles/slim'
-import type { ISourceOptions } from '@tsparticles/engine'
 import ReactTyped from 'react-typed'
 import { Link } from 'react-scroll'
 import { HiChevronDown } from 'react-icons/hi'
-
-// Particles configuration
-const particlesOptions: ISourceOptions = {
-  background: {
-    color: { value: 'transparent' },
-  },
-  fpsLimit: 60,
-  interactivity: {
-    events: {
-      onHover: {
-        enable: true,
-        mode: 'repulse',
-      },
-    },
-    modes: {
-      repulse: {
-        distance: 100,
-        duration: 0.4,
-      },
-    },
-  },
-  particles: {
-    color: {
-      value: ['#7F77DD', '#5DCAA5'],
-    },
-    links: {
-      color: '#3C3489',
-      distance: 150,
-      enable: true,
-      opacity: 0.4,
-      width: 1,
-    },
-    move: {
-      direction: 'none',
-      enable: true,
-      outModes: { default: 'bounce' },
-      random: false,
-      speed: 1,
-      straight: false,
-    },
-    number: {
-      density: { enable: true },
-      value: 80,
-    },
-    opacity: {
-      value: 0.5,
-    },
-    shape: {
-      type: 'circle',
-    },
-    size: {
-      value: { min: 1, max: 3 },
-    },
-  },
-  detectRetina: true,
-}
 
 // Animation variants
 const containerVariants = {
@@ -90,38 +30,15 @@ const stats = [
 ]
 
 export default function Hero() {
-  const [engineReady, setEngineReady] = useState(false)
-
-  // Initialize tsparticles engine once
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine)
-    }).then(() => {
-      setEngineReady(true)
-    })
-  }, [])
-
-  const particlesLoaded = useCallback(async () => {
-    // optional: called when container is loaded
-  }, [])
-
   return (
     <section
       id="hero"
       className="relative h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* tsParticles background */}
-      {engineReady && (
-        <Particles
-          id="hero-particles"
-          className="absolute inset-0 z-0"
-          options={particlesOptions}
-          particlesLoaded={particlesLoaded}
-        />
-      )}
-
-      {/* Radial gradient overlay for depth */}
-      <div className="absolute inset-0 z-[1] bg-radial-gradient pointer-events-none" />
+      {/* Radial gradient overlay per dare profondità */}
+      <div className="absolute inset-0 z-[1] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(60,52,137,0.25) 0%, transparent 70%)' }}
+      />
 
       {/* Hero content */}
       <motion.div

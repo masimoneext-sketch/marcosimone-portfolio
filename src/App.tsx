@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Splash from './components/Splash'
+import GlobalParticles from './components/GlobalParticles'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -23,22 +24,28 @@ function App() {
       </AnimatePresence>
 
       <motion.div
-        className="bg-dark-900 min-h-screen"
+        className="bg-dark-900 min-h-screen relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: splashDone ? 1 : 0 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}
       >
-        <Navbar />
-        <main>
-          <section id="home"><Hero /></section>
-          <section id="about"><About /></section>
-          <section id="skills"><Skills /></section>
-          <section id="projects"><Projects /></section>
-          <section id="solutions"><Solutions /></section>
-          <section id="experience"><Experience /></section>
-          <section id="contact"><Contact /></section>
-        </main>
-        <Footer />
+        {/* Particelle globali su tutto il sito */}
+        {splashDone && <GlobalParticles />}
+
+        {/* Contenuto sopra le particelle */}
+        <div className="relative z-10">
+          <Navbar />
+          <main>
+            <section id="home"><Hero /></section>
+            <section id="about"><About /></section>
+            <section id="skills"><Skills /></section>
+            <section id="projects"><Projects /></section>
+            <section id="solutions"><Solutions /></section>
+            <section id="experience"><Experience /></section>
+            <section id="contact"><Contact /></section>
+          </main>
+          <Footer />
+        </div>
       </motion.div>
     </>
   )
