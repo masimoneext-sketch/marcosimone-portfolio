@@ -16,7 +16,7 @@ const stats: StatCard[] = [
 ]
 
 const highlights = [
-  { icon: '🤖', label: 'AI Enthusiast' },
+  { icon: '🤖', label: 'AI Orchestrator' },
   { icon: '🎯', label: 'Problem Solver' },
   { icon: '🤝', label: 'Team Leader' },
 ]

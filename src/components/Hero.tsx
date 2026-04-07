@@ -63,7 +63,7 @@ export default function Hero() {
           <ReactTyped
             strings={[
               'Team Leader IT Service Desk',
-              'AI Enthusiast & Builder',
+              'AI Orchestrator & Builder',
               'IT Problem Solver',
               'AI Integration Expert',
             ]}
