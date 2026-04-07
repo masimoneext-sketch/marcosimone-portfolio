@@ -82,17 +82,17 @@ const projects: Project[] = [
   {
     id: 5,
     name: 'Work Money',
-    tagline: 'App mobile gestione finanze personali',
+    tagline: 'Personal Finance Dashboard completa',
     description:
-      'Applicazione mobile nativa per il tracking delle finanze personali con categorie, statistiche, grafici e storico transazioni. Pubblicata su APK.',
+      'Dashboard personale per la gestione finanziaria: bilancio a cascata (stipendio → residuo → disponibile), uscite fisse e variabili, salvadanaio mensile, storico e statistiche. Home a griglia con card colorate e navigazione hub-and-spoke.',
     stack: ['React Native', 'Expo SDK 52', 'TypeScript', 'expo-sqlite', 'expo-router'],
     category: 'Mobile',
     marketApp:
-      'App standalone per professionisti e PMI — alternativa gratuita a Mint/YNAB',
-    status: 'Live v3.3.0',
+      'Finance dashboard personale all-in-one per dipendenti e freelance — alternativa gratuita e offline a Mint/YNAB con bilancio a cascata',
+    status: 'Live v4.1.0',
     color: 'purple',
     icon: '💰',
-    features: ['Tracking spese', 'Categorie custom', 'Statistiche', 'Export dati'],
+    features: ['Bilancio cascata', 'Uscite fisse/variabili', 'Salvadanaio', '10 sezioni dashboard'],
   },
   {
     id: 6,

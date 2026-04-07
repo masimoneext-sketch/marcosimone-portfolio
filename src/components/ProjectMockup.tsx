@@ -380,87 +380,150 @@ function SpotMockup() {
 
 // ─── Mockup 5: Work Money ─────────────────────────────────────────────────────
 
-const barData = [
-  { label: 'Gen', value: 60, amount: 320 },
-  { label: 'Feb', value: 85, amount: 455 },
-  { label: 'Mar', value: 55, amount: 290 },
-  { label: 'Apr', value: 82, amount: 438 },  // ← gives roughly €1503 total but we cap at 1240
+interface DashCard {
+  icon: string
+  label: string
+  bg: string
+  border: string
+  value?: string
+  valueColor?: string
+}
+
+const dashCards: DashCard[] = [
+  { icon: '🏠', label: 'Dashboard',       bg: 'rgba(127,119,221,0.15)', border: 'rgba(127,119,221,0.35)', value: 'Home',     valueColor: '#7F77DD' },
+  { icon: '📅', label: 'Mensile',          bg: 'rgba(93,202,165,0.12)',  border: 'rgba(93,202,165,0.30)',  value: 'Apr 2026', valueColor: '#5DCAA5' },
+  { icon: '📊', label: 'Bilancio',         bg: 'rgba(255,189,46,0.12)',  border: 'rgba(255,189,46,0.30)',  value: '€1.284',   valueColor: '#ffbd2e' },
+  { icon: '🏦', label: 'Uscite Fisse',     bg: 'rgba(255,95,87,0.10)',   border: 'rgba(255,95,87,0.28)',   value: '€890',     valueColor: '#ff5f57' },
+  { icon: '🛒', label: 'Uscite Variabili', bg: 'rgba(255,95,87,0.10)',   border: 'rgba(255,95,87,0.28)',   value: '€346',     valueColor: '#ff5f57' },
+  { icon: '🐷', label: 'Salvadanaio',      bg: 'rgba(93,202,165,0.12)',  border: 'rgba(93,202,165,0.30)',  value: '€520',     valueColor: '#5DCAA5' },
 ]
-const TARGET_TOTAL = 1240
+
+const bilancioSteps = [
+  { label: 'Stipendio',   value: '€2.100', color: '#5DCAA5', badge: '' },
+  { label: 'Residuo',     value: '€1.210', color: '#ffbd2e', badge: '🟡' },
+  { label: 'Disponibile', value: '€864',   color: '#5DCAA5', badge: '🟢' },
+]
 
 function WorkMoneyMockup() {
-  const [animating, setAnimating] = useState(false)
-  const [counter, setCounter] = useState(0)
+  const [phase, setPhase] = useState<'cards' | 'bilancio'>('cards')
+  const [visibleCards, setVisibleCards] = useState(0)
+  const [visibleSteps, setVisibleSteps] = useState(0)
 
   useEffect(() => {
     let isCancelled = false
 
     const runCycle = () => {
       if (isCancelled) return
-      setAnimating(false)
-      setCounter(0)
-      setTimeout(() => {
+      setPhase('cards')
+      setVisibleCards(0)
+      setVisibleSteps(0)
+
+      let cardIdx = 0
+      const showNextCard = () => {
         if (isCancelled) return
-        setAnimating(true)
-        // animate counter
-        const steps = 40
-        const stepVal = TARGET_TOTAL / steps
-        let step = 0
-        const tick = () => {
-          if (isCancelled) return
-          step += 1
-          setCounter(Math.min(Math.round(stepVal * step), TARGET_TOTAL))
-          if (step < steps) setTimeout(tick, 35)
-          else setTimeout(() => { if (!isCancelled) runCycle() }, 2500)
+        cardIdx += 1
+        setVisibleCards(cardIdx)
+        if (cardIdx < dashCards.length) {
+          setTimeout(showNextCard, 280)
+        } else {
+          setTimeout(() => {
+            if (isCancelled) return
+            setPhase('bilancio')
+            setVisibleSteps(0)
+            let stepIdx = 0
+            const showNextStep = () => {
+              if (isCancelled) return
+              stepIdx += 1
+              setVisibleSteps(stepIdx)
+              if (stepIdx < bilancioSteps.length) {
+                setTimeout(showNextStep, 500)
+              } else {
+                setTimeout(() => { if (!isCancelled) runCycle() }, 2200)
+              }
+            }
+            setTimeout(showNextStep, 400)
+          }, 1800)
         }
-        tick()
-      }, 500)
+      }
+      setTimeout(showNextCard, 350)
     }
 
     runCycle()
     return () => { isCancelled = true }
   }, [])
 
+  if (phase === 'bilancio') {
+    return (
+      <div style={{ fontFamily: 'monospace' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
+          <span style={{ fontSize: 10 }}>📊</span>
+          <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>Bilancio Cascata</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <AnimatePresence>
+            {bilancioSteps.slice(0, visibleSteps).map((step, i) => (
+              <motion.div
+                key={step.label}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+              >
+                {i > 0 && (
+                  <div style={{ textAlign: 'center', marginBottom: 3, fontSize: 8, color: '#534AB7' }}>▼</div>
+                )}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  background: `${step.color}12`,
+                  border: `1px solid ${step.color}30`,
+                  borderRadius: 5,
+                  padding: '4px 8px',
+                }}>
+                  <span style={{ fontSize: 9, color: '#AFA9EC' }}>{step.badge} {step.label}</span>
+                  <span style={{ fontSize: 11, color: step.color, fontWeight: 700 }}>{step.value}</span>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div style={{ fontFamily: 'monospace' }}>
-      {/* Total counter */}
-      <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 8 }}>
-        <span style={{ fontSize: 8, color: '#AFA9EC' }}>Totale spese:</span>
-        <span style={{ fontSize: 14, color: '#EEEDFE', fontWeight: 700, letterSpacing: -0.5 }}>€{counter.toLocaleString('it-IT')}</span>
-        <span style={{ fontSize: 7, color: '#5DCAA5', marginLeft: 2 }}>2026</span>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+        <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700 }}>💰 Work Money</span>
+        <span style={{ fontSize: 7, color: '#5DCAA5' }}>v4.1.0</span>
       </div>
-
-      {/* Bar chart */}
-      <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end', height: 52, marginBottom: 8 }}>
-        {barData.map((bar) => (
-          <div key={bar.label} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+        <AnimatePresence>
+          {dashCards.slice(0, visibleCards).map((card) => (
             <motion.div
-              animate={{ height: animating ? `${bar.value}%` : '0%' }}
-              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
+              key={card.label}
+              initial={{ opacity: 0, scale: 0.7, y: 6 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
               style={{
-                width: '100%',
-                background: 'linear-gradient(180deg, #7F77DD, #5DCAA5)',
-                borderRadius: '3px 3px 0 0',
-                minHeight: 2,
+                background: card.bg,
+                border: `1px solid ${card.border}`,
+                borderRadius: 5,
+                padding: '4px 5px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 1,
               }}
-            />
-            <span style={{ fontSize: 7, color: '#AFA9EC' }}>{bar.label}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Transactions */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 3, borderTop: '1px solid rgba(127,119,221,0.15)', paddingTop: 5 }}>
-        {[
-          { icon: '🍕', label: 'Ristorante', amount: '-€24,50', color: '#ff5f57' },
-          { icon: '🛒', label: 'Supermercato', amount: '-€67,30', color: '#ff5f57' },
-        ].map((tx) => (
-          <div key={tx.label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-            <span style={{ fontSize: 9 }}>{tx.icon}</span>
-            <span style={{ flex: 1, fontSize: 9, color: '#AFA9EC' }}>{tx.label}</span>
-            <span style={{ fontSize: 9, color: tx.color, fontWeight: 600 }}>{tx.amount}</span>
-          </div>
-        ))}
+            >
+              <span style={{ fontSize: 10 }}>{card.icon}</span>
+              <span style={{ fontSize: 7, color: '#AFA9EC', fontWeight: 600 }}>{card.label}</span>
+              {card.value && (
+                <span style={{ fontSize: 8, color: card.valueColor, fontWeight: 700 }}>{card.value}</span>
+              )}
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   )
