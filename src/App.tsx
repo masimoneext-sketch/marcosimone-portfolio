@@ -23,16 +23,15 @@ function App() {
         )}
       </AnimatePresence>
 
+      {/* Particelle fuori dal motion.div — fixed non viene rotto dal transform */}
+      {splashDone && <GlobalParticles />}
+
       <motion.div
         className="bg-dark-900 min-h-screen relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: splashDone ? 1 : 0 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}
       >
-        {/* Particelle globali su tutto il sito */}
-        {splashDone && <GlobalParticles />}
-
-        {/* Contenuto sopra le particelle */}
         <div className="relative z-10">
           <Navbar />
           <main>
