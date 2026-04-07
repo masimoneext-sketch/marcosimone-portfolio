@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { Tilt } from 'react-tilt'
+import ProjectMockup from './ProjectMockup'
 
 interface Project {
   id: number
@@ -196,14 +197,14 @@ function ProjectCard({ project }: ProjectCardProps) {
           />
 
           <div className="flex flex-col flex-1 p-6">
-            {/* Header row: icon + status badge */}
+            {/* Animated mockup preview */}
+            <div className="mb-4">
+              <ProjectMockup projectId={project.id} />
+            </div>
+
+            {/* Header row: status badge */}
             <div className="flex items-start justify-between mb-4">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
-                style={{ background: `${accentColor}1A`, border: `1px solid ${accentColor}33` }}
-              >
-                {project.icon}
-              </div>
+              <div />
               <span
                 className={`text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1.5 ${statusCfg.classes}`}
               >
