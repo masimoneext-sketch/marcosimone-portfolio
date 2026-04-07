@@ -243,11 +243,8 @@ export default function Experience() {
     <section
       id="experience"
       ref={sectionRef}
-      className="py-24 px-6 bg-[#1a1830] relative overflow-hidden"
+      className="py-24 px-6 relative overflow-hidden"
     >
-      {/* Background blurs */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 bg-[#7F77DD]/8 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#5DCAA5]/8 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-5xl mx-auto">
         {/* Section header */}
