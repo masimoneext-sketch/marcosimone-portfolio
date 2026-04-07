@@ -174,7 +174,9 @@ export default function About() {
             {/* CTA buttons */}
             <div className="flex flex-wrap gap-4 pt-2">
               <motion.a
-                href="/cv-marco-simone.pdf"
+                href="/cv-marco-simone.html"
+                target="_blank"
+                rel="noopener noreferrer"
                 download
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Marco Simone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #3C3489;
+      --purple-light: #7F77DD;
+      --teal: #5DCAA5;
+      --dark: #0f0e1a;
+      --text: #1a1a2e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #0f0e1a 0%, #1a1830 50%, #26215C 100%);
+      color: white;
+      padding: 36px 48px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      border-radius: 50%;
+      background: rgba(127, 119, 221, 0.15);
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; left: 100px;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: rgba(93, 202, 165, 0.1);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .avatar {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7F77DD, #5DCAA5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 700;
+      color: #0f0e1a;
+      flex-shrink: 0;
+      border: 3px solid rgba(255,255,255,0.2);
+    }
+
+    .header-text h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #EEEDFE;
+      letter-spacing: 0.3px;
+    }
+
+    .header-text .role {
+      font-size: 14px;
+      color: #5DCAA5;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .header-text .tagline {
+      font-size: 12px;
+      color: #AFA9EC;
+      margin-top: 6px;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .contacts-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #AFA9EC;
+    }
+
+    .contact-item span.icon { color: #7F77DD; }
+    .contact-item a { color: #5DCAA5; text-decoration: none; }
+
+    /* BODY */
+    .body {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 0;
+    }
+
+    .main-col { padding: 32px 40px; border-right: 1px solid var(--border); }
+    .side-col { padding: 32px 28px; background: #fafbff; }
+
+    /* SECTION */
+    .section { margin-bottom: 28px; }
+
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      border-bottom: 2px solid;
+      border-image: linear-gradient(to right, #7F77DD, #5DCAA5) 1;
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+    }
+
+    /* EXPERIENCE */
+    .exp-item { margin-bottom: 20px; position: relative; padding-left: 16px; }
+    .exp-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--purple-light);
+    }
+
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+    .exp-role { font-size: 13.5px; font-weight: 600; color: var(--text); }
+    .exp-period { font-size: 11px; color: var(--muted); white-space: nowrap; }
+    .exp-company { font-size: 12px; color: var(--purple-light); font-weight: 500; margin-top: 2px; }
+    .exp-desc { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .tag {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: rgba(127, 119, 221, 0.1);
+      color: var(--purple-light);
+      font-weight: 500;
+      border: 1px solid rgba(127, 119, 221, 0.2);
+    }
+    .tag.teal {
+      background: rgba(93, 202, 165, 0.1);
+      color: #1D9E75;
+      border-color: rgba(93, 202, 165, 0.25);
+    }
+
+    /* PROJECTS */
+    .project-item { margin-bottom: 16px; padding-left: 16px; position: relative; }
+    .project-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 6px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+    .project-name { font-size: 12.5px; font-weight: 600; color: var(--text); }
+    .project-desc { font-size: 11.5px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+
+    /* SIDEBAR SKILL */
+    .skill-item { margin-bottom: 12px; }
+    .skill-header { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px; }
+    .skill-name { font-weight: 500; color: var(--text); }
+    .skill-pct { font-size: 11px; color: var(--muted); }
+    .skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .skill-fill { height: 100%; border-radius: 2px; background: linear-gradient(to right, #7F77DD, #5DCAA5); }
+
+    .skill-category-title {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 16px 0 10px;
+    }
+    .skill-category-title:first-child { margin-top: 0; }
+
+    /* SOFT SKILLS */
+    .soft-skills { display: flex; flex-direction: column; gap: 6px; }
+    .soft-skill {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--text);
+    }
+    .soft-skill::before {
+      content: '▸';
+      color: var(--teal);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    /* LANGUAGES */
+    .lang-item { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+    .lang-item:last-child { border: none; }
+    .lang-level { color: var(--teal); font-weight: 500; }
+
+    /* FOOTER */
+    .cv-footer {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    /* PRINT */
+    @media print {
+      body { background: white; }
+      .page { box-shadow: none; max-width: 100%; }
+      .no-print { display: none; }
+    }
+
+    /* PRINT BUTTON */
+    .print-btn {
+      position: fixed;
+      top: 20px; right: 20px;
+      background: linear-gradient(135deg, #7F77DD, #5DCAA5);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(127,119,221,0.4);
+    }
+    @media print { .print-btn { display: none; } }
+  </style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">📄 Salva come PDF</button>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-inner">
+      <div class="avatar">MS</div>
+      <div class="header-text">
+        <h1>Marco Simone</h1>
+        <div class="role">Team Leader IT Service Desk · AI Enthusiast</div>
+        <div class="tagline">IT Professional che usa l'AI come strumento di sviluppo — capace di progettare e deployare soluzioni complete che normalmente richiederebbero un team intero.</div>
+      </div>
+    </div>
+    <div class="contacts-row">
+      <div class="contact-item"><span class="icon">✉</span> <a href="mailto:ma.simone.ext@gmail.com">ma.simone.ext@gmail.com</a></div>
+      <div class="contact-item"><span class="icon">🌐</span> <a href="https://marcosimone-life.marcosimone.tech">marcosimone-life.marcosimone.tech</a></div>
+      <div class="contact-item"><span class="icon">💼</span> <a href="https://www.linkedin.com/in/it-marco-simone/">linkedin.com/in/it-marco-simone</a></div>
+      <div class="contact-item"><span class="icon">📍</span> Roma, Italia</div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- MAIN COLUMN -->
+    <div class="main-col">
+
+      <!-- ESPERIENZA -->
+      <div class="section">
+        <div class="section-title">Esperienza Professionale</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Team Leader / IT Service Desk</div>
+              <div class="exp-company">IWS Consulting IT Advisory Company</div>
+            </div>
+            <div class="exp-period">Dic 2020 – Presente</div>
+          </div>
+          <div class="exp-desc">Supporto tecnico specializzato presso l'università LUISS Guido Carli. Gestione team IT, Microsoft Dynamics, troubleshooting avanzato su oltre 42 aree tecniche. Responsabile dell'integrazione di strumenti AI nel workflow di supporto.</div>
+          <div class="tags">
+            <span class="tag">Windows Server</span>
+            <span class="tag">Active Directory</span>
+            <span class="tag">Microsoft Dynamics</span>
+            <span class="tag">Team Leadership</span>
+            <span class="tag teal">AI Integration</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Sistemista Windows / Tecnico PC</div>
+              <div class="exp-company">Freelance</div>
+            </div>
+            <div class="exp-period">2008 – Presente</div>
+          </div>
+          <div class="exp-desc">Consulenza autonoma su sistemi Windows Desktop e Server, DHCP, DNS, Active Directory. Assemblaggio PC gaming high-performance, diagnosi e risoluzione guasti hardware e software.</div>
+          <div class="tags">
+            <span class="tag">Windows Server</span>
+            <span class="tag">DHCP / DNS</span>
+            <span class="tag">Active Directory</span>
+            <span class="tag">Hardware</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Responsabile Punti Vendita</div>
+              <div class="exp-company">Pam Panorama S.p.A.</div>
+            </div>
+            <div class="exp-period">Dic 2019 – Dic 2020</div>
+          </div>
+          <div class="exp-desc">Gestione operativa punti vendita, software gestionali aziendali e contabilità.</div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Responsabile Funzioni di Servizio</div>
+              <div class="exp-company">Autogrill</div>
+            </div>
+            <div class="exp-period">Lug 2008 – Giu 2018</div>
+          </div>
+          <div class="exp-desc">Coordinamento team operatori, gestione turni e contabilità in ambienti ad alto traffico. 10 anni di leadership in contesti ad alta pressione.</div>
+          <div class="tags">
+            <span class="tag">Team Management</span>
+            <span class="tag">Customer Service</span>
+            <span class="tag">Gestione Turni</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGETTI -->
+      <div class="section">
+        <div class="section-title">Progetti Rilevanti</div>
+
+        <div class="project-item">
+          <div class="project-name">Sudo Support IT — IT Helpdesk con AI</div>
+          <div class="project-desc">Portale IT support con Knowledge Base (368 voci), AI Assistant Claude, gestione ticket e audit log. Stack: Node.js + SQLite + Claude AI.</div>
+        </div>
+        <div class="project-item">
+          <div class="project-name">Asset Management Portal — 6.368 asset IT</div>
+          <div class="project-desc">Gestione completa del ciclo di vita asset aziendali con import massivo, ruoli avanzati e Docker deploy. Stack: Laravel 11 + React + MySQL.</div>
+        </div>
+        <div class="project-item">
+          <div class="project-name">Work Money v3.3.0 — App Mobile</div>
+          <div class="project-desc">Applicazione mobile per tracking finanze personali, pubblicata su APK. Stack: React Native + Expo SDK 52 + TypeScript.</div>
+        </div>
+        <div class="project-item">
+          <div class="project-name">Infrastructure VPS — Self-hosted Multi-portale</div>
+          <div class="project-desc">Gestione VPS Linux con Docker, Traefik reverse proxy, SSL automatico e deploy multi-applicazione su marcosimone.tech.</div>
+        </div>
+      </div>
+
+      <!-- FORMAZIONE -->
+      <div class="section">
+        <div class="section-title">Formazione</div>
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Diploma in Computer Programming</div>
+              <div class="exp-company">Istituto Sandro Pertini — Brindisi</div>
+            </div>
+            <div class="exp-period">1995 – 1998</div>
+          </div>
+          <div class="exp-desc">Votazione: 60/60</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="side-col">
+
+      <!-- AI SKILLS -->
+      <div class="section">
+        <div class="section-title">Competenze</div>
+
+        <div class="skill-category-title">🤖 AI & Automazione</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Claude AI / Anthropic</span><span class="skill-pct">92%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Prompt Engineering</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">AI Integration</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">AI-Augmented Dev</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        </div>
+
+        <div class="skill-category-title">🖥️ IT Systems</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">IT Service Desk</span><span class="skill-pct">95%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Windows Server / AD</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">DHCP / DNS</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Microsoft Dynamics</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+
+        <div class="skill-category-title">🚀 DevOps & Infra</div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Docker</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Linux / PM2</span><span class="skill-pct">84%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:84%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Traefik / Apache</span><span class="skill-pct">78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+        </div>
+      </div>
+
+      <!-- SOFT SKILLS -->
+      <div class="section">
+        <div class="section-title">Soft Skills</div>
+        <div class="soft-skills">
+          <div class="soft-skill">Leadership & Team Management</div>
+          <div class="soft-skill">Problem Solving orientato al risultato</div>
+          <div class="soft-skill">Comunicazione tecnica chiara</div>
+          <div class="soft-skill">Resistenza allo stress</div>
+          <div class="soft-skill">Apprendimento continuo</div>
+          <div class="soft-skill">Propensione all'innovazione AI</div>
+        </div>
+      </div>
+
+      <!-- LINGUE -->
+      <div class="section">
+        <div class="section-title">Lingue</div>
+        <div class="lang-item"><span>Italiano</span><span class="lang-level">Madrelingua</span></div>
+        <div class="lang-item"><span>Inglese</span><span class="lang-level">Professionale</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cv-footer">
+    Marco Simone · ma.simone.ext@gmail.com · marcosimone-life.marcosimone.tech · Roma, Italia
+  </div>
+
+</div>
+</body>
+</html>
