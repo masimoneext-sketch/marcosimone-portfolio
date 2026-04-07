@@ -71,15 +71,12 @@ export default function About() {
                 <div className="w-full h-full rounded-full bg-[#0f0e1a]" />
               </div>
 
-              {/* Photo placeholder with gradient */}
-              <div
-                className="relative z-10 w-48 h-48 md:w-56 md:h-56 rounded-full flex items-center justify-center text-5xl font-bold select-none"
-                style={{
-                  background: 'linear-gradient(135deg, #7F77DD 0%, #5DCAA5 100%)',
-                }}
-              >
-                <span className="text-[#0f0e1a]">MS</span>
-              </div>
+              {/* Foto profilo */}
+              <img
+                src="/avatar.png"
+                alt="Marco Simone"
+                className="relative z-10 w-48 h-48 md:w-56 md:h-56 rounded-full object-cover object-top"
+              />
 
               {/* Open to Work badge */}
               <div className="absolute bottom-2 right-2 z-20 bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
