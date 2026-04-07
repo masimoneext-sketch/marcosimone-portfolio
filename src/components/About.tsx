@@ -30,9 +30,6 @@ export default function About() {
       ref={ref}
       className="py-24 px-6 relative overflow-hidden"
     >
-      {/* Background decorative blur */}
-      <div className="absolute top-1/3 left-0 w-72 h-72 bg-[#7F77DD]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#5DCAA5]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
         {/* Section header */}
