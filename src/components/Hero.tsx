@@ -82,15 +82,6 @@ const itemVariants = {
   },
 }
 
-const badgeVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: 'easeOut' },
-  },
-}
-
 const stats = [
   { value: '5+', label: 'anni IT' },
   { value: '6', label: 'portali deployati' },
