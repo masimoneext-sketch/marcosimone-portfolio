@@ -184,7 +184,7 @@ export default function Solutions() {
     <section
       id="solutions"
       ref={ref}
-      className="py-24 px-6 bg-[#0f0e1a] relative overflow-hidden"
+      className="py-24 px-6 relative overflow-hidden"
     >
       {/* Background decorative blurs */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-[#5DCAA5]/8 rounded-full blur-3xl pointer-events-none" />

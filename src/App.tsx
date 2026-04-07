@@ -39,7 +39,7 @@ function App() {
       )}
 
       <motion.div
-        className="bg-dark-900 min-h-screen"
+        className="min-h-screen"
         initial={{ opacity: 0 }}
         animate={{ opacity: splashDone ? 1 : 0 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}

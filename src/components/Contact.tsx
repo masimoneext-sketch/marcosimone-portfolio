@@ -180,7 +180,7 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="py-24 px-6 bg-[#0f0e1a] relative overflow-hidden"
+      className="py-24 px-6 relative overflow-hidden"
     >
       {/* Animated gradient mesh background */}
       <div

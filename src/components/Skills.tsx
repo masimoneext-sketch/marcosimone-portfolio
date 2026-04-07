@@ -140,7 +140,7 @@ export default function Skills() {
     <section
       id="skills"
       ref={ref}
-      className="py-24 px-6 bg-[#0f0e1a] relative overflow-hidden"
+      className="py-24 px-6 relative overflow-hidden"
     >
       {/* Background decorative blurs */}
       <div className="absolute top-0 right-1/4 w-80 h-80 bg-[#7F77DD]/8 rounded-full blur-3xl pointer-events-none" />

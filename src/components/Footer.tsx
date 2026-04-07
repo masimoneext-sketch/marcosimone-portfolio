@@ -30,7 +30,7 @@ export default function Footer() {
   const currentYear = 2026
 
   return (
-    <footer className="relative bg-[#0f0e1a] overflow-hidden">
+    <footer className="relative overflow-hidden">
       {/* Gradient top border */}
       <div
         className="h-px w-full"

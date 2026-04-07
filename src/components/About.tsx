@@ -28,7 +28,7 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="py-24 px-6 bg-[#0f0e1a] relative overflow-hidden"
+      className="py-24 px-6 relative overflow-hidden"
     >
       {/* Background decorative blur */}
       <div className="absolute top-1/3 left-0 w-72 h-72 bg-[#7F77DD]/10 rounded-full blur-3xl pointer-events-none" />
