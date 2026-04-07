@@ -163,9 +163,9 @@ export default function Hero() {
           <ReactTyped
             strings={[
               'Team Leader IT Service Desk',
-              'IT Solutions Architect',
-              'Full-Stack Developer',
-              'AI Integration Specialist',
+              'AI Enthusiast & Builder',
+              'IT Problem Solver',
+              'AI Integration Expert',
             ]}
             typeSpeed={50}
             backSpeed={30}
@@ -182,7 +182,7 @@ export default function Hero() {
           variants={itemVariants}
           className="text-purple-300/80 text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
         >
-          Costruisco portali enterprise-ready che risolvono problemi reali nel mercato IT support
+          IT Professional con una forte passione per l'AI — costruisco soluzioni concrete che automatizzano e potenziano il supporto IT aziendale
         </motion.p>
 
         {/* CTA buttons */}

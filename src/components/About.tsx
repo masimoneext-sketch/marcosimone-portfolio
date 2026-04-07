@@ -16,8 +16,8 @@ const stats: StatCard[] = [
 ]
 
 const highlights = [
+  { icon: '🤖', label: 'AI Enthusiast' },
   { icon: '🎯', label: 'Problem Solver' },
-  { icon: '🚀', label: 'IT Innovator' },
   { icon: '🤝', label: 'Team Leader' },
 ]
 
@@ -135,8 +135,8 @@ export default function About() {
                 [ Chi Sono ]
               </span>
               <h3 className="text-2xl md:text-3xl font-bold text-[#EEEDFE] mt-2 leading-snug">
-                Da Team Leader a{' '}
-                <span className="text-gradient">IT Solutions Architect</span>
+                IT Team Leader con una forte{' '}
+                <span className="text-gradient">passione per l'AI</span>
               </h3>
             </div>
 
@@ -144,14 +144,14 @@ export default function About() {
               <p>
                 Sono Marco Simone, Team Leader IT Service Desk presso IWS Consulting,
                 dove supporto l'università LUISS Guido Carli. Con oltre 5 anni nel settore
-                IT e 17 anni di esperienza nella gestione di team ad alto ritmo, ho
-                sviluppato una visione unica: quella di chi conosce sia le esigenze
-                operative che quelle tecniche.
+                IT e 17 anni di esperienza nella gestione di team, ho sviluppato una
+                visione pratica e orientata alle soluzioni.
               </p>
               <p>
-                Oggi progetto e sviluppo portali enterprise-ready — dall'asset management
-                all'AI support — soluzioni concrete pronte per il mercato IT support
-                aziendale.
+                La mia vera passione è l'intelligenza artificiale: uso l'AI come strumento
+                concreto per automatizzare processi IT, costruire knowledge base intelligenti
+                e creare portali che risolvono problemi reali — senza essere uno sviluppatore
+                tradizionale, ma sapendo esattamente cosa serve per far funzionare le cose.
               </p>
             </div>
 
