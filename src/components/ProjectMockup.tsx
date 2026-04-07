@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 // ─── Browser Frame Wrapper ───────────────────────────────────────────────────
 
-const BrowserFrame = ({ children, url = 'marcosimone.tech/portal' }: { children: React.ReactNode; url?: string }) => (
+const BrowserFrame = ({ children, url = 'app.example.com/portal' }: { children: React.ReactNode; url?: string }) => (
   <div
     style={{
       background: '#0a0918',
@@ -534,8 +534,8 @@ function WorkMoneyMockup() {
 const terminalLines = [
   { text: '$ docker ps', color: '#5DCAA5' },
   { text: '✅ portfolio-nginx    UP 2h',  color: '#EEEDFE' },
-  { text: '✅ asset-portal       UP 5d',  color: '#EEEDFE' },
-  { text: '✅ sudo-support-it    UP 12d', color: '#EEEDFE' },
+  { text: '✅ portal-asset        UP 5d',  color: '#EEEDFE' },
+  { text: '✅ portal-support      UP 12d', color: '#EEEDFE' },
   { text: '$ docker stats --no-stream',   color: '#5DCAA5' },
   { text: 'CPU: 2.3%  |  MEM: 412MB',    color: '#7F77DD' },
 ]
@@ -596,12 +596,12 @@ interface ProjectMockupProps {
 }
 
 const urlMap: Record<number, string> = {
-  1: 'asset-portal.marcosimone.tech',
-  2: 'sudo-support-it.marcosimone.tech',
-  3: 'sudo-codingteacher.marcosimone.tech',
-  4: 'sudo-tracker-spot.marcosimone.tech',
-  5: 'workmoney.marcosimone.tech',
-  6: 'vps.marcosimone.tech/infra',
+  1: 'app.example.com/asset-portal',
+  2: 'app.example.com/support',
+  3: 'app.example.com/coding',
+  4: 'app.example.com/tracker',
+  5: 'app.example.com/finance',
+  6: 'app.example.com/infra',
 }
 
 export default function ProjectMockup({ projectId }: ProjectMockupProps) {
