@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { initParticlesEngine } from '@tsparticles/react'
+import { loadSlim } from '@tsparticles/slim'
 import Splash from './components/Splash'
 import GlobalParticles from './components/GlobalParticles'
 import Navbar from './components/Navbar'
@@ -14,6 +16,14 @@ import Footer from './components/Footer'
 
 function App() {
   const [splashDone, setSplashDone] = useState(false)
+  const [engineReady, setEngineReady] = useState(false)
+
+  // Inizializza il motore particelle UNA SOLA VOLTA all'avvio
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine)
+    }).then(() => setEngineReady(true))
+  }, [])
 
   return (
     <>
@@ -23,11 +33,13 @@ function App() {
         )}
       </AnimatePresence>
 
-      {/* Particelle fuori dal motion.div — fixed non viene rotto dal transform */}
-      {splashDone && <GlobalParticles />}
+      {/* Sempre montato, visibile solo dopo splash — engine non si reinizializza */}
+      {engineReady && (
+        <GlobalParticles visible={splashDone} />
+      )}
 
       <motion.div
-        className="bg-dark-900 min-h-screen relative"
+        className="bg-dark-900 min-h-screen"
         initial={{ opacity: 0 }}
         animate={{ opacity: splashDone ? 1 : 0 }}
         transition={{ duration: 0.8, ease: 'easeInOut' }}

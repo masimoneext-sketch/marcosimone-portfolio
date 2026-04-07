@@ -1,12 +1,9 @@
-import { useCallback, useEffect, useState } from 'react'
-import Particles, { initParticlesEngine } from '@tsparticles/react'
-import { loadSlim } from '@tsparticles/slim'
+import { useCallback } from 'react'
+import Particles from '@tsparticles/react'
 import type { ISourceOptions } from '@tsparticles/engine'
 
 const particlesOptions: ISourceOptions = {
-  background: {
-    color: { value: 'transparent' },
-  },
+  background: { color: { value: 'transparent' } },
   fpsLimit: 60,
   interactivity: {
     events: {
@@ -19,9 +16,7 @@ const particlesOptions: ISourceOptions = {
     },
   },
   particles: {
-    color: {
-      value: ['#7F77DD', '#5DCAA5', '#AFA9EC'],
-    },
+    color: { value: ['#7F77DD', '#5DCAA5', '#AFA9EC'] },
     links: {
       color: '#3C3489',
       distance: 180,
@@ -43,37 +38,23 @@ const particlesOptions: ISourceOptions = {
     },
     opacity: {
       value: { min: 0.3, max: 0.8 },
-      animation: {
-        enable: true,
-        speed: 0.8,
-        sync: false,
-      },
+      animation: { enable: true, speed: 0.8, sync: false },
     },
     shape: { type: 'circle' },
     size: {
       value: { min: 2, max: 5 },
-      animation: {
-        enable: true,
-        speed: 2,
-        sync: false,
-      },
+      animation: { enable: true, speed: 2, sync: false },
     },
   },
   detectRetina: true,
 }
 
-export default function GlobalParticles() {
-  const [engineReady, setEngineReady] = useState(false)
+interface GlobalParticlesProps {
+  visible: boolean
+}
 
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine)
-    }).then(() => setEngineReady(true))
-  }, [])
-
+export default function GlobalParticles({ visible }: GlobalParticlesProps) {
   const particlesLoaded = useCallback(async () => {}, [])
-
-  if (!engineReady) return null
 
   return (
     <Particles
@@ -88,6 +69,8 @@ export default function GlobalParticles() {
         height: '100%',
         zIndex: 0,
         pointerEvents: 'none',
+        opacity: visible ? 1 : 0,
+        transition: 'opacity 0.8s ease',
       }}
     />
   )
