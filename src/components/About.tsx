@@ -78,11 +78,6 @@ export default function About() {
                 className="relative z-10 w-48 h-48 md:w-56 md:h-56 rounded-full object-cover object-top"
               />
 
-              {/* Open to Work badge */}
-              <div className="absolute bottom-2 right-2 z-20 bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-white inline-block animate-pulse" />
-                Open to Work
-              </div>
             </div>
 
             {/* Stat cards grid */}
