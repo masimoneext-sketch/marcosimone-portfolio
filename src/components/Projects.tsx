@@ -59,7 +59,7 @@ const projects: Project[] = [
     category: 'AI',
     marketApp:
       'Onboarding tecnico per nuovi sviluppatori in aziende IT e academy private',
-    status: 'In sviluppo',
+    status: 'Live',
     color: 'purple',
     icon: '📚',
     features: ['Percorsi personalizzati', 'AI Tutor', 'Esercizi interattivi', 'Progress tracking'],
