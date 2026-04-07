@@ -139,14 +139,6 @@ export default function Hero() {
         initial="hidden"
         animate="visible"
       >
-        {/* Badge pill */}
-        <motion.div variants={badgeVariants} className="mb-6 flex justify-center">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-teal-600/20 border border-teal-400/30 text-teal-400">
-            <span className="text-base">⚡</span>
-            Available for new opportunities
-          </span>
-        </motion.div>
-
         {/* Name */}
         <motion.h1
           variants={itemVariants}
