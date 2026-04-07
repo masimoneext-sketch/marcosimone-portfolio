@@ -50,7 +50,7 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link
               to="hero"
@@ -61,10 +61,10 @@ export default function Navbar() {
               <img
                 src="/logo.svg"
                 alt="Marco Simone logo"
-                style={{ height: 40, width: 'auto' }}
+                style={{ height: 56, width: 'auto' }}
                 className="transition-transform duration-300 group-hover:scale-110"
               />
-              <span className="text-gradient font-bold text-lg tracking-tight hidden sm:block">
+              <span className="text-gradient font-bold text-2xl tracking-tight hidden sm:block">
                 Marco Simone
               </span>
             </Link>
