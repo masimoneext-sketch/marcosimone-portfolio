@@ -1,0 +1,103 @@
+<svg width="100%" viewBox="0 0 680 280" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @keyframes pulse {
+        0%, 100% { r: 7; opacity: 1; }
+        50% { r: 9; opacity: 0.7; }
+      }
+      @keyframes pulseCenter {
+        0%, 100% { r: 9; opacity: 1; }
+        50% { r: 11; opacity: 0.6; }
+      }
+      @keyframes flowLine {
+        0% { stroke-dashoffset: 20; opacity: 0.3; }
+        50% { opacity: 1; }
+        100% { stroke-dashoffset: 0; opacity: 0.3; }
+      }
+      @keyframes flowLineGreen {
+        0% { stroke-dashoffset: 0; opacity: 0.3; }
+        50% { opacity: 1; }
+        100% { stroke-dashoffset: 20; opacity: 0.3; }
+      }
+      @keyframes fadeInUp {
+        0% { opacity: 0; transform: translateY(8px); }
+        100% { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes ringRotate {
+        from { transform: rotate(0deg); transform-origin: 152px 140px; }
+        to { transform: rotate(360deg); transform-origin: 152px 140px; }
+      }
+      .node-side { animation: pulse 2.4s ease-in-out infinite; }
+      .node-s1 { animation-delay: 0s; }
+      .node-s2 { animation-delay: 0.4s; }
+      .node-s3 { animation-delay: 0.8s; }
+      .node-s4 { animation-delay: 1.2s; }
+      .node-s5 { animation-delay: 1.6s; }
+      .node-mid { animation: pulseCenter 2s ease-in-out infinite; }
+      .node-m1 { animation-delay: 0.2s; }
+      .node-m2 { animation-delay: 0.7s; }
+      .node-m3 { animation-delay: 1.2s; }
+      .conn-purple { stroke-dasharray: 6 4; animation: flowLine 2s linear infinite; }
+      .conn-green { stroke-dasharray: 6 4; animation: flowLineGreen 2s linear infinite; }
+      .d1 { animation-delay: 0s; }
+      .d2 { animation-delay: 0.3s; }
+      .d3 { animation-delay: 0.6s; }
+      .d4 { animation-delay: 0.9s; }
+      .d5 { animation-delay: 1.2s; }
+      .d6 { animation-delay: 1.5s; }
+      .ring-rotate { animation: ringRotate 18s linear infinite; }
+      .text-anim-1 { animation: fadeInUp 0.8s ease-out 0.2s both; }
+      .text-anim-2 { animation: fadeInUp 0.8s ease-out 0.5s both; }
+      .text-anim-3 { animation: fadeInUp 0.8s ease-out 0.8s both; }
+    </style>
+  </defs>
+
+  <rect width="680" height="280" rx="16" fill="#0f0e1a"/>
+
+  <circle class="ring-rotate" cx="152" cy="140" r="88" stroke="#3C3489" stroke-width="0.8" fill="none" stroke-dasharray="4 3"/>
+
+  <line class="conn-purple d1" x1="101" y1="110" x2="143" y2="97"  stroke="#7F77DD" stroke-width="1"/>
+  <line class="conn-purple d2" x1="101" y1="110" x2="143" y2="128" stroke="#7F77DD" stroke-width="1"/>
+  <line class="conn-purple d3" x1="101" y1="140" x2="143" y2="128" stroke="#7F77DD" stroke-width="1.5"/>
+  <line class="conn-purple d4" x1="101" y1="140" x2="143" y2="161" stroke="#7F77DD" stroke-width="1"/>
+  <line class="conn-purple d5" x1="101" y1="170" x2="143" y2="161" stroke="#7F77DD" stroke-width="1"/>
+  <line class="conn-purple d6" x1="101" y1="170" x2="143" y2="128" stroke="#534AB7" stroke-width="0.6"/>
+
+  <line class="conn-green d1" x1="161" y1="97"  x2="203" y2="115" stroke="#1D9E75" stroke-width="1"/>
+  <line class="conn-green d2" x1="161" y1="128" x2="203" y2="115" stroke="#1D9E75" stroke-width="2"/>
+  <line class="conn-green d3" x1="161" y1="128" x2="203" y2="165" stroke="#1D9E75" stroke-width="1"/>
+  <line class="conn-green d4" x1="161" y1="161" x2="203" y2="165" stroke="#1D9E75" stroke-width="1.5"/>
+  <line class="conn-green d5" x1="161" y1="97"  x2="203" y2="165" stroke="#534AB7" stroke-width="0.5"/>
+
+  <circle class="node-side node-s1" cx="94" cy="110" r="7" fill="#26215C" stroke="#7F77DD" stroke-width="1"/>
+  <circle class="node-side node-s2" cx="94" cy="140" r="7" fill="#26215C" stroke="#7F77DD" stroke-width="1"/>
+  <circle class="node-side node-s3" cx="94" cy="170" r="7" fill="#26215C" stroke="#7F77DD" stroke-width="1"/>
+  <circle class="node-mid node-m1" cx="152" cy="97"  r="9" fill="#3C3489" stroke="#7F77DD" stroke-width="1.5"/>
+  <circle class="node-mid node-m2" cx="152" cy="128" r="9" fill="#3C3489" stroke="#7F77DD" stroke-width="1.5"/>
+  <circle class="node-mid node-m3" cx="152" cy="161" r="9" fill="#3C3489" stroke="#7F77DD" stroke-width="1.5"/>
+  <circle class="node-side node-s4" cx="210" cy="115" r="7" fill="#26215C" stroke="#5DCAA5" stroke-width="1"/>
+  <circle class="node-side node-s5" cx="210" cy="165" r="7" fill="#26215C" stroke="#5DCAA5" stroke-width="1"/>
+
+  <circle cx="94"  cy="110" r="2.5" fill="#AFA9EC"/>
+  <circle cx="94"  cy="140" r="2.5" fill="#AFA9EC"/>
+  <circle cx="94"  cy="170" r="2.5" fill="#AFA9EC"/>
+  <circle cx="152" cy="97"  r="3.5" fill="#EEEDFE"/>
+  <circle cx="152" cy="128" r="3.5" fill="#EEEDFE"/>
+  <circle cx="152" cy="161" r="3.5" fill="#EEEDFE"/>
+  <circle cx="210" cy="115" r="2.5" fill="#5DCAA5"/>
+  <circle cx="210" cy="165" r="2.5" fill="#5DCAA5"/>
+
+  <path d="M62 90 L46 120 L46 165 L62 195" stroke="#7F77DD" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M242 90 L258 120 L258 165 L242 195" stroke="#7F77DD" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <line x1="300" y1="60" x2="300" y2="220" stroke="#3C3489" stroke-width="1"/>
+
+  <text class="text-anim-1" x="326" y="118" font-family="'Segoe UI', Arial, sans-serif" font-size="34" font-weight="600" fill="#EEEDFE" letter-spacing="0.5">Marco Simone</text>
+  <text class="text-anim-2" x="326" y="158" font-family="'Segoe UI', Arial, sans-serif" font-size="34" font-weight="600" fill="#EEEDFE" letter-spacing="0.5">Solutions</text>
+
+  <rect class="text-anim-2" x="535" y="132" width="52" height="30" rx="8" fill="#26215C" stroke="#7F77DD" stroke-width="1"/>
+  <text class="text-anim-2" x="561" y="153" font-family="'Segoe UI', Arial, sans-serif" font-size="16" font-weight="700" fill="#EEEDFE" text-anchor="middle">AI</text>
+
+  <text class="text-anim-3" x="326" y="192" font-family="'Segoe UI', Arial, sans-serif" font-size="13" fill="#AFA9EC" letter-spacing="2">LEARN · CODE · EVOLVE</text>
+
+</svg>
