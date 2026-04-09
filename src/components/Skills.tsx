@@ -62,28 +62,6 @@ const skillCategories: SkillCategory[] = [
       { name: 'REST API Design', level: 70 },
     ],
   },
-  {
-    name: 'DevOps & Infra',
-    icon: '🚀',
-    skills: [
-      { name: 'Docker', level: 85 },
-      { name: 'Linux (Ubuntu)', level: 88 },
-      { name: 'Apache', level: 85 },
-      { name: 'Traefik', level: 78 },
-      { name: 'PM2', level: 90 },
-      { name: 'Nginx', level: 75 },
-    ],
-  },
-  {
-    name: 'AI & Integration',
-    icon: '🤖',
-    skills: [
-      { name: 'Claude AI / Anthropic SDK', level: 88 },
-      { name: 'AI Integration', level: 85 },
-      { name: 'Prompt Engineering', level: 82 },
-      { name: 'Knowledge Base Engine', level: 80 },
-    ],
-  },
 ]
 
 const containerVariants = {

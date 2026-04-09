@@ -62,6 +62,18 @@ const solutions: Solution[] = [
     tags: ['Hardware Tracking', 'IT Operations'],
     color: 'purple',
   },
+  {
+    icon: '📅',
+    title: 'Workforce Shift Management',
+    product: 'ShiftFlow',
+    problem: 'Gestite ancora i turni del personale su Excel o carta?',
+    solution:
+      'Portale web self-hosted per pianificare turni settimanali con griglia interattiva, gestione assenze e preferenze turno, approvazione automatica, clienti/sedi configurabili ed export Excel.',
+    targetAudience: 'Aziende con personale a turni: service desk, security, sanità, retail',
+    roi: 'Pianificazione turni in minuti — zero conflitti, zero spreadsheet',
+    tags: ['HR Operations', 'Shift Planning', 'Workforce Management'],
+    color: 'teal',
+  },
 ]
 
 const containerVariants = {

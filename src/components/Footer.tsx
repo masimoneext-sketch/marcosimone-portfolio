@@ -12,7 +12,7 @@ const socialLinks = [
   {
     icon: '🔗',
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/it-marco-simone/',
+    href: 'https://www.linkedin.com/in/it-marco-simone',
   },
   {
     icon: '🐙',

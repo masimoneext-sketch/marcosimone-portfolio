@@ -95,23 +95,23 @@ const projects: Project[] = [
     features: ['Bilancio cascata', 'Uscite fisse/variabili', 'Salvadanaio', '10 sezioni dashboard'],
   },
   {
-    id: 6,
-    name: 'Infrastructure VPS',
-    tagline: 'Stack infrastrutturale completo self-hosted',
+    id: 7,
+    name: 'ShiftFlow',
+    tagline: 'Portale gestione turni enterprise con griglia interattiva',
     description:
-      'Gestione completa di un VPS Linux con Docker, Traefik reverse proxy, Apache, PM2, certificati SSL automatici e deploy multi-portale.',
-    stack: ['Linux Ubuntu', 'Docker', 'Traefik', 'Apache', 'PM2', 'SSL/TLS'],
-    category: 'DevOps',
+      'Portale completo per la gestione dei turni del personale: griglia settimanale interattiva, richieste assenza e preferenza turno con flusso di approvazione, gestione risorse/reparti/clienti/sedi, export Excel e audit log.',
+    stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'Vanilla JS'],
+    category: 'Enterprise',
     marketApp:
-      'Blueprint per hosting self-managed multi-applicazione — alternativa a cloud costosi',
+      'Ideale per aziende e servizi con turni rotativi — sostituisce fogli Excel e tool costosi con un portale web self-hosted',
     status: 'Live',
-    color: 'teal',
-    icon: '🖥️',
-    features: ['Multi-portale', 'SSL automatico', 'Traefik proxy', 'Docker compose'],
+    color: 'purple',
+    icon: '📅',
+    features: ['Griglia settimanale', 'Richieste assenza', 'Export Excel', 'Audit log'],
   },
 ]
 
-const filterTabs = ['Tutti', 'Enterprise', 'AI', 'Mobile', 'DevOps'] as const
+const filterTabs = ['Tutti', 'Enterprise', 'AI', 'Mobile'] as const
 type FilterTab = (typeof filterTabs)[number]
 
 const statusConfig: Record<string, { label: string; classes: string }> = {

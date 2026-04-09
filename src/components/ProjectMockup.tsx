@@ -589,6 +589,115 @@ function InfraMockup() {
   )
 }
 
+// ─── Mockup 7: ShiftFlow ──────────────────────────────────────────────────────
+
+type ShiftSlot = { name: string; shift: string; color: string }
+
+const shiftDays = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven']
+
+const shiftData: ShiftSlot[][] = [
+  [
+    { name: 'Marco S.',  shift: 'M 08-14', color: '#7F77DD' },
+    { name: 'Anna R.',   shift: 'P 14-20', color: '#5DCAA5' },
+    { name: 'Luca M.',   shift: '—',       color: '#534AB7' },
+  ],
+  [
+    { name: 'Marco S.',  shift: 'P 14-20', color: '#5DCAA5' },
+    { name: 'Anna R.',   shift: 'M 08-14', color: '#7F77DD' },
+    { name: 'Luca M.',   shift: 'M 08-14', color: '#7F77DD' },
+  ],
+]
+
+function ShiftFlowMockup() {
+  const [cycleIndex, setCycleIndex] = useState(0)
+  const [visibleRows, setVisibleRows] = useState(0)
+
+  useEffect(() => {
+    let isCancelled = false
+
+    const runCycle = () => {
+      if (isCancelled) return
+      setVisibleRows(0)
+      const rows = shiftData[cycleIndex % shiftData.length]
+      let i = 0
+      const showNext = () => {
+        if (isCancelled) return
+        i += 1
+        setVisibleRows(i)
+        if (i < rows.length) {
+          setTimeout(showNext, 420)
+        } else {
+          setTimeout(() => {
+            if (isCancelled) return
+            setCycleIndex((prev) => (prev + 1) % shiftData.length)
+          }, 2000)
+        }
+      }
+      setTimeout(showNext, 350)
+    }
+
+    runCycle()
+    return () => { isCancelled = true }
+  }, [cycleIndex])
+
+  const rows = shiftData[cycleIndex % shiftData.length]
+
+  return (
+    <div style={{ fontFamily: 'monospace' }}>
+      {/* Week header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5, paddingBottom: 4, borderBottom: '1px solid rgba(127,119,221,0.2)' }}>
+        <span style={{ fontSize: 8, color: '#7F77DD', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>📅 Settimana corrente</span>
+        <div style={{ display: 'flex', gap: 3 }}>
+          {shiftDays.map((d) => (
+            <span key={d} style={{ fontSize: 7, color: '#534AB7', background: 'rgba(127,119,221,0.12)', borderRadius: 3, padding: '1px 4px' }}>{d}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Shift rows */}
+      <AnimatePresence>
+        {rows.slice(0, visibleRows).map((row, i) => (
+          <motion.div
+            key={`${cycleIndex}-${i}`}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5, background: i % 2 === 0 ? 'rgba(127,119,221,0.05)' : 'transparent', borderRadius: 3, padding: '2px 4px' }}
+          >
+            <span style={{ flex: '0 0 56px', fontSize: 9, color: '#EEEDFE', fontWeight: 600 }}>{row.name}</span>
+            <span
+              style={{
+                fontSize: 8,
+                color: row.color,
+                fontWeight: 700,
+                background: `${row.color}18`,
+                border: `1px solid ${row.color}35`,
+                borderRadius: 4,
+                padding: '1px 6px',
+              }}
+            >
+              {row.shift}
+            </span>
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {/* Footer: pending request badge */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: visibleRows >= rows.length ? 1 : 0 }}
+        transition={{ duration: 0.4 }}
+        style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(255,189,46,0.1)', border: '1px solid rgba(255,189,46,0.25)', borderRadius: 4, padding: '3px 7px' }}
+      >
+        <span style={{ fontSize: 8, color: '#ffbd2e', fontWeight: 700 }}>⏳</span>
+        <span style={{ fontSize: 8, color: '#AFA9EC' }}>1 richiesta assenza in attesa</span>
+        <span style={{ fontSize: 8, color: '#ffbd2e', marginLeft: 'auto', fontWeight: 700 }}>Approva</span>
+      </motion.div>
+    </div>
+  )
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 interface ProjectMockupProps {
@@ -602,6 +711,7 @@ const urlMap: Record<number, string> = {
   4: 'app.example.com/tracker',
   5: 'app.example.com/finance',
   6: 'app.example.com/infra',
+  7: 'roster.marcosimone.tech',
 }
 
 export default function ProjectMockup({ projectId }: ProjectMockupProps) {
@@ -615,6 +725,7 @@ export default function ProjectMockup({ projectId }: ProjectMockupProps) {
       case 4: return <SpotMockup />
       case 5: return <WorkMoneyMockup />
       case 6: return <InfraMockup />
+      case 7: return <ShiftFlowMockup />
       default: return null
     }
   }

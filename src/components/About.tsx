@@ -174,7 +174,7 @@ export default function About() {
                 <span>📄</span> Scarica CV
               </motion.a>
               <motion.a
-                href="https://www.linkedin.com/in/marco-simone-it/"
+                href="https://www.linkedin.com/in/it-marco-simone"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.04 }}
