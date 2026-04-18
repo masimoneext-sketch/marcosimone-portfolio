@@ -698,6 +698,164 @@ function ShiftFlowMockup() {
   )
 }
 
+// ─── Mockup 8: Hammerin'Claude ────────────────────────────────────────────────
+
+const buildLayers = [
+  { label: 'FONDAMENTA', detail: 'Schema DB + tipi', color: '#7F77DD' },
+  { label: 'STRUTTURA', detail: 'API routes + logic', color: '#5DCAA5' },
+  { label: 'MURA', detail: 'Frontend UI', color: '#7F77DD' },
+  { label: 'FINITURE', detail: 'UX polish', color: '#5DCAA5' },
+]
+
+function HammerinMockup() {
+  const [phase, setPhase] = useState<'survey' | 'decision' | 'build'>('survey')
+  const [surveyStep, setSurveyStep] = useState(0)
+  const [visibleLayers, setVisibleLayers] = useState(0)
+
+  useEffect(() => {
+    let isCancelled = false
+
+    const runCycle = () => {
+      if (isCancelled) return
+      setPhase('survey')
+      setSurveyStep(0)
+      setVisibleLayers(0)
+
+      // Survey phase
+      const surveySteps = ['Sopralluogo...', 'entrypoint + 1 pattern', '~300 righe, 4 domini']
+      let si = 0
+      const nextSurvey = () => {
+        if (isCancelled) return
+        si += 1
+        setSurveyStep(si)
+        if (si < surveySteps.length) {
+          setTimeout(nextSurvey, 600)
+        } else {
+          setTimeout(() => {
+            if (isCancelled) return
+            setPhase('decision')
+            setTimeout(() => {
+              if (isCancelled) return
+              setPhase('build')
+              setVisibleLayers(0)
+              let li = 0
+              const nextLayer = () => {
+                if (isCancelled) return
+                li += 1
+                setVisibleLayers(li)
+                if (li < buildLayers.length) {
+                  setTimeout(nextLayer, 550)
+                } else {
+                  setTimeout(() => { if (!isCancelled) runCycle() }, 2200)
+                }
+              }
+              setTimeout(nextLayer, 400)
+            }, 900)
+          }, 700)
+        }
+      }
+      setTimeout(nextSurvey, 500)
+    }
+
+    runCycle()
+    return () => { isCancelled = true }
+  }, [])
+
+  const surveyTexts = ['Sopralluogo...', 'entrypoint + 1 pattern', '~300 righe, 4 domini']
+
+  if (phase === 'survey') {
+    return (
+      <div style={{ fontFamily: 'monospace' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
+          <span style={{ fontSize: 10 }}>🔨</span>
+          <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>Hammerin'Claude</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <AnimatePresence>
+            {surveyTexts.slice(0, surveyStep).map((text, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -6 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ fontSize: 9, color: i === 0 ? '#5DCAA5' : '#AFA9EC', display: 'flex', alignItems: 'center', gap: 4 }}
+              >
+                <span style={{ color: '#534AB7', fontSize: 8 }}>{i === 0 ? '>' : '  '}</span>
+                {text}
+                {i === surveyStep - 1 && <Cursor color="#5DCAA5" />}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    )
+  }
+
+  if (phase === 'decision') {
+    return (
+      <div style={{ fontFamily: 'monospace' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
+          <span style={{ fontSize: 10 }}>🔨</span>
+          <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>Hammerin'Claude</span>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          style={{ background: 'rgba(93,202,165,0.12)', border: '1px solid rgba(93,202,165,0.3)', borderRadius: 5, padding: '6px 8px' }}
+        >
+          <span style={{ fontSize: 8, color: '#5DCAA5', fontWeight: 700 }}>SQUADRA</span>
+          <span style={{ fontSize: 8, color: '#AFA9EC', marginLeft: 6 }}>Opus + 3 Sonnet</span>
+        </motion.div>
+      </div>
+    )
+  }
+
+  // Build phase
+  return (
+    <div style={{ fontFamily: 'monospace' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ fontSize: 10 }}>🔨</span>
+          <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700 }}>Costruzione</span>
+        </div>
+        <span style={{ fontSize: 7, color: '#5DCAA5', background: 'rgba(93,202,165,0.15)', borderRadius: 3, padding: '1px 5px' }}>
+          {visibleLayers}/{buildLayers.length} strati
+        </span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <AnimatePresence>
+          {buildLayers.slice(0, visibleLayers).map((layer, i) => (
+            <motion.div
+              key={layer.label}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                background: `${layer.color}12`,
+                border: `1px solid ${layer.color}30`,
+                borderRadius: 4,
+                padding: '3px 6px',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <span style={{ fontSize: 8, color: layer.color, fontWeight: 700 }}>{i + 1}</span>
+                <span style={{ fontSize: 8, color: '#EEEDFE', fontWeight: 600 }}>{layer.label}</span>
+                <span style={{ fontSize: 7, color: '#AFA9EC' }}>{layer.detail}</span>
+              </div>
+              <span style={{ fontSize: 9, color: '#5DCAA5' }}>
+                {i < visibleLayers - 1 ? '✅' : '⏳'}
+              </span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
+  )
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 interface ProjectMockupProps {
@@ -712,6 +870,7 @@ const urlMap: Record<number, string> = {
   5: 'app.example.com/finance',
   6: 'app.example.com/infra',
   7: 'roster.marcosimone.tech',
+  8: 'claude.ai/code/hammerin-claude',
 }
 
 export default function ProjectMockup({ projectId }: ProjectMockupProps) {
@@ -726,6 +885,7 @@ export default function ProjectMockup({ projectId }: ProjectMockupProps) {
       case 5: return <WorkMoneyMockup />
       case 6: return <InfraMockup />
       case 7: return <ShiftFlowMockup />
+      case 8: return <HammerinMockup />
       default: return null
     }
   }

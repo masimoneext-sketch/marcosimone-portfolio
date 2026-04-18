@@ -109,6 +109,21 @@ const projects: Project[] = [
     icon: '📅',
     features: ['Griglia settimanale', 'Richieste assenza', 'Export Excel', 'Audit log'],
   },
+  {
+    id: 8,
+    name: "Hammerin'Claude",
+    tagline: 'Orchestratore multi-agente AI per sviluppo software',
+    description:
+      "Skill per Claude Code che orchestra automaticamente sub-agenti AI con il Metodo Costruttore: sopralluogo leggero, scala dinamica e costruzione a strati. Opus progetta, Sonnet costruisce — come un cantiere edile dal terreno al collaudo.",
+    stack: ['Claude Code', 'Opus', 'Sonnet', 'Multi-Agent', 'TypeScript'],
+    category: 'AI',
+    marketApp:
+      'Framework di orchestrazione AI per team di sviluppo — riduce i token del 42% e aumenta la qualità del codice con decisioni automatiche su quando usare sub-agenti',
+    status: 'Live',
+    color: 'teal',
+    icon: '🔨',
+    features: ['Scala dinamica', 'Metodo Costruttore', 'Auto-trigger', '-42% token'],
+  },
 ]
 
 const filterTabs = ['Tutti', 'Enterprise', 'AI', 'Mobile'] as const

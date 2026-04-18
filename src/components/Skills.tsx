@@ -22,6 +22,7 @@ const skillCategories: SkillCategory[] = [
       { name: 'Prompt Engineering', level: 90 },
       { name: 'AI Integration', level: 88 },
       { name: 'AI-Augmented Development', level: 90 },
+      { name: 'Multi-Agent Orchestration', level: 88 },
       { name: 'Knowledge Base Engine', level: 85 },
       { name: 'Workflow Automation', level: 80 },
     ],

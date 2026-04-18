@@ -74,6 +74,18 @@ const solutions: Solution[] = [
     tags: ['HR Operations', 'Shift Planning', 'Workforce Management'],
     color: 'teal',
   },
+  {
+    icon: '🔨',
+    title: 'AI Dev Orchestrator',
+    product: "Hammerin'Claude",
+    problem: 'I tuoi agenti AI sprecano token e producono codice disorganizzato?',
+    solution:
+      "Skill di orchestrazione per Claude Code che decide automaticamente quando lavorare inline e quando lanciare sub-agenti. Metodo Costruttore: fondamenta → struttura → mura → finiture, con verifica ad ogni strato. Benchmark: -42% token, +33% qualità vs baseline.",
+    targetAudience: 'Sviluppatori e team che usano Claude Code per progetti complessi',
+    roi: 'Risparmio 42% token AI — codice meglio strutturato con zero coordinamento manuale',
+    tags: ['AI Orchestration', 'Multi-Agent', 'Developer Tools'],
+    color: 'purple',
+  },
 ]
 
 const containerVariants = {

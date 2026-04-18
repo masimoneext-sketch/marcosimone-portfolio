@@ -10,7 +10,7 @@ interface StatCard {
 
 const stats: StatCard[] = [
   { value: 5, suffix: '+', label: 'Anni in IT' },
-  { value: 6, suffix: '', label: 'Portali Deployati' },
+  { value: 7, suffix: '', label: 'Progetti Deployati' },
   { value: 45, suffix: '+', label: 'Competenze' },
   { value: 17, suffix: '+', label: 'Anni Leadership' },
 ]
