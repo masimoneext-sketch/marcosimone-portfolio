@@ -22,17 +22,17 @@ const projects: Project[] = [
   {
     id: 1,
     name: 'Asset Management Portal',
-    tagline: 'Gestione asset IT enterprise su scala',
+    tagline: 'Gestione asset IT enterprise con import legacy massivo',
     description:
-      'Portale completo per la gestione degli asset IT aziendali. Import massivo da XLS legacy, lifecycle tracking, gestione documenti allegati e ruoli avanzati.',
-    stack: ['Laravel 11', 'React 18', 'MySQL', 'Docker', 'JWT', 'TypeScript'],
+      "Portale Laravel 11 + React per il lifecycle degli asset IT aziendali: inventario PC/server/periferiche, import massivo da XLS legacy (~6.400 asset su 14 colonne), documenti allegati, storico interventi. Auth JWT custom a 3 ruoli (user/admin/superadmin) con permessi granulari, deploy ibrido Docker su Linux oppure IIS + PHP-CGI su Windows Server.",
+    stack: ['Laravel 11', 'React 18', 'MySQL 8', 'Docker', 'JWT', 'TypeScript'],
     category: 'Enterprise',
     marketApp:
       'Sostituisce fogli Excel e tool costosi come Snipe-IT per PMI e università',
     status: 'Live',
     color: 'purple',
     icon: '🏗️',
-    features: ['Asset aziendali', 'Import CSV/XLS', 'Multi-ruolo', 'Docker deploy'],
+    features: ['Import 6.4K asset', 'JWT 3 ruoli', 'Documenti allegati', 'Deploy ibrido Docker/IIS'],
   },
   {
     id: 2,
@@ -67,17 +67,17 @@ const projects: Project[] = [
   {
     id: 4,
     name: 'Spot Tracker',
-    tagline: 'Tracciamento prestiti device aziendali',
+    tagline: 'Tracciamento prestiti device aziendali self-hosted',
     description:
-      'Sistema completo per gestire il pool di laptop aziendali: prestiti, restituzioni, ranking utilizzo, export CSV e gestione utenti multi-ruolo.',
-    stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'Docker'],
+      'Portale per gestire il pool di laptop e dispositivi aziendali: creazione prestiti, registrazione restituzioni, ranking di utilizzo per laptop, import massivo da CSV, export per inventario, statistiche e audit log completo. Auth JWT a 3 ruoli (user/admin/superadmin) con permessi granulari, processo Node gestito via PM2 dietro reverse proxy Docker + Traefik/TLS automatico.',
+    stack: ['Node.js', 'Express', 'better-sqlite3', 'JWT', 'PM2', 'Docker'],
     category: 'Enterprise',
     marketApp:
       'Ideale per uffici IT con pool hardware condiviso — tracciabilità totale senza Excel',
     status: 'Live',
     color: 'teal',
     icon: '💻',
-    features: ['Prestiti/restituzioni', 'Ranking utilizzo', 'Export CSV', 'Multi-ruolo'],
+    features: ['Prestiti/restituzioni', 'Import CSV + ranking', 'Audit log', 'JWT 3 ruoli'],
   },
   {
     id: 5,
@@ -99,30 +99,30 @@ const projects: Project[] = [
     name: 'ShiftFlow',
     tagline: 'Portale gestione turni enterprise con griglia interattiva',
     description:
-      'Portale completo per la gestione dei turni del personale: griglia settimanale interattiva, richieste assenza e preferenza turno con flusso di approvazione, gestione risorse/reparti/clienti/sedi, export Excel e audit log.',
-    stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'Vanilla JS'],
+      'Portale self-hosted per la pianificazione dei turni: griglia settimanale interattiva, richieste di assenza e preferenza turno con flusso di approvazione, gestione risorse/reparti/clienti/sedi, template settimanali riutilizzabili, calendario di eventi speciali e tab dedicato per i sabati con round-robin per cliente. Schema DB a 14 tabelle, export Excel nativo, audit log completo e auth JWT a 3 ruoli (user/admin/superadmin).',
+    stack: ['Node.js', 'Express', 'sqlite3', 'JWT', 'xlsx', 'Vanilla JS'],
     category: 'Enterprise',
     marketApp:
       'Ideale per aziende e servizi con turni rotativi — sostituisce fogli Excel e tool costosi con un portale web self-hosted',
     status: 'Live',
     color: 'purple',
     icon: '📅',
-    features: ['Griglia settimanale', 'Richieste assenza', 'Export Excel', 'Audit log'],
+    features: ['Griglia settimanale', 'Template + Sabati round-robin', 'Export Excel', 'JWT 3 ruoli + audit log'],
   },
   {
     id: 8,
     name: "Hammerin'Claude",
-    tagline: 'Orchestratore multi-agente AI per sviluppo software',
+    tagline: 'Orchestratore multi-agente con enforcement reale — Metodo Capocantiere',
     description:
-      "Skill per Claude Code che orchestra automaticamente sub-agenti AI con il Metodo Costruttore: sopralluogo leggero, scala dinamica e costruzione a strati. Opus progetta, Sonnet costruisce — come un cantiere edile dal terreno al collaudo.",
-    stack: ['Claude Code', 'Opus', 'Sonnet', 'Multi-Agent', 'TypeScript'],
+      "Skill per Claude Code che coordina sub-agenti con il Metodo Capocantiere v4: Triage hard Fase 0.5 che può abortire in autonomia se il task non qualifica, sopralluogo leggero, costruzione a strati con gate d'ispezione ad ogni livello. Opus progetta, Sonnet costruisce. Enforcement reale via PreToolUse hook (blocco allowlist) + validator Python su contratti.",
+    stack: ['Claude Code', 'Opus 4.7', 'Sonnet 4.6', 'Bash Hooks', 'Python Gate'],
     category: 'AI',
     marketApp:
-      'Framework di orchestrazione AI per team di sviluppo — riduce i token del 42% e aumenta la qualità del codice con decisioni automatiche su quando usare sub-agenti',
+      'Framework di orchestrazione AI con preventivo € upfront e enforcement fisico — pensato per team che vogliono garanzie sul token budget e sui file toccati, non solo buone intenzioni del modello',
     status: 'Live',
     color: 'teal',
     icon: '🔨',
-    features: ['Scala dinamica', 'Metodo Costruttore', 'Auto-trigger', '-42% token'],
+    features: ['Triage auto-ABORT', 'Enforcement hooks L1+L2', 'Strati edilizi', 'Preventivo € upfront'],
   },
 ]
 
