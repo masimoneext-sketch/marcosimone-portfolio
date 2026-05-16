@@ -856,6 +856,314 @@ function HammerinMockup() {
   )
 }
 
+// ─── Mockup 9: itrustyou ──────────────────────────────────────────────────────
+
+const scanFiles = [
+  { name: 'package.json', detected: 'Node 20 + Express' },
+  { name: 'Dockerfile', detected: 'container-ready' },
+  { name: '.github/workflows', detected: 'CI configurato' },
+]
+
+const generatedFiles = [
+  { name: 'CLAUDE.md', detail: 'stack + deploy + gotcha', color: '#7F77DD' },
+  { name: '.claude/settings.json', detail: '6 permessi pre-approvati', color: '#5DCAA5' },
+]
+
+function ItrustyouMockup() {
+  const [phase, setPhase] = useState<'scan' | 'ask' | 'generate'>('scan')
+  const [scanStep, setScanStep] = useState(0)
+  const [askTyped, setAskTyped] = useState('')
+  const [visibleFiles, setVisibleFiles] = useState(0)
+
+  useEffect(() => {
+    let isCancelled = false
+    const askText = 'production'
+
+    const runCycle = () => {
+      if (isCancelled) return
+      setPhase('scan')
+      setScanStep(0)
+      setAskTyped('')
+      setVisibleFiles(0)
+
+      let si = 0
+      const nextScan = () => {
+        if (isCancelled) return
+        si += 1
+        setScanStep(si)
+        if (si < scanFiles.length) {
+          setTimeout(nextScan, 440)
+        } else {
+          setTimeout(() => {
+            if (isCancelled) return
+            setPhase('ask')
+            let ti = 0
+            const typeNext = () => {
+              if (isCancelled) return
+              ti += 1
+              setAskTyped(askText.slice(0, ti))
+              if (ti < askText.length) {
+                setTimeout(typeNext, 55)
+              } else {
+                setTimeout(() => {
+                  if (isCancelled) return
+                  setPhase('generate')
+                  let fi = 0
+                  const nextFile = () => {
+                    if (isCancelled) return
+                    fi += 1
+                    setVisibleFiles(fi)
+                    if (fi < generatedFiles.length) {
+                      setTimeout(nextFile, 600)
+                    } else {
+                      setTimeout(() => { if (!isCancelled) runCycle() }, 2400)
+                    }
+                  }
+                  setTimeout(nextFile, 500)
+                }, 700)
+              }
+            }
+            setTimeout(typeNext, 500)
+          }, 600)
+        }
+      }
+      setTimeout(nextScan, 400)
+    }
+
+    runCycle()
+    return () => { isCancelled = true }
+  }, [])
+
+  if (phase === 'scan') {
+    return (
+      <div style={{ fontFamily: 'monospace' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
+          <span style={{ fontSize: 10 }}>🎯</span>
+          <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>itrustyou — sopralluogo</span>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <AnimatePresence>
+            {scanFiles.slice(0, scanStep).map((f, i) => (
+              <motion.div
+                key={f.name}
+                initial={{ opacity: 0, x: -6 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3 }}
+                style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 9 }}
+              >
+                <span style={{ color: '#5DCAA5', fontSize: 8 }}>✓</span>
+                <span style={{ color: '#EEEDFE', fontWeight: 600 }}>{f.name}</span>
+                <span style={{ color: '#AFA9EC', fontSize: 8 }}>→ {f.detected}</span>
+                {i === scanStep - 1 && <Cursor color="#5DCAA5" />}
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    )
+  }
+
+  if (phase === 'ask') {
+    return (
+      <div style={{ fontFamily: 'monospace' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 8 }}>
+          <span style={{ fontSize: 10 }}>🎯</span>
+          <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>itrustyou — domanda 1/2</span>
+        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{ background: 'rgba(127,119,221,0.10)', border: '1px solid rgba(127,119,221,0.30)', borderRadius: 5, padding: '6px 8px', marginBottom: 6 }}
+        >
+          <span style={{ fontSize: 8, color: '#7F77DD', fontWeight: 700 }}>AI 🤖</span>
+          <div style={{ fontSize: 9, color: '#EEEDFE', marginTop: 2 }}>
+            Ambiente: production, staging o dev?
+          </div>
+        </motion.div>
+        <div style={{ display: 'flex', gap: 5, alignItems: 'flex-start', background: 'rgba(93,202,165,0.08)', borderRadius: 4, padding: '4px 6px' }}>
+          <span style={{ fontSize: 8, color: '#5DCAA5', fontWeight: 700 }}>&gt;</span>
+          <span style={{ fontSize: 9, color: '#EEEDFE' }}>
+            {askTyped}
+            <Cursor color="#5DCAA5" />
+          </span>
+        </div>
+      </div>
+    )
+  }
+
+  // generate phase
+  return (
+    <div style={{ fontFamily: 'monospace' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <span style={{ fontSize: 10 }}>🎯</span>
+          <span style={{ fontSize: 9, color: '#7F77DD', fontWeight: 700 }}>File generati</span>
+        </div>
+        <span style={{ fontSize: 7, color: '#5DCAA5', background: 'rgba(93,202,165,0.15)', borderRadius: 3, padding: '1px 5px' }}>
+          {visibleFiles}/{generatedFiles.length} ✓
+        </span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+        <AnimatePresence>
+          {generatedFiles.slice(0, visibleFiles).map((f) => (
+            <motion.div
+              key={f.name}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                background: `${f.color}12`,
+                border: `1px solid ${f.color}30`,
+                borderRadius: 4,
+                padding: '4px 7px',
+              }}
+            >
+              <span style={{ fontSize: 9, color: '#5DCAA5' }}>📄</span>
+              <span style={{ fontSize: 9, color: '#EEEDFE', fontWeight: 600 }}>{f.name}</span>
+              <span style={{ fontSize: 8, color: '#AFA9EC', marginLeft: 'auto' }}>{f.detail}</span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+      {visibleFiles >= generatedFiles.length && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          style={{ marginTop: 6, fontSize: 8, color: '#5DCAA5', textAlign: 'center', fontWeight: 700 }}
+        >
+          ✨ contesto pronto — &lt; 4K token
+        </motion.div>
+      )}
+    </div>
+  )
+}
+
+// ─── Mockup 10: Event Tracker ────────────────────────────────────────────────
+
+const eventRows = [
+  { asset: 'Laptop HP #412', user: 'Rossi M.', date: '14/05', status: 'Consegnato', color: '#5DCAA5' },
+  { asset: 'Monitor Dell #89', user: 'Bianchi L.', date: '12/05', status: 'In transito', color: '#ffbd2e' },
+  { asset: 'Docking St. #201', user: 'Verdi A.', date: '10/05', status: 'Consegnato', color: '#5DCAA5' },
+  { asset: 'Mouse MX #55', user: 'Neri P.', date: '09/05', status: 'Reso', color: '#7F77DD' },
+]
+
+function EventTrackerMockup() {
+  return (
+    <div style={{ fontFamily: 'monospace' }}>
+      <div style={{ display: 'flex', gap: 4, marginBottom: 5, paddingBottom: 4, borderBottom: '1px solid rgba(93,202,165,0.2)' }}>
+        {['Asset', 'Utente', 'Data', 'Stato'].map((h) => (
+          <span key={h} style={{ flex: 1, fontSize: 7.5, color: '#5DCAA5', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>{h}</span>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        {eventRows.map((row, i) => (
+          <div key={i} style={{ display: 'flex', gap: 4, alignItems: 'center', background: i % 2 === 0 ? 'rgba(93,202,165,0.05)' : 'transparent', borderRadius: 3, padding: '2px 3px' }}>
+            <span style={{ flex: 1, fontSize: 8.5, color: '#EEEDFE' }}>📦 {row.asset}</span>
+            <span style={{ flex: 1, fontSize: 8.5, color: '#AFA9EC' }}>{row.user}</span>
+            <span style={{ flex: 1, fontSize: 8.5, color: '#AFA9EC' }}>{row.date}</span>
+            <span style={{ flex: 1, fontSize: 7.5, color: row.color, fontWeight: 600, background: `${row.color}18`, borderRadius: 3, padding: '1px 4px', textAlign: 'center' }}>{row.status}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Mockup 11: Sudo BugReport ───────────────────────────────────────────────
+
+function BugReportMockup() {
+  const [msgIndex, setMsgIndex] = useState(0)
+  const messages = [
+    { from: 'bot', text: 'Ciao! Descrivi il problema che hai riscontrato.' },
+    { from: 'user', text: 'Il portale non carica dopo il login' },
+    { from: 'bot', text: 'Capito. Quale browser usi? Si blocca su una pagina specifica?' },
+    { from: 'user', text: 'Chrome, resta sulla dashboard vuota' },
+    { from: 'bot', text: 'Ticket #247 creato — priorità: Alta. Il team verificherà.' },
+  ]
+
+  useEffect(() => {
+    if (msgIndex < messages.length - 1) {
+      const t = setTimeout(() => setMsgIndex((p) => p + 1), 1600)
+      return () => clearTimeout(t)
+    }
+  }, [msgIndex])
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 5, height: '100%' }}>
+      <AnimatePresence>
+        {messages.slice(0, msgIndex + 1).map((msg, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              alignSelf: msg.from === 'user' ? 'flex-end' : 'flex-start',
+              background: msg.from === 'user' ? 'rgba(127,119,221,0.2)' : 'rgba(93,202,165,0.12)',
+              border: `1px solid ${msg.from === 'user' ? 'rgba(127,119,221,0.3)' : 'rgba(93,202,165,0.25)'}`,
+              borderRadius: 6,
+              padding: '3px 7px',
+              maxWidth: '80%',
+              fontSize: 8.5,
+              color: '#EEEDFE',
+            }}
+          >
+            {msg.text}
+          </motion.div>
+        ))}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+// ─── Mockup 12: Claude StatusLine ────────────────────────────────────────────
+
+function StatusLineMockup() {
+  const [tick, setTick] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setTick((p) => (p + 1) % 3), 2200)
+    return () => clearInterval(t)
+  }, [])
+
+  const usedPct = [34, 52, 78][tick]
+  const cost = ['$0.42', '$1.08', '$2.31'][tick]
+  const rate5h = [12, 28, 61][tick]
+
+  return (
+    <div style={{ fontFamily: 'monospace', fontSize: 8.5, color: '#EEEDFE', display: 'flex', flexDirection: 'column', gap: 4 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ color: '#7F77DD' }}>⚡</span>
+        <span>Opus 4.6</span>
+        <span style={{ color: '#AFA9EC', marginLeft: 'auto' }}>{cost}</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ color: '#5DCAA5' }}>📐</span>
+        <span>CTX</span>
+        <div style={{ flex: 1, height: 4, background: 'rgba(127,119,221,0.2)', borderRadius: 2, overflow: 'hidden' }}>
+          <motion.div animate={{ width: `${usedPct}%` }} transition={{ duration: 0.6 }} style={{ height: '100%', background: usedPct > 70 ? '#ffbd2e' : '#5DCAA5', borderRadius: 2 }} />
+        </div>
+        <span style={{ color: usedPct > 70 ? '#ffbd2e' : '#5DCAA5', fontSize: 8 }}>{usedPct}%</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span style={{ color: rate5h > 50 ? '#ffbd2e' : '#5DCAA5' }}>⏱</span>
+        <span>5h rate</span>
+        <span style={{ color: rate5h > 50 ? '#ffbd2e' : '#5DCAA5', marginLeft: 'auto', fontSize: 8 }}>{rate5h}%</span>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+        <span>🐛</span>
+        <span style={{ color: '#5DCAA5', fontSize: 8 }}>0 BUG</span>
+        <span style={{ marginLeft: 6 }}>💡</span>
+        <span style={{ color: '#ffbd2e', fontSize: 8 }}>2 REQ</span>
+      </div>
+    </div>
+  )
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 interface ProjectMockupProps {
@@ -871,6 +1179,10 @@ const urlMap: Record<number, string> = {
   6: 'app.example.com/infra',
   7: 'roster.marcosimone.tech',
   8: 'claude.ai/code/hammerin-claude',
+  9: 'claude.ai/code/itrustyou',
+  10: 'app.example.com/events',
+  11: 'app.example.com/bugreport',
+  12: 'github.com/claude-statusline',
 }
 
 export default function ProjectMockup({ projectId }: ProjectMockupProps) {
@@ -886,6 +1198,10 @@ export default function ProjectMockup({ projectId }: ProjectMockupProps) {
       case 6: return <InfraMockup />
       case 7: return <ShiftFlowMockup />
       case 8: return <HammerinMockup />
+      case 9: return <ItrustyouMockup />
+      case 10: return <EventTrackerMockup />
+      case 11: return <BugReportMockup />
+      case 12: return <StatusLineMockup />
       default: return null
     }
   }

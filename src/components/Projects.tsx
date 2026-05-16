@@ -37,17 +37,17 @@ const projects: Project[] = [
   {
     id: 2,
     name: 'Sudo Support IT',
-    tagline: 'IT Helpdesk con AI integrata',
+    tagline: 'IT Helpdesk con AI integrata e gestione spostamenti',
     description:
-      'Portale IT support con Knowledge Base intelligente (368 voci), AI Assistant basato su Claude, gestione ticket, turni, spostamenti e audit log.',
+      'Portale IT support con Knowledge Base intelligente (368 voci), AI Assistant basato su Claude, gestione ticket, turni, Generatore PDL per schemi spostamenti personale (con CLI dedicata che parsa email e genera schemi automaticamente), task predefinite, statistiche operatore per bilanciamento carico e audit log.',
     stack: ['Node.js', 'Express', 'SQLite', 'Claude AI', 'JWT', 'Vanilla JS'],
     category: 'AI',
     marketApp:
-      'Helpdesk AI-powered per PMI senza team IT strutturato — riduce il 60% delle richieste ripetitive',
+      'Helpdesk AI-powered per PMI senza team IT strutturato — riduce il 60% delle richieste ripetitive e automatizza la pianificazione spostamenti',
     status: 'Live',
     color: 'teal',
     icon: '🤖',
-    features: ['KB 368 voci', 'AI Claude integrata', 'Gestione ticket', 'Audit log'],
+    features: ['KB 368 voci', 'AI Claude integrata', 'Generatore PDL + CLI', 'Gestione ticket + turni'],
   },
   {
     id: 3,
@@ -123,6 +123,66 @@ const projects: Project[] = [
     color: 'teal',
     icon: '🔨',
     features: ['Triage auto-ABORT', 'Enforcement hooks L1+L2', 'Strati edilizi', 'Preventivo € upfront'],
+  },
+  {
+    id: 10,
+    name: 'Event Tracker',
+    tagline: 'Gestione eventi e consegne aziendali con tracciamento asset',
+    description:
+      'Portale per il tracciamento di eventi e consegne aziendali: gestione multi-azienda, registro consegne con allegati, anagrafica asset assegnati, import/export Excel, dashboard con statistiche e audit log completo. Auth JWT a 3 ruoli con permessi granulari.',
+    stack: ['Node.js', 'Express', 'better-sqlite3', 'JWT', 'xlsx', 'Multer'],
+    category: 'Enterprise',
+    marketApp:
+      'Ideale per uffici IT e logistica che gestiscono consegne hardware a dipendenti — tracciabilità completa con firma digitale',
+    status: 'Live',
+    color: 'teal',
+    icon: '📦',
+    features: ['Multi-azienda', 'Consegne + allegati', 'Import/Export Excel', 'JWT 3 ruoli + audit'],
+  },
+  {
+    id: 11,
+    name: 'Sudo BugReport',
+    tagline: 'Chat widget conversazionale per segnalazione bug con AI',
+    description:
+      'Sistema di bug reporting conversazionale: widget chat embeddabile che guida l\'utente nella segnalazione tramite AI Claude, pannello admin per gestione ticket con priorità e stato, autenticazione 2FA con QR code, statistiche portale e configurazione LLM dinamica.',
+    stack: ['Node.js', 'Express', 'better-sqlite3', 'Claude AI', 'QR Code', '2FA TOTP'],
+    category: 'AI',
+    marketApp:
+      'Bug reporting che non richiede form — l\'utente chatta, l\'AI struttura il ticket. Perfetto per team che vogliono ridurre segnalazioni incomplete',
+    status: 'Live',
+    color: 'purple',
+    icon: '🐛',
+    features: ['Chat widget AI', 'Admin panel', '2FA + QR', 'Configurazione LLM'],
+  },
+  {
+    id: 12,
+    name: 'Claude StatusLine',
+    tagline: 'Dashboard multi-riga in tempo reale per Claude Code CLI',
+    description:
+      'Script bash che trasforma la status line di Claude Code in una dashboard completa: modello attivo, contesto usato con barra percentuale, token I/O, costo sessione, rate limits 5h/7d con countdown reset, conteggio bug/feature dai portali. Persistenza stato tra /clear, cache TTL 30s, output multi-riga con icone.',
+    stack: ['Bash', 'jq', 'Claude Code', 'SQLite queries', 'Status Line API'],
+    category: 'AI',
+    marketApp:
+      'Visibilità immediata su consumo token e limiti — evita sorprese di rate limit e aiuta a gestire il budget sessione in modo consapevole',
+    status: 'Live',
+    color: 'teal',
+    icon: '📊',
+    features: ['Multi-riga + icone', 'Rate limit countdown', 'Bug counter live', 'Persistenza stato'],
+  },
+  {
+    id: 9,
+    name: 'itrustyou',
+    tagline: 'Bootstrap contesto Claude per progetto — scaffolding in linguaggio naturale',
+    description:
+      "Skill per Claude Code che inizializza automaticamente il contesto di un nuovo progetto: analizza in silenzio lo stack presente (package.json, Dockerfile, workflow CI), chiede al massimo 3 informazioni che non può dedurre, e genera CLAUDE.md locale + .claude/settings.json con permessi pre-approvati mirati. Auto-attivazione con frasi naturali (\"inizializza questo portale\", \"scaffolda\"), zero slash command da ricordare. Budget token dichiarato: < 4.000 per invocazione.",
+    stack: ['Claude Code', 'Opus 4.7', 'SKILL.md', 'YAML Frontmatter'],
+    category: 'AI',
+    marketApp:
+      'Elimina il ciclo di orientamento ripetuto che Claude Code fa ad ogni nuova sessione — ogni futura interazione parte già istruita, riducendo token sprecati e prompt di permesso durante il lavoro in team',
+    status: 'Live',
+    color: 'purple',
+    icon: '🎯',
+    features: ['Auto-trigger naturale', 'Sopralluogo silenzioso', 'Pattern utente precompilati', 'Sinergia Hammerin'],
   },
 ]
 
