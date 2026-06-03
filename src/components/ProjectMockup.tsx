@@ -599,11 +599,11 @@ const shiftData: ShiftSlot[][] = [
   [
     { name: 'Marco S.',  shift: 'M 08-14', color: '#7F77DD' },
     { name: 'Anna R.',   shift: 'P 14-20', color: '#5DCAA5' },
-    { name: 'Luca M.',   shift: '—',       color: '#534AB7' },
+    { name: 'Luca M.',   shift: 'Ferie',   color: '#E0A800' },
   ],
   [
     { name: 'Marco S.',  shift: 'P 14-20', color: '#5DCAA5' },
-    { name: 'Anna R.',   shift: 'M 08-14', color: '#7F77DD' },
+    { name: 'Anna R.',   shift: 'Ferie',   color: '#E0A800' },
     { name: 'Luca M.',   shift: 'M 08-14', color: '#7F77DD' },
   ],
 ]
@@ -1164,6 +1164,138 @@ function StatusLineMockup() {
   )
 }
 
+// ─── Mockup 13: IWS IT Assistant ────────────────────────────────────────────
+
+const iwsTabs = ['Risposte', 'KB', 'AI Chat'] as const
+type IwsTab = typeof iwsTabs[number]
+
+const quickReplies = [
+  { label: 'Reset password', cat: 'Account' },
+  { label: 'VPN non connette', cat: 'Rete' },
+  { label: 'Stampante offline', cat: 'Hardware' },
+]
+
+const kbSearchResults = [
+  { title: 'Outlook — firma aziendale', score: 0.92, cat: 'Email' },
+  { title: 'VPN Cisco — errore 443', score: 0.87, cat: 'Rete' },
+]
+
+const aiChatLines = [
+  { from: 'user' as const, text: 'Teams non si avvia' },
+  { from: 'ai' as const, text: 'Prova: svuota cache di Teams…' },
+]
+
+function IwsAssistantMockup() {
+  const [activeTab, setActiveTab] = useState<IwsTab>('Risposte')
+  const [phase, setPhase] = useState(0)
+
+  useEffect(() => {
+    let isCancelled = false
+    const sequence: { tab: IwsTab; delay: number }[] = [
+      { tab: 'Risposte', delay: 2200 },
+      { tab: 'KB', delay: 2400 },
+      { tab: 'AI Chat', delay: 2800 },
+    ]
+    let idx = 0
+
+    const cycle = () => {
+      if (isCancelled) return
+      setActiveTab(sequence[idx].tab)
+      setPhase(0)
+      setTimeout(() => { if (!isCancelled) setPhase(1) }, 400)
+      setTimeout(() => { if (!isCancelled) setPhase(2) }, 800)
+      setTimeout(() => { if (!isCancelled) setPhase(3) }, 1200)
+      setTimeout(() => {
+        if (isCancelled) return
+        idx = (idx + 1) % sequence.length
+        cycle()
+      }, sequence[idx].delay)
+    }
+
+    cycle()
+    return () => { isCancelled = true }
+  }, [])
+
+  return (
+    <div style={{ fontFamily: 'monospace' }}>
+      {/* Tab bar */}
+      <div style={{ display: 'flex', gap: 3, marginBottom: 6, paddingBottom: 4, borderBottom: '1px solid rgba(93,202,165,0.2)' }}>
+        {iwsTabs.map((tab) => (
+          <span
+            key={tab}
+            style={{
+              fontSize: 7.5,
+              fontWeight: 700,
+              padding: '2px 6px',
+              borderRadius: 3,
+              color: activeTab === tab ? '#0f0e1a' : '#AFA9EC',
+              background: activeTab === tab ? '#5DCAA5' : 'rgba(127,119,221,0.1)',
+              transition: 'all 0.3s',
+            }}
+          >
+            {tab}
+          </span>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <AnimatePresence mode="wait">
+        {activeTab === 'Risposte' && (
+          <motion.div key="risposte" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {quickReplies.slice(0, phase).map((r) => (
+              <motion.div key={r.label} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(93,202,165,0.08)', border: '1px solid rgba(93,202,165,0.2)', borderRadius: 4, padding: '3px 6px' }}>
+                <span style={{ fontSize: 8.5, color: '#EEEDFE' }}>{r.label}</span>
+                <span style={{ fontSize: 7, color: '#5DCAA5', background: 'rgba(93,202,165,0.15)', borderRadius: 3, padding: '1px 5px' }}>{r.cat}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+
+        {activeTab === 'KB' && (
+          <motion.div key="kb" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {phase >= 1 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ display: 'flex', alignItems: 'center', gap: 4, background: 'rgba(127,119,221,0.1)', borderRadius: 4, padding: '3px 6px' }}>
+                <span style={{ fontSize: 8, color: '#7F77DD' }}>🔍</span>
+                <span style={{ fontSize: 8.5, color: '#EEEDFE' }}>outlook firma</span>
+                <Cursor color="#7F77DD" />
+              </motion.div>
+            )}
+            {kbSearchResults.slice(0, Math.max(0, phase - 1)).map((r) => (
+              <motion.div key={r.title} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(93,202,165,0.06)', border: '1px solid rgba(93,202,165,0.15)', borderRadius: 4, padding: '3px 6px' }}>
+                <span style={{ fontSize: 8.5, color: '#EEEDFE' }}>{r.title}</span>
+                <span style={{ fontSize: 7, color: '#5DCAA5', fontWeight: 700 }}>{(r.score * 100).toFixed(0)}%</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+
+        {activeTab === 'AI Chat' && (
+          <motion.div key="ai" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+            {phase >= 1 && (
+              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} style={{ alignSelf: 'flex-end', background: 'rgba(127,119,221,0.2)', border: '1px solid rgba(127,119,221,0.3)', borderRadius: 6, padding: '3px 7px', maxWidth: '80%' }}>
+                <span style={{ fontSize: 8.5, color: '#EEEDFE' }}>{aiChatLines[0].text}</span>
+              </motion.div>
+            )}
+            {phase >= 2 && (
+              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} style={{ display: 'flex', gap: 4, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 7, color: '#5DCAA5', fontWeight: 700, background: 'rgba(93,202,165,0.15)', borderRadius: 3, padding: '1px 4px' }}>KB</span>
+                <span style={{ fontSize: 8, color: '#AFA9EC' }}>2 voci trovate</span>
+              </motion.div>
+            )}
+            {phase >= 3 && (
+              <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} style={{ alignSelf: 'flex-start', background: 'rgba(93,202,165,0.1)', border: '1px solid rgba(93,202,165,0.25)', borderRadius: 6, padding: '3px 7px', maxWidth: '85%' }}>
+                <span style={{ fontSize: 7, color: '#5DCAA5', fontWeight: 700 }}>AI: </span>
+                <span style={{ fontSize: 8.5, color: '#EEEDFE' }}>{aiChatLines[1].text}</span>
+                {<Cursor color="#5DCAA5" />}
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 interface ProjectMockupProps {
@@ -1183,6 +1315,7 @@ const urlMap: Record<number, string> = {
   10: 'app.example.com/events',
   11: 'app.example.com/bugreport',
   12: 'github.com/claude-statusline',
+  13: 'chrome://extensions/iws-it-assistant',
 }
 
 export default function ProjectMockup({ projectId }: ProjectMockupProps) {
@@ -1202,6 +1335,7 @@ export default function ProjectMockup({ projectId }: ProjectMockupProps) {
       case 10: return <EventTrackerMockup />
       case 11: return <BugReportMockup />
       case 12: return <StatusLineMockup />
+      case 13: return <IwsAssistantMockup />
       default: return null
     }
   }

@@ -97,17 +97,17 @@ const projects: Project[] = [
   {
     id: 7,
     name: 'ShiftFlow',
-    tagline: 'Portale gestione turni enterprise con griglia interattiva',
+    tagline: 'Portale enterprise multi-sede per la pianificazione dei turni',
     description:
-      'Portale self-hosted per la pianificazione dei turni: griglia settimanale interattiva, richieste di assenza e preferenza turno con flusso di approvazione, gestione risorse/reparti/clienti/sedi, template settimanali riutilizzabili, calendario di eventi speciali e tab dedicato per i sabati con round-robin per cliente. Schema DB a 14 tabelle, export Excel nativo, audit log completo e auth JWT a 3 ruoli (user/admin/superadmin).',
-    stack: ['Node.js', 'Express', 'sqlite3', 'JWT', 'xlsx', 'Vanilla JS'],
+      'Portale self-hosted e multi-tenant per la pianificazione dei turni su più sedi e clienti: griglia settimanale interattiva, template riutilizzabili, gestione avanzata dei sabati a rotazione equa con mobilità tra sedi, copertura e presidio delle postazioni con riempimento automatico, piano ferie annuale a granularità giornaliera sempre coerente con i turni, e richieste assenza/preferenza con flusso di approvazione. Export Excel, audit log completo, 2FA TOTP e auth JWT a 3 ruoli.',
+    stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'ExcelJS', '2FA TOTP'],
     category: 'Enterprise',
     marketApp:
-      'Ideale per aziende e servizi con turni rotativi — sostituisce fogli Excel e tool costosi con un portale web self-hosted',
+      'Ideale per aziende e servizi con turni rotativi su più sedi — sostituisce fogli Excel e tool costosi con un portale web self-hosted e multi-tenant',
     status: 'Live',
     color: 'purple',
     icon: '📅',
-    features: ['Griglia settimanale', 'Template + Sabati round-robin', 'Export Excel', 'JWT 3 ruoli + audit log'],
+    features: ['Griglia + template settimanali', 'Sabati a rotazione multi-sede', 'Piano ferie a giorni', 'Copertura e presidio automatici'],
   },
   {
     id: 8,
@@ -168,6 +168,21 @@ const projects: Project[] = [
     color: 'teal',
     icon: '📊',
     features: ['Multi-riga + icone', 'Rate limit countdown', 'Bug counter live', 'Persistenza stato'],
+  },
+  {
+    id: 13,
+    name: 'IWS IT Assistant',
+    tagline: 'Chrome Extension per Supporto IT con AI e Knowledge Base',
+    description:
+      'Estensione Chrome con pannello laterale per il team IT: 49 risposte rapide ticket IT/EN, Knowledge Base con 312+ voci e ricerca semantica TF-IDF, chatbot AI (Groq) con logica KB First che cerca nella KB prima di rispondere. Modifica/elimina/aggiungi voci, auto-backup, contatori rate limit in tempo reale, Zero Data Retention per la privacy.',
+    stack: ['Chrome Extension', 'Manifest V3', 'Groq AI', 'TF-IDF', 'Vanilla JS'],
+    category: 'AI',
+    marketApp:
+      'Assistente IT browser-based per team helpdesk — risposte coerenti, AI gratuita e KB condivisa senza infrastruttura server',
+    status: 'Live',
+    color: 'teal',
+    icon: '🔧',
+    features: ['KB 312+ voci', 'AI Groq gratuita', 'KB First search', 'Auto-backup + rate limits'],
   },
   {
     id: 9,

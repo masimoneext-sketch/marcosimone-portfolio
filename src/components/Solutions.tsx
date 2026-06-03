@@ -66,12 +66,12 @@ const solutions: Solution[] = [
     icon: '📅',
     title: 'Workforce Shift Management',
     product: 'ShiftFlow',
-    problem: 'Gestite ancora i turni del personale su Excel o carta?',
+    problem: 'Gestite ancora i turni del personale su Excel o carta, su più sedi e con i sabati da incastrare a mano?',
     solution:
-      "Portale web self-hosted per pianificare turni settimanali: griglia interattiva, richieste di assenza e preferenza turno con flusso di approvazione, template settimanali riutilizzabili, tab dedicato per i sabati con round-robin per cliente, calendario di eventi speciali ed export Excel nativo. Schema DB a 14 tabelle, auth JWT a 3 ruoli (user/admin/superadmin) e audit log completo.",
-    targetAudience: 'Aziende con personale a turni: service desk, security, sanità, retail',
-    roi: 'Pianificazione turni in minuti — zero conflitti, zero spreadsheet, sabati distribuiti equamente',
-    tags: ['HR Operations', 'Shift Planning', 'Workforce Management', 'Audit Log'],
+      "Portale web self-hosted e multi-tenant per pianificare i turni del personale su più sedi e clienti: griglia settimanale interattiva, template riutilizzabili, gestione avanzata dei sabati a rotazione equa con mobilità tra sedi, copertura e presidio delle postazioni con riempimento automatico, piano ferie annuale a granularità giornaliera sempre coerente con la griglia turni, e flusso di richieste assenza/preferenza con approvazione. Export Excel, audit log completo, 2FA TOTP, auth JWT a 3 ruoli e interfaccia in tema chiaro/scuro.",
+    targetAudience: 'Aziende con personale a turni su più sedi: service desk, security, sanità, retail',
+    roi: 'Pianificazione in minuti su più sedi — sabati e coperture distribuiti equamente, ferie sempre allineate ai turni, zero spreadsheet',
+    tags: ['HR Operations', 'Shift Planning', 'Multi-Tenant', 'Workforce Management'],
     color: 'teal',
   },
   {
@@ -84,6 +84,30 @@ const solutions: Solution[] = [
     targetAudience: 'Sviluppatori e team che usano Claude Code su feature multi-dominio con preventivo € upfront',
     roi: '-42% token vs baseline, 100% pass rate su 3 livelli di complessità, file toccati garantiti dentro allowlist',
     tags: ['AI Orchestration', 'Multi-Agent', 'Enforcement Hooks', 'Developer Tools'],
+    color: 'purple',
+  },
+  {
+    icon: '🔧',
+    title: 'AI-Powered IT Assistant',
+    product: 'IWS IT Assistant',
+    problem: 'Il tuo team IT perde tempo a cercare soluzioni già risolte in passato?',
+    solution:
+      'Estensione Chrome con pannello laterale che integra Knowledge Base TF-IDF (312+ voci) e AI Groq gratuita. Cerca prima nella KB locale, poi chiede all\'AI solo se necessario. Rate limiting visuale, auto-backup KB, zero costi di API.',
+    targetAudience: 'Team IT helpdesk e supporto tecnico aziendale',
+    roi: 'Risposte istantanee dalla KB — AI gratuita come fallback intelligente',
+    tags: ['Chrome Extension', 'AI Integration', 'Knowledge Base', 'IT Support'],
+    color: 'teal',
+  },
+  {
+    icon: '📦',
+    title: 'Asset Delivery Tracker',
+    product: 'Event Tracker',
+    problem: 'Consegnate laptop e hardware senza tracciabilità e poi nessuno sa chi ha cosa?',
+    solution:
+      'Portale Node.js per il tracciamento di consegne hardware aziendali: gestione multi-azienda, registro consegne con allegati, anagrafica asset assegnati, import/export Excel, dashboard con statistiche e audit log completo. Auth JWT a 3 ruoli con permessi granulari.',
+    targetAudience: 'Uffici IT e logistica che gestiscono consegne hardware a dipendenti',
+    roi: 'Tracciabilità completa delle consegne — zero asset persi, audit sempre disponibile',
+    tags: ['Asset Tracking', 'Logistics', 'Import/Export Excel', 'Audit Log'],
     color: 'purple',
   },
 ]
