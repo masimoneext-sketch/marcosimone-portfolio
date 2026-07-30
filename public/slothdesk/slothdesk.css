@@ -1,0 +1,140 @@
+/* SlothDesk — pagine informative */
+:root {
+  --bg: #10231f;
+  --panel: #17332d;
+  --panel-2: #1f5e52;
+  --cream: #eee6d6;
+  --muted: #96bab0;
+  --accent: #ff8a3d;
+  --line: #27473f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--cream);
+  font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); }
+a:hover { color: #ffa869; }
+
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* --- testata --- */
+.top {
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, #143029 0%, var(--bg) 100%);
+  margin-bottom: 44px;
+}
+
+.top-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 34px 24px 30px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.top img { width: 62px; height: 62px; border-radius: 14px; }
+.top h1 { margin: 0; font-size: 27px; letter-spacing: -0.4px; }
+.top .claim { margin: 3px 0 0; color: var(--muted); font-size: 15px; }
+
+nav { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+
+nav a {
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  white-space: nowrap;
+}
+
+nav a:hover { border-color: var(--accent); color: var(--accent); }
+nav a[aria-current] { background: var(--panel-2); border-color: var(--panel-2); }
+
+/* --- testo --- */
+h2 {
+  font-size: 21px;
+  margin: 40px 0 12px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+h2:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+h3 { font-size: 17px; margin: 26px 0 8px; color: var(--cream); }
+p, li { color: #d9d3c6; }
+strong { color: var(--cream); }
+ul { padding-left: 22px; }
+li { margin: 7px 0; }
+
+.lead { font-size: 18px; color: var(--cream); }
+
+.nota {
+  background: var(--panel);
+  border-left: 3px solid var(--accent);
+  padding: 15px 18px;
+  border-radius: 0 10px 10px 0;
+  margin: 22px 0;
+}
+
+.nota p:last-child { margin-bottom: 0; }
+.nota p:first-child { margin-top: 0; }
+
+.aggiornato { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+.griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin: 22px 0;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 17px 19px;
+}
+
+.card h3 { margin: 0 0 6px; font-size: 16px; }
+.card p { margin: 0; font-size: 14.5px; color: var(--muted); }
+
+.shot {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  margin: 26px 0;
+  display: block;
+}
+
+table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 14px; }
+
+footer {
+  border-top: 1px solid var(--line);
+  margin-top: 60px;
+  padding: 26px 24px 40px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 620px) {
+  .top-inner { padding: 26px 20px 24px; }
+  nav { margin-left: 0; width: 100%; }
+  .top h1 { font-size: 23px; }
+}

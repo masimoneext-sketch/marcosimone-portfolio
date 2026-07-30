@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SlothDesk — Assistenza</title>
+<meta name="description" content="Assistenza per l'estensione Chrome SlothDesk: problemi frequenti, come configurare la chiave AI e come segnalare un malfunzionamento.">
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="slothdesk.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <img src="logo.png" alt="SlothDesk">
+    <div>
+      <h1>SlothDesk</h1>
+      <p class="claim">Assistenza</p>
+    </div>
+    <nav>
+      <a href="./">Home</a>
+      <a href="assistenza.html" aria-current="page">Assistenza</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <p class="lead">Se qualcosa non funziona, scrivimi: <a href="mailto:ma.simone.ext@gmail.com">ma.simone.ext@gmail.com</a>. Rispondo appena posso — SlothDesk è un progetto personale, quindi i tempi non sono quelli di un servizio commerciale.</p>
+
+  <h2>Cosa scrivere in una segnalazione</h2>
+
+  <p>Più dettagli mi dai, meno domande devo farti:</p>
+
+  <ul>
+    <li>cosa stavi facendo e cosa ti aspettavi che succedesse</li>
+    <li>il messaggio di errore esatto, se compare (anche uno screenshot va bene)</li>
+    <li>la versione di SlothDesk, che trovi in <code>chrome://extensions</code></li>
+    <li>se il problema si presenta sempre o solo a volte</li>
+  </ul>
+
+  <h2>Problemi frequenti</h2>
+
+  <h3>L'assistente AI non risponde</h3>
+  <p>Nella maggior parte dei casi la chiave non è configurata o il modello non è abilitato sul tuo account Groq. Apri le impostazioni e verifica che la chiave sia salvata; poi controlla su <a href="https://console.groq.com/settings/limits" target="_blank" rel="noopener">console.groq.com/settings/limits</a> che il modello indicato nella guida iniziale risulti attivo.</p>
+
+  <h3>Compare un errore con numero 401 o 429</h3>
+  <p><strong>401</strong> significa che la chiave non è valida o è stata revocata: creane una nuova e reinseriscila. <strong>429</strong> significa che hai superato il limite di richieste del piano gratuito: si sblocca da solo dopo qualche minuto.</p>
+
+  <h3>Ho perso le mie voci e le mie risposte</h3>
+  <p>I contenuti sono salvati nell'archivio locale del browser: rimuovendo l'estensione o cancellando i dati di navigazione vengono eliminati. Per questo esiste la funzione di backup nelle impostazioni — conviene esportare ogni tanto, soprattutto prima di cambiare computer.</p>
+
+  <h3>Il logo che ho caricato non compare</h3>
+  <p>Il file deve essere un'immagine (PNG, JPG, WEBP, GIF o SVG) sotto i 5 MB. Viene ridimensionato automaticamente prima del salvataggio. Se non compare, prova con un altro formato e controlla che l'immagine si apra correttamente sul tuo computer.</p>
+
+  <h3>Il mio antivirus segnala l'estensione</h3>
+  <p>Può succedere. La knowledge base contiene procedure di amministrazione di sistema e quindi i comandi relativi: alcuni strumenti di sicurezza li riconoscono come sospetti perché sono gli stessi comandi che comparirebbero in uno script dannoso. Sono testo di documentazione, non codice che viene eseguito: l'estensione non esegue alcun comando sul tuo computer. Se questo crea problemi nella tua organizzazione, parlane con chi gestisce la sicurezza prima di installarla.</p>
+
+  <h2>Suggerimenti e richieste</h2>
+
+  <p>Se ti manca qualcosa, o se una voce della knowledge base è imprecisa o sbagliata, scrivimi pure: le segnalazioni sui contenuti sono le più utili di tutte.</p>
+
+</main>
+
+<footer>SlothDesk — <a href="./">Home</a> · <a href="privacy.html">Privacy</a></footer>
+
+</body>
+</html>

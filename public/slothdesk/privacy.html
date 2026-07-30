@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SlothDesk — Informativa sulla privacy</title>
+<meta name="description" content="Informativa sulla privacy dell'estensione Chrome SlothDesk: quali dati vengono trattati, dove restano e quando escono dal browser.">
+<link rel="icon" href="logo.png">
+<link rel="stylesheet" href="slothdesk.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <img src="logo.png" alt="SlothDesk">
+    <div>
+      <h1>SlothDesk</h1>
+      <p class="claim">Informativa sulla privacy</p>
+    </div>
+    <nav>
+      <a href="./">Home</a>
+      <a href="assistenza.html">Assistenza</a>
+      <a href="privacy.html" aria-current="page">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <p class="lead">SlothDesk è un'estensione per Chrome che aiuta chi lavora nell'assistenza informatica a rispondere alle richieste di supporto. Questa pagina spiega quali dati vengono trattati, dove restano e in quali casi escono dal browser.</p>
+  <p class="aggiornato">Ultimo aggiornamento: 30 luglio 2026</p>
+
+  <h2>In breve</h2>
+
+  <div class="nota">
+    <p><strong>Non esiste alcun server di SlothDesk.</strong> Chi sviluppa l'estensione non riceve, non conserva e non può vedere i tuoi dati. Tutto ciò che crei resta nel tuo browser.</p>
+    <p>L'unico caso in cui dei dati escono dal tuo dispositivo è quando <strong>sei tu a usare l'assistente AI</strong>: in quel momento il testo che hai scritto viene inviato a Groq, il servizio di intelligenza artificiale, usando una chiave che hai creato tu.</p>
+  </div>
+
+  <h2>Dati che restano sul tuo dispositivo</h2>
+
+  <p>Queste informazioni vengono salvate nell'archivio locale del browser (<code>chrome.storage.local</code>) e non lasciano mai il tuo computer:</p>
+
+  <table>
+    <tr><th>Dato</th><th>A cosa serve</th></tr>
+    <tr><td>Voci di knowledge base che aggiungi</td><td>ritrovarle nelle ricerche successive</td></tr>
+    <tr><td>Risposte e frasi che aggiungi</td><td>riutilizzarle quando servono</td></tr>
+    <tr><td>Voci predefinite che nascondi</td><td>ricordare le tue scelte</td></tr>
+    <tr><td>Logo personalizzato</td><td>mostrarlo al posto di quello predefinito</td></tr>
+    <tr><td>Chiave API Groq</td><td>autenticare le tue richieste all'assistente AI</td></tr>
+  </table>
+
+  <p>Puoi cancellarli in qualsiasi momento eliminando i singoli elementi dal pannello, oppure rimuovendo l'estensione: la disinstallazione cancella tutto l'archivio locale.</p>
+
+  <h2>Quando i dati escono dal browser</h2>
+
+  <p>Solo quando usi l'assistente AI. In quel caso viene inviato a <strong>Groq</strong> (<code>api.groq.com</code>):</p>
+
+  <ul>
+    <li>il testo che hai scritto o incollato nella conversazione</li>
+    <li>i messaggi precedenti della stessa conversazione, perché l'AI mantenga il contesto</li>
+    <li>eventuali voci di knowledge base pertinenti alla tua domanda</li>
+    <li>la tua chiave API, per autenticare la richiesta</li>
+  </ul>
+
+  <p>La richiesta parte <strong>dal tuo browser e va direttamente a Groq</strong>: non passa da alcun sistema intermedio. Il trattamento dei dati da parte di Groq è regolato dalle sue condizioni, che ti invitiamo a leggere: <a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener">groq.com/privacy-policy</a>.</p>
+
+  <p>Se non configuri una chiave API, l'estensione non contatta alcun server: knowledge base, risposte e frasi funzionano completamente offline.</p>
+
+  <h2>Il filtro dei dati personali, e il suo limite</h2>
+
+  <p>Prima di ogni invio all'AI, SlothDesk analizza il testo e <strong>sostituisce automaticamente</strong> indirizzi email, numeri di telefono, codici fiscali, IBAN e partite IVA con etichette generiche. Ti mostra poi una finestra di conferma dove puoi vedere cosa è stato trovato e decidere se inviare il testo mascherato, inviare l'originale o annullare.</p>
+
+  <div class="nota">
+    <p><strong>Il limite, detto chiaramente: i nomi di persona non vengono mascherati.</strong> L'estensione li segnala nella finestra di conferma, ma restano nel testo anche se scegli "Maschera e invia".</p>
+    <p>Riconoscerli in automatico produrrebbe troppi errori — verrebbero mascherati anche termini come "Active Directory" o "Task Manager", rendendo il testo incomprensibile per l'AI. La verifica finale spetta quindi a te: <strong>rileggi sempre ciò che invii.</strong></p>
+  </div>
+
+  <h2>Cosa SlothDesk non fa</h2>
+
+  <ul>
+    <li>Non legge, non modifica e non inserisce codice nelle pagine web che visiti. Non ha alcun accesso ai siti che apri: funziona solo dentro il proprio pannello laterale.</li>
+    <li>Non raccoglie statistiche d'uso, non usa strumenti di analisi né cookie di tracciamento.</li>
+    <li>Non vende, non cede e non condivide dati con terze parti, a parte l'invio a Groq descritto sopra, che avviene solo su tua azione.</li>
+    <li>Non usa i dati per valutazioni creditizie, per finalità pubblicitarie o per scopi estranei al funzionamento dell'estensione.</li>
+  </ul>
+
+  <h2>Backup</h2>
+
+  <p>La funzione di backup genera un file sul tuo computer, nella cartella dei download, contenente i contenuti che hai aggiunto e la tua chiave API. Il file resta sul tuo dispositivo e non viene inviato da nessuna parte: <strong>trattalo con la stessa attenzione di una password</strong>, perché contiene la tua chiave.</p>
+
+  <h2>Permessi richiesti</h2>
+
+  <table>
+    <tr><th>Permesso</th><th>Motivo</th></tr>
+    <tr><td><code>sidePanel</code></td><td>l'estensione funziona interamente nel pannello laterale</td></tr>
+    <tr><td><code>storage</code></td><td>salvare in locale i tuoi contenuti e le tue preferenze</td></tr>
+    <tr><td><code>downloads</code></td><td>generare il file di backup</td></tr>
+    <tr><td><code>api.groq.com</code></td><td>unico host contattato, solo quando usi l'assistente AI</td></tr>
+  </table>
+
+  <h2>Modifiche a questa informativa</h2>
+
+  <p>Se il trattamento dei dati dovesse cambiare, questa pagina verrà aggiornata e la data in alto modificata di conseguenza.</p>
+
+  <h2>Contatti</h2>
+
+  <p>Per domande su questa informativa o sul trattamento dei dati: <a href="mailto:ma.simone.ext@gmail.com">ma.simone.ext@gmail.com</a></p>
+
+</main>
+
+<footer>SlothDesk — <a href="./">Home</a> · <a href="assistenza.html">Assistenza</a></footer>
+
+</body>
+</html>
