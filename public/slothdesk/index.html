@@ -147,15 +147,24 @@
 
   <div class="vetrina">
     <figure>
-      <img src="schermata-risposte.png" alt="Elenco delle risposte pronte con i filtri per livello e categoria" loading="lazy">
+      <button type="button" class="lente" data-img="schermata-risposte.png" data-txt="Risposte pronte">
+        <img src="schermata-risposte.png" alt="Elenco delle risposte pronte con i filtri per livello e categoria" loading="lazy">
+        <span class="zoom">ingrandisci</span>
+      </button>
       <figcaption><strong>Risposte pronte</strong>Filtri per livello e categoria, italiano e inglese, copia con un clic.</figcaption>
     </figure>
     <figure>
-      <img src="schermata-kb.png" alt="Knowledge base con la ricerca e i filtri per categoria e livello" loading="lazy">
+      <button type="button" class="lente" data-img="schermata-kb.png" data-txt="Knowledge base">
+        <img src="schermata-kb.png" alt="Knowledge base con la ricerca e i filtri per categoria e livello" loading="lazy">
+        <span class="zoom">ingrandisci</span>
+      </button>
       <figcaption><strong>Knowledge base</strong>Ricerca su titolo, domanda e risposta. Ogni voce è modificabile.</figcaption>
     </figure>
     <figure>
-      <img src="schermata-ai.png" alt="Assistente AI con le tre modalità e l'avviso sui dati personali" loading="lazy">
+      <button type="button" class="lente" data-img="schermata-ai.png" data-txt="Assistente AI">
+        <img src="schermata-ai.png" alt="Assistente AI con le tre modalità e l'avviso sui dati personali" loading="lazy">
+        <span class="zoom">ingrandisci</span>
+      </button>
       <figcaption><strong>Assistente AI</strong>Tre modalità, e l'avviso sui dati personali sempre sotto gli occhi.</figcaption>
     </figure>
   </div>
@@ -236,6 +245,66 @@
 </main>
 
 <footer>SlothDesk — <a href="assistenza.html">Assistenza</a> · <a href="privacy.html">Privacy</a></footer>
+
+<!-- Ingranditore delle schermate -->
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lb-chiudi" id="lbChiudi" aria-label="Chiudi">&times;</button>
+  <button type="button" class="lb-nav lb-prec" id="lbPrec" aria-label="Precedente">&#8249;</button>
+  <img id="lbImg" src="" alt="">
+  <button type="button" class="lb-nav lb-succ" id="lbSucc" aria-label="Successiva">&#8250;</button>
+  <p class="lb-txt" id="lbTxt"></p>
+</div>
+
+<script>
+(function () {
+  var box   = document.getElementById('lightbox');
+  var img   = document.getElementById('lbImg');
+  var txt   = document.getElementById('lbTxt');
+  var lenti = Array.prototype.slice.call(document.querySelectorAll('.lente'));
+  if (!box || !lenti.length) return;
+
+  var i = 0;
+
+  function mostra(n) {
+    i = (n + lenti.length) % lenti.length;      // gira in tondo
+    var b = lenti[i];
+    img.src = b.dataset.img;
+    img.alt = b.querySelector('img').alt;
+    txt.textContent = b.dataset.txt + '  (' + (i + 1) + ' di ' + lenti.length + ')';
+  }
+
+  function apri(n) {
+    mostra(n);
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lbChiudi').focus();
+  }
+
+  function chiudi() {
+    box.hidden = true;
+    document.body.style.overflow = '';
+    if (lenti[i]) lenti[i].focus();
+  }
+
+  lenti.forEach(function (b, n) {
+    b.addEventListener('click', function () { apri(n); });
+  });
+
+  document.getElementById('lbChiudi').addEventListener('click', chiudi);
+  document.getElementById('lbPrec').addEventListener('click', function (e) { e.stopPropagation(); mostra(i - 1); });
+  document.getElementById('lbSucc').addEventListener('click', function (e) { e.stopPropagation(); mostra(i + 1); });
+
+  // clic sullo sfondo: chiude. Sull'immagine: no, altrimenti si chiude per sbaglio
+  box.addEventListener('click', function (e) { if (e.target === box) chiudi(); });
+
+  document.addEventListener('keydown', function (e) {
+    if (box.hidden) return;
+    if (e.key === 'Escape')     chiudi();
+    if (e.key === 'ArrowLeft')  mostra(i - 1);
+    if (e.key === 'ArrowRight') mostra(i + 1);
+  });
+})();
+</script>
 
 <script>
 (function () {
