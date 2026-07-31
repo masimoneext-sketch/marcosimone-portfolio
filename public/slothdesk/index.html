@@ -10,6 +10,17 @@
 </head>
 <body>
 
+<!-- Splash: dura 2,6s, si salta con un clic e non torna nella stessa sessione.
+     La sparizione è affidata al CSS, così sparisce anche se lo script non parte. -->
+<div class="splash" id="splash" role="status" aria-label="Caricamento">
+  <div class="splash-inner">
+    <img src="logo.png" alt="" class="splash-sloth">
+    <p class="splash-msg" id="splashMsg">Mi sto svegliando…</p>
+    <div class="splash-bar"><span></span></div>
+    <p class="splash-skip">clicca se hai fretta</p>
+  </div>
+</div>
+
 <header class="top">
   <div class="top-inner">
     <img src="logo.png" alt="SlothDesk">
@@ -98,6 +109,39 @@
 </main>
 
 <footer>SlothDesk — <a href="assistenza.html">Assistenza</a> · <a href="privacy.html">Privacy</a></footer>
+
+<script>
+(function () {
+  var splash = document.getElementById('splash');
+  if (!splash) return;
+
+  // Già visto in questa sessione, o l'utente preferisce meno animazioni: via subito.
+  var saltalo = sessionStorage.getItem('slothdesk-splash') === 'visto' ||
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (saltalo) { splash.remove(); return; }
+
+  var msg = document.getElementById('splashMsg');
+  var battute = [
+    [900,  'Ancora cinque minuti…'],
+    [1500, 'Cerco le cuffie…'],
+    [2100, 'Eccomi. Dimmi pure.']
+  ];
+  var timer = battute.map(function (b) {
+    return setTimeout(function () { if (msg) msg.textContent = b[1]; }, b[0]);
+  });
+
+  function chiudi() {
+    timer.forEach(clearTimeout);
+    splash.classList.add('via');
+    setTimeout(function () { splash.remove(); }, 400);
+  }
+
+  sessionStorage.setItem('slothdesk-splash', 'visto');
+  splash.addEventListener('click', chiudi);
+  document.addEventListener('keydown', chiudi, { once: true });
+  setTimeout(chiudi, 2600);
+})();
+</script>
 
 </body>
 </html>
