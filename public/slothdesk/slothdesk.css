@@ -112,12 +112,57 @@ li { margin: 7px 0; }
 .card h3 { margin: 0 0 6px; font-size: 16px; }
 .card p { margin: 0; font-size: 14.5px; color: var(--muted); }
 
-.shot {
+/* --- Vetrina delle tre schermate ---------------------------------------
+   Il pannello è verticale e stretto: affiancarne tre rende l'idea del
+   prodotto meglio di una sola immagine grande. */
+
+.vetrina {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 30px 0 34px;
+}
+
+.vetrina figure { margin: 0; }
+
+.vetrina img {
   width: 100%;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  margin: 26px 0;
+  height: auto;
   display: block;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #0d1117;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.vetrina figure:hover img {
+  transform: translateY(-4px);
+  border-color: var(--panel-2);
+}
+
+.vetrina figcaption {
+  margin-top: 11px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.vetrina figcaption strong {
+  display: block;
+  color: var(--cream);
+  font-size: 14.5px;
+  margin-bottom: 2px;
+}
+
+@media (max-width: 720px) {
+  .vetrina { grid-template-columns: 1fr; gap: 26px; }
+  .vetrina img { max-width: 420px; margin: 0 auto; }
+  .vetrina figcaption { text-align: center; max-width: 420px; margin-left: auto; margin-right: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vetrina img { transition: none; }
+  .vetrina figure:hover img { transform: none; }
 }
 
 table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; }
