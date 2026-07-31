@@ -162,22 +162,103 @@ footer {
 
 .splash-inner { text-align: center; padding: 0 24px; }
 
-.splash-sloth {
-  width: 128px;
-  height: 128px;
-  border-radius: 30px;
-  animation: dondola 2.2s ease-in-out infinite, sveglia 0.7s ease-out;
-}
+/* --- La scena animata ---------------------------------------------------
+   Tutto molto lento di proposito: è un bradipo, non un centralinista. */
 
-/* ondeggia piano, come chi non ha nessuna intenzione di sbrigarsi */
-@keyframes dondola {
-  0%, 100% { transform: rotate(-4deg) translateY(0); }
-  50%      { transform: rotate(4deg) translateY(-7px); }
+.scena {
+  width: min(340px, 78vw);
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  animation: sveglia 0.9s ease-out;
 }
 
 @keyframes sveglia {
-  from { opacity: 0; transform: scale(0.82); }
-  to   { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scale(0.9) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* la testa dondola: nove secondi per un giro completo */
+.scena .testa {
+  transform-origin: 140px 122px;
+  animation: testa-dondola 9s ease-in-out infinite;
+}
+
+@keyframes testa-dondola {
+  0%, 100% { transform: rotate(-2.6deg) translateY(0); }
+  50%      { transform: rotate(2.6deg) translateY(-2px); }
+}
+
+/* respiro */
+.scena .busto {
+  transform-origin: 140px 175px;
+  animation: respiro 5.5s ease-in-out infinite;
+}
+
+@keyframes respiro {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.035); }
+}
+
+/* le palpebre scendono con tutta calma e risalgono ancora più piano */
+.scena .palpebra {
+  transform-origin: center top;
+  transform: scaleY(0);
+  animation: palpebra 7s ease-in-out infinite;
+}
+
+@keyframes palpebra {
+  0%, 62%  { transform: scaleY(0); }
+  72%      { transform: scaleY(1); }
+  82%      { transform: scaleY(1); }
+  100%     { transform: scaleY(0); }
+}
+
+/* il braccio destro batte un tasto ogni otto secondi, senza entusiasmo */
+.scena .braccio-dx {
+  transform-origin: 176px 146px;
+  animation: batti 8s ease-in-out infinite;
+}
+
+@keyframes batti {
+  0%, 70%  { transform: rotate(0deg); }
+  78%      { transform: rotate(4deg) translateY(3px); }
+  86%      { transform: rotate(0deg); }
+  100%     { transform: rotate(0deg); }
+}
+
+.scena .tasto { animation: tasto-premuto 8s ease-in-out infinite; }
+
+@keyframes tasto-premuto {
+  0%, 76%  { fill: #565b68; }
+  80%      { fill: #ff8a3d; }
+  88%, 100% { fill: #565b68; }
+}
+
+/* il monitor respira di luce */
+.scena .bagliore { animation: luce 6s ease-in-out infinite; }
+
+@keyframes luce {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.85; }
+}
+
+.scena .spia { animation: spia 3s ease-in-out infinite; }
+
+@keyframes spia {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+
+/* il vapore del caffè sale e svanisce */
+.scena .vapore {
+  animation: vapore 5s ease-in-out infinite;
+}
+
+@keyframes vapore {
+  0%   { opacity: 0; transform: translateY(6px); }
+  40%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-10px); }
 }
 
 .splash-msg {
@@ -235,4 +316,5 @@ footer {
 /* Chi ha chiesto meno animazioni non deve vedere niente di tutto questo */
 @media (prefers-reduced-motion: reduce) {
   .splash { display: none; }
+  .scena *, .scena { animation: none !important; }
 }

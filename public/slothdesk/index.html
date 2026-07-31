@@ -10,11 +10,114 @@
 </head>
 <body>
 
-<!-- Splash: dura 2,6s, si salta con un clic e non torna nella stessa sessione.
-     La sparizione è affidata al CSS, così sparisce anche se lo script non parte. -->
+<!-- Splash: dura 4,6s, si salta con un clic e non torna nella stessa sessione.
+     La sparizione è affidata al CSS, così sparisce anche se lo script non parte.
+     La scena è SVG animato: nessun video, nessuna gif, si ridimensiona senza sgranare. -->
 <div class="splash" id="splash" role="status" aria-label="Caricamento">
   <div class="splash-inner">
-    <img src="logo.png" alt="" class="splash-sloth">
+
+    <svg class="scena" viewBox="0 0 280 220" role="img" aria-label="Un bradipo con le cuffie lavora alla scrivania, molto lentamente">
+      <defs>
+        <radialGradient id="bagliore" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#5fd3b4" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#5fd3b4" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="tagliaOcchioSx"><ellipse cx="118" cy="86" rx="13" ry="11"/></clipPath>
+        <clipPath id="tagliaOcchioDx"><ellipse cx="162" cy="86" rx="13" ry="11"/></clipPath>
+      </defs>
+
+      <!-- alone dello schermo che illumina la scena -->
+      <ellipse class="bagliore" cx="140" cy="150" rx="130" ry="70" fill="url(#bagliore)"/>
+
+      <!-- monitor, visto di spalle -->
+      <g class="monitor">
+        <rect x="176" y="96" width="76" height="54" rx="6" fill="#2b2d36"/>
+        <rect x="181" y="101" width="66" height="44" rx="4" fill="#22242c"/>
+        <rect x="205" y="150" width="18" height="12" fill="#2b2d36"/>
+        <rect x="192" y="160" width="44" height="6" rx="3" fill="#33363f"/>
+        <rect class="spia" x="240" y="140" width="4" height="4" rx="2" fill="#5fd3b4"/>
+      </g>
+
+      <!-- il bradipo -->
+      <g class="sloth">
+        <!-- busto, respira -->
+        <g class="busto">
+          <ellipse cx="140" cy="152" rx="46" ry="38" fill="#cbb89e"/>
+          <ellipse cx="140" cy="150" rx="40" ry="33" fill="#e2d2ba"/>
+        </g>
+
+        <!-- braccio sinistro, fermo sul piano -->
+        <g class="braccio-sx">
+          <path d="M104 146 q-22 8 -26 26" stroke="#cbb89e" stroke-width="15" stroke-linecap="round" fill="none"/>
+          <path d="M76 170 l-7 7 M80 173 l-6 8 M84 175 l-5 8" stroke="#6c4c34" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
+        <!-- braccio destro: batte un tasto ogni tanto, senza fretta -->
+        <g class="braccio-dx">
+          <path d="M176 146 q22 8 26 26" stroke="#cbb89e" stroke-width="15" stroke-linecap="round" fill="none"/>
+          <path d="M204 170 l7 7 M200 173 l6 8 M196 175 l5 8" stroke="#6c4c34" stroke-width="3" stroke-linecap="round"/>
+        </g>
+
+        <!-- testa, dondola pianissimo -->
+        <g class="testa">
+          <!-- archetto cuffie -->
+          <path d="M104 84 q36 -40 72 0" stroke="#2b2d36" stroke-width="9" fill="none" stroke-linecap="round"/>
+
+          <ellipse cx="140" cy="90" rx="42" ry="38" fill="#cbb89e"/>
+          <ellipse cx="140" cy="88" rx="40" ry="36" fill="#e2d2ba"/>
+
+          <!-- macchie oculari -->
+          <ellipse cx="118" cy="86" rx="15" ry="13" fill="#6c4c34" transform="rotate(-18 118 86)"/>
+          <ellipse cx="162" cy="86" rx="15" ry="13" fill="#6c4c34" transform="rotate(18 162 86)"/>
+
+          <!-- occhi aperti + palpebra che scende piano -->
+          <g>
+            <circle cx="118" cy="87" r="5" fill="#3a2a1e"/>
+            <circle cx="119.5" cy="85.5" r="1.6" fill="#fff" opacity=".9"/>
+            <rect class="palpebra" x="103" y="60" width="30" height="26" fill="#6c4c34" clip-path="url(#tagliaOcchioSx)"/>
+          </g>
+          <g>
+            <circle cx="162" cy="87" r="5" fill="#3a2a1e"/>
+            <circle cx="163.5" cy="85.5" r="1.6" fill="#fff" opacity=".9"/>
+            <rect class="palpebra" x="147" y="60" width="30" height="26" fill="#6c4c34" clip-path="url(#tagliaOcchioDx)"/>
+          </g>
+
+          <!-- muso -->
+          <ellipse cx="140" cy="104" rx="20" ry="14" fill="#efe4d0"/>
+          <ellipse cx="140" cy="100" rx="6" ry="4.5" fill="#3a2a1e"/>
+          <path d="M133 108 q7 6 14 0" stroke="#3a2a1e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+          <!-- padiglioni e microfono -->
+          <rect x="94" y="78" width="14" height="26" rx="7" fill="#2b2d36"/>
+          <rect x="172" y="78" width="14" height="26" rx="7" fill="#2b2d36"/>
+          <path d="M100 104 q14 22 34 16" stroke="#2b2d36" stroke-width="4" fill="none" stroke-linecap="round"/>
+          <circle cx="136" cy="121" r="4.5" fill="#ff8a3d"/>
+        </g>
+      </g>
+
+      <!-- scrivania -->
+      <rect x="10" y="178" width="260" height="9" rx="4" fill="#33363f"/>
+      <rect x="10" y="187" width="260" height="5" rx="2" fill="#262932"/>
+
+      <!-- tastiera -->
+      <g class="tastiera">
+        <rect x="96" y="168" width="88" height="12" rx="3" fill="#3b3f49"/>
+        <rect x="102" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
+        <rect x="116" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
+        <rect class="tasto" x="130" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
+        <rect x="144" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
+        <rect x="158" y="171" width="18" height="3" rx="1.5" fill="#565b68"/>
+      </g>
+
+      <!-- tazza: il vapore sale piano -->
+      <g class="tazza">
+        <path class="vapore" d="M42 158 q5 -8 0 -15 q-5 -7 0 -14" stroke="#96bab0" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".6"/>
+        <rect x="30" y="160" width="26" height="18" rx="3" fill="#e2d2ba"/>
+        <path d="M56 165 q9 4 0 9" stroke="#e2d2ba" stroke-width="3.5" fill="none"/>
+        <rect x="33" y="163" width="20" height="4" rx="2" fill="#6c4c34"/>
+      </g>
+    </svg>
+
     <p class="splash-msg" id="splashMsg">Mi sto svegliando…</p>
     <div class="splash-bar"><span></span></div>
     <p class="splash-skip">clicca se hai fretta</p>
