@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SlothDesk — IT Support &amp; Ticket Assistant</title>
-<meta name="description" content="Estensione Chrome per chi lavora nell'assistenza IT: knowledge base tecnica, risposte pronte in italiano e inglese e un assistente AI, tutto nel pannello laterale del browser.">
+<title>SlothDesk — La tua wiki personale per l'assistenza IT</title>
+<meta name="description" content="Estensione Chrome per tecnici IT: la tua knowledge base personale, le tue risposte pronte e un assistente AI. Tutto resta sul tuo computer, non tocca le pagine web, nessun account e nessun abbonamento.">
 <link rel="icon" href="logo.png">
 <link rel="stylesheet" href="slothdesk.css">
 </head>
@@ -27,46 +27,73 @@
 
 <main class="wrap">
 
-  <p class="lead">Un'estensione per Chrome pensata per chi passa la giornata sui ticket: la procedura che ti serve, la risposta già scritta e un assistente che compone la mail al posto tuo. Tutto nel pannello laterale, senza cambiare scheda.</p>
+  <p class="lead">La procedura ufficiale del cliente sta nel suo sistema documentale, dove deve stare. Ma <strong>il tuo</strong> modo di leggerla, le tue scorciatoie, la frase che usi sempre per chiudere un ticket — quelli dove stanno? In un file di testo sul desktop, in venti segnalibri, in tre note sparse.</p>
+
+  <p>SlothDesk è la casa di quella roba lì. Una wiki personale che ti costruisci nel tempo, dentro un pannello laterale del browser, accanto al gestionale che stai già usando.</p>
 
   <img class="shot" src="screenshot.png" alt="SlothDesk in funzione: l'elenco delle risposte pronte nel pannello laterale di Chrome">
 
-  <h2>Cosa fa</h2>
+  <h2>Perché puoi installarlo anche dove gli altri sono vietati</h2>
+
+  <p>Gli strumenti simili leggono la pagina che hai aperto per capire su quale ticket stai lavorando. È comodo, ed è esattamente il motivo per cui in molti contesti <strong>non sono installabili</strong>: se gestisci l'infrastruttura di un cliente, un'estensione che legge il contenuto del ticketing legge anche i dati di quel cliente, e la sicurezza interna dice no.</p>
+
+  <p><strong>SlothDesk non legge le pagine web. Non può farlo.</strong> Non ha il permesso di accedervi e non inserisce codice da nessuna parte: vive solo dentro il proprio pannello. Costa qualche copia-incolla in più, e in cambio è uno strumento che puoi installare senza che nessuno debba valutare cosa vede.</p>
+
+  <div class="nota">
+    <p>I permessi che chiede sono quattro: il pannello laterale in cui gira, l'archivio locale del browser per salvare le tue cose, i download per generare il file di backup, e un unico host — quello del servizio AI, contattato solo se decidi di usarlo.</p>
+  </div>
+
+  <h2>Quello che scrivi resta sul tuo computer</h2>
+
+  <p>Non esiste alcun server di SlothDesk. Non c'è un account da creare, non c'è niente da sincronizzare, non c'è un'azienda che custodisce i tuoi contenuti.</p>
+
+  <p>Le voci che aggiungi vivono nell'archivio locale del tuo browser. Nessuno le vede, nemmeno chi sviluppa l'estensione, e <strong>nessun fornitore può perderle in una violazione dei dati</strong> — perché non le ha.</p>
+
+  <p>È una differenza che conta soprattutto se lavori per conto di clienti: le tue annotazioni parlano delle loro infrastrutture, e ogni servizio esterno che le custodisce è un soggetto in più nella catena. Quando il problema capita al fornitore, a risponderne davanti al cliente ci vai tu.</p>
+
+  <h2>È tua, e ti segue</h2>
+
+  <p>La knowledge base che ti costruisci non appartiene all'azienda per cui lavori oggi né alla piattaforma di un fornitore: è un file che esporti quando vuoi e reimporti dove vuoi. Cambi computer, cambi cliente, cambi lavoro — le tue procedure vengono con te.</p>
+
+  <p>Ed è personale sul serio: la base di partenza è la stessa per tutti, ma ognuno lavora a modo suo. Puoi riscrivere le voci, nascondere quelle che non ti servono, aggiungere le tue e mettere il logo della tua azienda o un tuo avatar al posto del bradipo.</p>
+
+  <h2>Cosa trovi dentro</h2>
 
   <div class="griglia">
     <div class="card">
       <h3>Knowledge base</h3>
-      <p>Voci tecniche su account, email, rete, stampa, dispositivi e sistemi, divise fra primo e secondo livello e cercabili mentre lavori.</p>
+      <p>Voci tecniche su account, posta, rete, stampa, dispositivi e sistemi, divise fra primo e secondo livello. Cercabili mentre lavori, e tue da modificare.</p>
     </div>
     <div class="card">
       <h3>Risposte pronte</h3>
-      <p>Testi già scritti in italiano e in inglese, con i segnaposto da adattare. Basta un clic per copiarli.</p>
+      <p>Testi già scritti in italiano e in inglese, con i segnaposto da adattare. Presa in carico, richiesta dettagli, chiusura, phishing, disservizio.</p>
     </div>
     <div class="card">
       <h3>Frasi ricorrenti</h3>
-      <p>La libreria dei pezzi di testo che riscrivi ogni giorno, sempre a portata di mano.</p>
+      <p>I pezzi di testo che riscrivi ogni giorno, copiati con un clic.</p>
     </div>
     <div class="card">
       <h3>Assistente AI</h3>
-      <p>Compone la risposta partendo dal testo del ticket, traduce fra italiano e inglese, riformula.</p>
+      <p>Compone la risposta partendo dal testo del ticket, traduce fra italiano e inglese, riformula. Facoltativo.</p>
     </div>
   </div>
 
-  <h2>Ci metti i tuoi contenuti</h2>
+  <h2>L'AI è l'unica cosa che esce, e decidi tu</h2>
 
-  <p>Quello che trovi installandolo è un punto di partenza, non una gabbia. Puoi aggiungere le tue voci e le tue risposte, nascondere quelle predefinite che non ti servono, e mettere il logo della tua azienda o un tuo avatar al posto del bradipo. Con la funzione di backup porti tutto su un altro computer.</p>
+  <p>Knowledge base, risposte e frasi funzionano <strong>completamente offline</strong>: senza chiave, senza connessione, senza che un solo byte lasci il tuo computer.</p>
 
-  <h2>Serve una chiave, ed è gratuita</h2>
-
-  <p>Knowledge base, risposte e frasi funzionano subito, anche senza connessione. Per l'assistente AI serve una chiave <strong>Groq</strong>, che si ottiene gratuitamente e senza carta di credito su <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>. Al primo avvio l'estensione ti guida passo passo.</p>
+  <p>L'assistente AI è l'unica funzione che comunica con l'esterno. Usa <strong>la tua chiave</strong> Groq — gratuita, si ottiene in pochi minuti senza carta di credito — e la richiesta parte dal tuo browser verso Groq direttamente, senza passare da nessun sistema intermedio. Se non configuri la chiave, l'estensione non contatta nulla e tutto il resto continua a funzionare.</p>
 
   <div class="nota">
-    <p>La chiave resta nel tuo browser. Le richieste partono dal tuo computer e vanno direttamente a Groq: <strong>non esiste alcun server di SlothDesk</strong> e chi lo sviluppa non vede nulla di ciò che scrivi. I dettagli sono nell'<a href="privacy.html">informativa sulla privacy</a>.</p>
+    <p><strong>E qui va detto il limite, perché è il punto in cui devi stare attento tu.</strong> Prima di ogni invio SlothDesk maschera in automatico email, telefoni, codici fiscali, IBAN e partite IVA, e ti mostra cosa ha trovato. <strong>I nomi di persona no</strong>: te li segnala, ma restano nel testo.</p>
+    <p>Riconoscerli in automatico produrrebbe troppi errori — verrebbero mascherati anche "Active Directory" o "Task Manager". Significa che su cosa esce verso l'AI l'ultima parola è sempre la tua. Se il ticket è delicato, l'AI puoi semplicemente non usarla.</p>
   </div>
 
-  <h2>Una cosa da sapere prima di usarlo</h2>
+  <h2>Non devi chiedere il permesso a nessuno</h2>
 
-  <p>Prima di inviare un testo all'AI, SlothDesk maschera automaticamente email, telefoni, codici fiscali, IBAN e partite IVA. <strong>I nomi di persona no</strong>: te li segnala, ma restano nel testo. È una scelta voluta — riconoscerli in automatico produrrebbe troppi errori — e significa che l'ultima verifica spetta sempre a te.</p>
+  <p>Niente licenze, niente abbonamento, niente valutazione da parte dell'ufficio acquisti, niente integrazione da far approvare. Non entra nei sistemi di nessuno e non manda dati da nessuna parte: <strong>è uno strumento tuo, sul tuo browser, come lo sarebbe un blocco note.</strong></p>
+
+  <p>Lo installi perché ti serve, e se non ti serve lo disinstalli — portandoti via il backup.</p>
 
 </main>
 
