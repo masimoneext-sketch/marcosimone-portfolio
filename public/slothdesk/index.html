@@ -121,9 +121,29 @@
   if (saltalo) { splash.remove(); return; }
 
   var msg = document.getElementById('splashMsg');
+
+  // Il mazzo: se ne pescano due a caso, così la durata resta la stessa
+  // e chi torna non rilegge sempre le solite.
+  var mazzo = [
+    'Ancora cinque minuti…',
+    'Cerco le cuffie…',
+    'Ci ha scritto un ticket?',
+    'Un attimo che controllo…',
+    'Ha provato a riavviare?',
+    'Guardo se è già capitato ad altri…',
+    'Sto cercando la procedura…',
+    'Era in spam, come sempre…',
+    'Giro al reparto competente…',
+    'Due minuti e le rispondo…'
+  ];
+  for (var i = mazzo.length - 1; i > 0; i--) {        // mescola
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = mazzo[i]; mazzo[i] = mazzo[j]; mazzo[j] = t;
+  }
+
   var battute = [
-    [1250, 'Ancora cinque minuti…'],
-    [2450, 'Cerco le cuffie…'],
+    [1250, mazzo[0]],
+    [2450, mazzo[1]],
     [3500, 'Eccomi. Dimmi pure.']
   ];
   var timer = battute.map(function (b) {
