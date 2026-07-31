@@ -122,12 +122,18 @@
 
   var msg = document.getElementById('splashMsg');
   var battute = [
-    [900,  'Ancora cinque minuti…'],
-    [1500, 'Cerco le cuffie…'],
-    [2100, 'Eccomi. Dimmi pure.']
+    [1250, 'Ancora cinque minuti…'],
+    [2450, 'Cerco le cuffie…'],
+    [3500, 'Eccomi. Dimmi pure.']
   ];
   var timer = battute.map(function (b) {
-    return setTimeout(function () { if (msg) msg.textContent = b[1]; }, b[0]);
+    return setTimeout(function () {
+      if (!msg) return;
+      msg.textContent = b[1];
+      msg.classList.remove('cambia');
+      void msg.offsetWidth;          // forza il riavvio dell'animazione
+      msg.classList.add('cambia');
+    }, b[0]);
   });
 
   function chiudi() {
@@ -139,7 +145,7 @@
   sessionStorage.setItem('slothdesk-splash', 'visto');
   splash.addEventListener('click', chiudi);
   document.addEventListener('keydown', chiudi, { once: true });
-  setTimeout(chiudi, 2600);
+  setTimeout(chiudi, 4600);
 })();
 </script>
 

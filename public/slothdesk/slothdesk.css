@@ -151,7 +151,7 @@ footer {
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle at 50% 42%, #1b453c 0%, var(--bg) 68%);
-  animation: splash-esce 0.45s ease 2.6s forwards;
+  animation: splash-esce 0.5s ease 4.6s forwards;
 }
 
 .splash.via { animation: splash-esce 0.35s ease forwards; }
@@ -187,6 +187,14 @@ footer {
   min-height: 24px;
 }
 
+/* dissolvenza al cambio battuta: il testo entra invece di saltare */
+.splash-msg.cambia { animation: msg-entra 0.4s ease; }
+
+@keyframes msg-entra {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .splash-bar {
   width: 210px;
   height: 6px;
@@ -203,13 +211,14 @@ footer {
   width: 0;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--panel-2), var(--accent));
-  animation: carica-con-calma 2.4s ease-out forwards;
+  animation: carica-con-calma 4.4s ease-out forwards;
 }
 
 @keyframes carica-con-calma {
   0%   { width: 0; }
-  70%  { width: 19%; }
-  82%  { width: 24%; }
+  40%  { width: 12%; }
+  72%  { width: 19%; }
+  78%  { width: 23%; }
   100% { width: 100%; }
 }
 
@@ -218,7 +227,7 @@ footer {
   color: var(--muted);
   font-size: 12.5px;
   opacity: 0;
-  animation: appari 0.5s ease 1.2s forwards;
+  animation: appari 0.6s ease 1.8s forwards;
 }
 
 @keyframes appari { to { opacity: 0.75; } }
