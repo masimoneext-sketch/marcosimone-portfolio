@@ -24,7 +24,7 @@ const projects: Project[] = [
     name: 'Asset Management Portal',
     tagline: 'Gestione asset IT enterprise con import legacy massivo',
     description:
-      "Portale Laravel 11 + React per il lifecycle degli asset IT aziendali: inventario PC/server/periferiche, import massivo da XLS legacy (~6.400 asset su 14 colonne), documenti allegati, storico interventi. Auth JWT custom a 3 ruoli (user/admin/superadmin) con permessi granulari, deploy ibrido Docker su Linux oppure IIS + PHP-CGI su Windows Server.",
+      "Portale Laravel 11 + React per il lifecycle degli asset IT aziendali: inventario PC/server/periferiche, import massivo da XLS legacy (~6.400 asset su 14 colonne), documenti allegati, storico interventi. Registro attività di ogni modifica, backup automatico con ripristino verificato ed endpoint di health per il monitoraggio esterno. Auth JWT custom a 3 ruoli (user/admin/superadmin) con permessi granulari, deploy ibrido Docker su Linux oppure IIS + PHP-CGI su Windows Server.",
     stack: ['Laravel 11', 'React 18', 'MySQL 8', 'Docker', 'JWT', 'TypeScript'],
     category: 'Enterprise',
     marketApp:
@@ -32,22 +32,22 @@ const projects: Project[] = [
     status: 'Live',
     color: 'purple',
     icon: '🏗️',
-    features: ['Import 6.4K asset', 'JWT 3 ruoli', 'Documenti allegati', 'Deploy ibrido Docker/IIS'],
+    features: ['Import 6.4K asset', 'Registro attività + backup', 'Health endpoint', 'Deploy ibrido Docker/IIS'],
   },
   {
     id: 2,
     name: 'Sudo Support IT',
     tagline: 'IT Helpdesk con AI integrata e gestione spostamenti',
     description:
-      'Portale IT support con Knowledge Base intelligente (368 voci), AI Assistant basato su Claude, gestione ticket, turni, Generatore PDL per schemi spostamenti personale (con CLI dedicata che parsa email e genera schemi automaticamente), task predefinite, statistiche operatore per bilanciamento carico e audit log.',
-    stack: ['Node.js', 'Express', 'SQLite', 'Claude AI', 'JWT', 'Vanilla JS'],
+      'Portale IT support con Knowledge Base intelligente (314 voci) e 389 risposte pronte, AI Assistant a doppio provider — Anthropic oppure Groq, scelto dal prefisso della chiave — gestione ticket, turni, Generatore PDL per schemi spostamenti personale (con CLI dedicata che parsa email e genera schemi automaticamente), task predefinite, statistiche operatore per bilanciamento carico e audit log.',
+    stack: ['Node.js', 'Express', 'SQLite', 'Claude AI', 'Groq', 'JWT'],
     category: 'AI',
     marketApp:
       'Helpdesk AI-powered per PMI senza team IT strutturato — riduce il 60% delle richieste ripetitive e automatizza la pianificazione spostamenti',
     status: 'Live',
     color: 'teal',
     icon: '🤖',
-    features: ['KB 368 voci', 'AI Claude integrata', 'Generatore PDL + CLI', 'Gestione ticket + turni'],
+    features: ['KB 314 voci', 'Doppio provider AI', 'Generatore PDL + CLI', 'Gestione ticket + turni'],
   },
   {
     id: 3,
@@ -89,7 +89,7 @@ const projects: Project[] = [
     category: 'Mobile',
     marketApp:
       'Finance dashboard personale all-in-one per dipendenti e freelance — alternativa gratuita e offline a Mint/YNAB con bilancio a cascata',
-    status: 'Live v4.1.0',
+    status: 'Live v4.2.0',
     color: 'purple',
     icon: '💰',
     features: ['Bilancio cascata', 'Uscite fisse/variabili', 'Salvadanaio', '10 sezioni dashboard'],
@@ -99,7 +99,7 @@ const projects: Project[] = [
     name: 'ShiftFlow',
     tagline: 'Portale enterprise multi-sede per la pianificazione dei turni',
     description:
-      'Portale self-hosted e multi-tenant per la pianificazione dei turni su più sedi e clienti: griglia settimanale interattiva, template riutilizzabili, gestione avanzata dei sabati a rotazione equa con mobilità tra sedi, copertura e presidio delle postazioni con riempimento automatico, piano ferie annuale a granularità giornaliera sempre coerente con i turni, e richieste assenza/preferenza con flusso di approvazione. Export Excel, audit log completo, 2FA TOTP e auth JWT a 3 ruoli.',
+      'Portale self-hosted e multi-tenant per la pianificazione dei turni su più sedi e clienti: griglia settimanale interattiva, template riutilizzabili, gestione avanzata dei sabati a rotazione equa con mobilità tra sedi, copertura e presidio delle postazioni con riempimento automatico, piano ferie annuale a granularità giornaliera sempre coerente con i turni, e richieste assenza/preferenza con flusso di approvazione. Interfaccia completamente bilingue italiano/inglese con cambio lingua a caldo. Export Excel, audit log completo, 2FA TOTP e auth JWT a 3 ruoli. Distribuito come pacchetto versionato con installer per Linux e Windows, manuale e specifica tecnica in entrambe le lingue.',
     stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'ExcelJS', '2FA TOTP'],
     category: 'Enterprise',
     marketApp:
@@ -107,7 +107,7 @@ const projects: Project[] = [
     status: 'Live',
     color: 'purple',
     icon: '📅',
-    features: ['Griglia + template settimanali', 'Sabati a rotazione multi-sede', 'Piano ferie a giorni', 'Copertura e presidio automatici'],
+    features: ['Griglia + template settimanali', 'Sabati a rotazione multi-sede', 'Interfaccia IT/EN', 'Installer Linux + Windows'],
   },
   {
     id: 8,
@@ -115,7 +115,7 @@ const projects: Project[] = [
     tagline: 'Orchestratore multi-agente con enforcement reale — Metodo Capocantiere',
     description:
       "Skill per Claude Code che coordina sub-agenti con il Metodo Capocantiere v4: Triage hard Fase 0.5 che può abortire in autonomia se il task non qualifica, sopralluogo leggero, costruzione a strati con gate d'ispezione ad ogni livello. Opus progetta, Sonnet costruisce. Enforcement reale via PreToolUse hook (blocco allowlist) + validator Python su contratti.",
-    stack: ['Claude Code', 'Opus 4.7', 'Sonnet 4.6', 'Bash Hooks', 'Python Gate'],
+    stack: ['Claude Code', 'Opus 5', 'Sonnet 5', 'Bash Hooks', 'Python Gate'],
     category: 'AI',
     marketApp:
       'Framework di orchestrazione AI con preventivo € upfront e enforcement fisico — pensato per team che vogliono garanzie sul token budget e sui file toccati, non solo buone intenzioni del modello',
@@ -159,7 +159,7 @@ const projects: Project[] = [
     name: 'Claude StatusLine',
     tagline: 'Dashboard multi-riga in tempo reale per Claude Code CLI',
     description:
-      'Script bash che trasforma la status line di Claude Code in una dashboard completa: modello attivo, contesto usato con barra percentuale, token I/O, costo sessione, rate limits 5h/7d con countdown reset, conteggio bug/feature dai portali. Persistenza stato tra /clear, cache TTL 30s, output multi-riga con icone.',
+      'Script bash che trasforma la status line di Claude Code in una dashboard completa: modello attivo, contesto usato con barra percentuale, token I/O, costo sessione, rate limits 5h/7d con countdown reset, conteggio bug/feature dai portali. Layout a due colonne su ~45 caratteri, leggibile anche da terminale mobile. Ogni render viene archiviato in chiaro, così l\'agente può rileggere il proprio consumo di token e di budget — informazione che la status line, essendo interfaccia del terminale, non gli passerebbe. Persistenza stato tra /clear, cache TTL 30s.',
     stack: ['Bash', 'jq', 'Claude Code', 'SQLite queries', 'Status Line API'],
     category: 'AI',
     marketApp:
@@ -167,14 +167,14 @@ const projects: Project[] = [
     status: 'Live',
     color: 'teal',
     icon: '📊',
-    features: ['Multi-riga + icone', 'Rate limit countdown', 'Bug counter live', 'Persistenza stato'],
+    features: ['Due colonne compatte', 'Rate limit countdown', 'Render rileggibile dall\'agente', 'Persistenza stato'],
   },
   {
     id: 13,
     name: 'IWS IT Assistant',
     tagline: 'Chrome Extension per Supporto IT con AI e Knowledge Base',
     description:
-      'Estensione Chrome con pannello laterale per il team IT: 49 risposte rapide ticket IT/EN, Knowledge Base con 312+ voci e ricerca semantica TF-IDF, chatbot AI (Groq) con logica KB First che cerca nella KB prima di rispondere. Modifica/elimina/aggiungi voci, auto-backup, contatori rate limit in tempo reale, Zero Data Retention per la privacy.',
+      'Estensione Chrome con pannello laterale per il team IT: 49 risposte rapide ticket IT/EN, Knowledge Base con 313 voci e ricerca semantica TF-IDF, chatbot AI su Groq — con il modello risolto a runtime dal catalogo del provider, non cablato nel codice — e logica KB First che cerca nella KB prima di rispondere. Modifica/elimina/aggiungi voci, auto-backup, contatori rate limit in tempo reale, Zero Data Retention per la privacy.',
     stack: ['Chrome Extension', 'Manifest V3', 'Groq AI', 'TF-IDF', 'Vanilla JS'],
     category: 'AI',
     marketApp:
@@ -182,7 +182,7 @@ const projects: Project[] = [
     status: 'Live',
     color: 'teal',
     icon: '🔧',
-    features: ['KB 312+ voci', 'AI Groq gratuita', 'KB First search', 'Auto-backup + rate limits'],
+    features: ['KB 313 voci', 'AI Groq gratuita', 'KB First search', 'Auto-backup + rate limits'],
   },
   {
     id: 9,
@@ -198,6 +198,36 @@ const projects: Project[] = [
     color: 'purple',
     icon: '🎯',
     features: ['Auto-trigger naturale', 'Sopralluogo silenzioso', 'Pattern utente precompilati', 'Sinergia Hammerin'],
+  },
+  {
+    id: 14,
+    name: 'SlothDesk',
+    tagline: 'Knowledge base e risposte pronte per tecnici IT, nel side panel del browser',
+    description:
+      "Estensione Chrome pubblicata sul Chrome Web Store: knowledge base personale da 285 voci con ricerca semantica TF-IDF, 49 risposte pronte in italiano e inglese, e un assistente che redige la mail di risposta al ticket restando nel side panel, senza cambiare scheda. Ognuno mette la propria chiave e costruisce i propri appunti: i contenuti restano nel browser dell'utente, nessun server, nessuna raccolta dati.",
+    stack: ['Chrome Extension', 'Manifest V3', 'Side Panel API', 'TF-IDF', 'Groq', 'Vanilla JS'],
+    category: 'AI',
+    marketApp:
+      'Per chi lavora al service desk e ha il sapere sparso fra note, chat e memoria: gli appunti diventano consultabili in un secondo, senza knowledge base aziendale da negoziare con nessuno',
+    status: 'Live v1.0.4',
+    color: 'purple',
+    icon: '\u{1F9A5}',
+    features: ['Sullo Chrome Web Store', 'KB 285 voci', 'Ricerca TF-IDF', 'Dati solo nel browser'],
+  },
+  {
+    id: 15,
+    name: 'Claude for Dummies',
+    tagline: 'Claude Code in un terminale portatile, da chiavetta USB',
+    description:
+      'App desktop che porta Claude Code su una macchina Windows senza installare nulla nel sistema: terminale Electron con xterm.js e node-pty, e un setup in quattro passi che scarica Node, Git e la CLI in locale al primo avvio. Launcher .bat con creazione automatica del collegamento sul desktop, cos\u00ec chi non ha mai aperto un terminale parte al doppio clic — e tutto resta sulla chiavetta.',
+    stack: ['Electron 35', 'node-pty', 'xterm.js', 'Node portable', 'Batch'],
+    category: 'AI',
+    marketApp:
+      'Abbatte la barriera di ingresso a Claude Code per chi non amministra il proprio PC: formazione, postazioni condivise e ambienti dove installare software non \u00e8 permesso',
+    status: 'Live',
+    color: 'teal',
+    icon: '\u{1F4BD}',
+    features: ['Zero installazione', 'Setup guidato 4 passi', 'Terminale Tokyo Night', 'Gira da USB'],
   },
 ]
 
