@@ -154,8 +154,17 @@ li { margin: 7px 0; }
   margin-bottom: 2px;
 }
 
+/* quattro schermate del pannello in fila; sotto, le due della finestra grande */
+.vetrina { grid-template-columns: repeat(4, 1fr); }
+.vetrina-larga { grid-template-columns: 1fr; gap: 26px; margin-top: 0; }   /* larghe: una per riga, se no non si legge niente */
+@media (max-width: 1000px) {
+  .vetrina { grid-template-columns: repeat(2, 1fr); }
+  .vetrina-larga { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 720px) {
-  .vetrina { grid-template-columns: 1fr; gap: 26px; }
+  .vetrina, .vetrina-larga { grid-template-columns: 1fr; gap: 26px; }
+  .vetrina-larga img { max-width: 100%; }
   .vetrina img { max-width: 420px; margin: 0 auto; }
   .vetrina figcaption { text-align: center; max-width: 420px; margin-left: auto; margin-right: auto; }
 }
