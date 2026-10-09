@@ -187,12 +187,12 @@
   <p><strong>SlothDesk non legge le pagine web. Non può farlo.</strong> Non ha il permesso di accedervi e non inserisce codice da nessuna parte: vive solo dentro il proprio pannello. Costa qualche copia-incolla in più, e in cambio è uno strumento che puoi installare senza che nessuno debba valutare cosa vede.</p>
 
   <div class="nota">
-    <p>I permessi che chiede sono quattro: il pannello laterale in cui gira, l'archivio locale del browser per salvare le tue cose, i download per generare il file di backup, e un unico host — quello del servizio AI, contattato solo se decidi di usarlo.</p>
+    <p>I permessi che chiede sono sei, e nessuno riguarda le pagine che visiti: il pannello laterale in cui gira, l'archivio locale del browser per salvare le tue cose (anche oltre il limite standard, perché allegati e documentazione aziendale pesano), i download per il backup e per mostrarti un allegato nella sua cartella, una pagina nascosta che tiene aggiornata la sincronizzazione con i colleghi se la attivi, e un unico host — quello del servizio AI, contattato solo se decidi di usarlo.</p>
   </div>
 
   <h2>Quello che scrivi resta sul tuo computer</h2>
 
-  <p>Non esiste alcun server di SlothDesk. Non c'è un account da creare, non c'è niente da sincronizzare, non c'è un'azienda che custodisce i tuoi contenuti.</p>
+  <p>Non esiste alcun server di SlothDesk. Non c'è un account da creare e non c'è un'azienda che custodisce i tuoi contenuti. Se vuoi condividere la documentazione con i colleghi, la sincronizzazione passa da una cartella che scegli tu — per esempio quella OneDrive del tuo team: il trasporto lo fa il servizio di file della tua azienda, non SlothDesk.</p>
 
   <p>Le voci che aggiungi vivono nell'archivio locale del tuo browser. Nessuno le vede, nemmeno chi sviluppa l'estensione, e <strong>nessun fornitore può perderle in una violazione dei dati</strong> — perché non le ha.</p>
 
@@ -209,7 +209,23 @@
   <div class="griglia">
     <div class="card">
       <h3>Knowledge base</h3>
-      <p>Voci tecniche su account, posta, rete, stampa, dispositivi e sistemi, divise fra primo e secondo livello. Cercabili mentre lavori, e tue da modificare.</p>
+      <p>Voci tecniche su account, posta, rete, stampa, dispositivi e sistemi, divise fra primo e secondo livello. Cercabili mentre lavori, e tue da modificare: ne aggiungi di nuove scegliendo il livello e allegando subito i file.</p>
+    </div>
+    <div class="card">
+      <h3>KB aziendale</h3>
+      <p>Una wiki separata per la documentazione della tua azienda o del cliente: pagine con testo, immagini e file nel punto giusto, da leggere in una finestra grande. L'assistente AI non la vede mai.</p>
+    </div>
+    <div class="card">
+      <h3>Archivio degli allegati</h3>
+      <p>PDF, screenshot, file di configurazione: collegati alle voci a cui servono, con il numero sulla scheda e l'anteprima a un clic. «Mostra nella cartella» e lo alleghi al ticket.</p>
+    </div>
+    <div class="card">
+      <h3>Sincronizzazione fra colleghi</h3>
+      <p>Facoltativa. La KB aziendale si tiene allineata attraverso una cartella condivisa che scegli tu: nessun server, nessun account.</p>
+    </div>
+    <div class="card">
+      <h3>Rete di sicurezza</h3>
+      <p>Le voci non si cancellano, si archiviano e si ripristinano quando vuoi. Ogni voce conserva le versioni precedenti, compresa quella originale.</p>
     </div>
     <div class="card">
       <h3>Risposte pronte</h3>
@@ -227,7 +243,7 @@
 
   <h2>L'AI è l'unica cosa che esce, e decidi tu</h2>
 
-  <p>Knowledge base, risposte e frasi funzionano <strong>completamente offline</strong>: senza chiave, senza connessione, senza che un solo byte lasci il tuo computer.</p>
+  <p>Knowledge base, KB aziendale, allegati, risposte e frasi funzionano <strong>completamente offline</strong>: senza chiave, senza connessione, senza che un solo byte lasci il tuo computer. Se attivi la sincronizzazione, SlothDesk scrive soltanto file nella cartella che hai scelto tu.</p>
 
   <p>L'assistente AI è l'unica funzione che comunica con l'esterno. Usa <strong>la tua chiave</strong> Groq — gratuita, si ottiene in pochi minuti senza carta di credito — e la richiesta parte dal tuo browser verso Groq direttamente, senza passare da nessun sistema intermedio. Se non configuri la chiave, l'estensione non contatta nulla e tutto il resto continua a funzionare.</p>
 

@@ -204,15 +204,15 @@ const projects: Project[] = [
     name: 'SlothDesk',
     tagline: 'Knowledge base e risposte pronte per tecnici IT, nel side panel del browser',
     description:
-      "Estensione Chrome pubblicata sul Chrome Web Store: knowledge base personale da 285 voci con ricerca semantica TF-IDF, 49 risposte pronte in italiano e inglese, e un assistente che redige la mail di risposta al ticket restando nel side panel, senza cambiare scheda. Ognuno mette la propria chiave e costruisce i propri appunti: i contenuti restano nel browser dell'utente, nessun server, nessuna raccolta dati.",
+      "Estensione Chrome pubblicata sul Chrome Web Store: knowledge base personale da 285 voci con ricerca TF-IDF, risposte pronte in italiano e inglese, e un assistente che redige la mail di risposta al ticket restando nel side panel, senza cambiare scheda. Dalla 1.0.9 anche una KB aziendale separata che l'AI non vede mai, un archivio di allegati (PDF, immagini, file) collegati alle voci, e la sincronizzazione fra colleghi attraverso una cartella condivisa. Nessun server, nessuna raccolta dati: i contenuti restano nel browser dell'utente.",
     stack: ['Chrome Extension', 'Manifest V3', 'Side Panel API', 'TF-IDF', 'Groq', 'Vanilla JS'],
     category: 'AI',
     marketApp:
       'Per chi lavora al service desk e ha il sapere sparso fra note, chat e memoria: gli appunti diventano consultabili in un secondo, senza knowledge base aziendale da negoziare con nessuno',
-    status: 'Live v1.0.4',
+    status: 'Live v1.0.9',
     color: 'purple',
     icon: '\u{1F9A5}',
-    features: ['Sullo Chrome Web Store', 'KB 285 voci', 'Ricerca TF-IDF', 'Dati solo nel browser'],
+    features: ['Sullo Chrome Web Store', 'KB aziendale separata dall\'AI', 'Allegati e anteprima', 'Sync senza server'],
   },
   {
     id: 15,

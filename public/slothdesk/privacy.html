@@ -29,18 +29,19 @@
 <main class="wrap">
 
   <p class="lead">SlothDesk è un'estensione per Chrome che aiuta chi lavora nell'assistenza informatica a rispondere alle richieste di supporto. Questa pagina spiega quali dati vengono trattati, dove restano e in quali casi escono dal browser.</p>
-  <p class="aggiornato">Ultimo aggiornamento: 30 luglio 2026</p>
+  <p class="aggiornato">Ultimo aggiornamento: 9 ottobre 2026 (versione 1.0.9: KB aziendale, archivio degli allegati, sincronizzazione fra colleghi)</p>
 
   <h2>In breve</h2>
 
   <div class="nota">
     <p><strong>Non esiste alcun server di SlothDesk.</strong> Chi sviluppa l'estensione non riceve, non conserva e non può vedere i tuoi dati. Tutto ciò che crei resta nel tuo browser.</p>
-    <p>L'unico caso in cui dei dati escono dal tuo dispositivo è quando <strong>sei tu a usare l'assistente AI</strong>: in quel momento il testo che hai scritto viene inviato a Groq, il servizio di intelligenza artificiale, usando una chiave che hai creato tu.</p>
+    <p>L'unico servizio esterno che SlothDesk contatta è l'assistente AI, e <strong>solo quando sei tu a usarlo</strong>: in quel momento il testo che hai scritto viene inviato a Groq, il servizio di intelligenza artificiale, usando una chiave che hai creato tu.</p>
+    <p>Se attivi la <strong>sincronizzazione fra colleghi</strong>, SlothDesk scrive dei file in una cartella che scegli tu: dove finiscono quei file lo decide il servizio che gestisce quella cartella (per esempio OneDrive), non SlothDesk.</p>
   </div>
 
   <h2>Dati che restano sul tuo dispositivo</h2>
 
-  <p>Queste informazioni vengono salvate nell'archivio locale del browser (<code>chrome.storage.local</code>) e non lasciano mai il tuo computer:</p>
+  <p>Queste informazioni vengono salvate nell'archivio locale del browser (<code>chrome.storage.local</code> e il database locale IndexedDB) e non lasciano il tuo computer, salvo la sincronizzazione descritta più sotto, se la attivi:</p>
 
   <table>
     <tr><th>Dato</th><th>A cosa serve</th></tr>
@@ -49,6 +50,9 @@
     <tr><td>Voci predefinite che nascondi</td><td>ricordare le tue scelte</td></tr>
     <tr><td>Logo personalizzato</td><td>mostrarlo al posto di quello predefinito</td></tr>
     <tr><td>Chiave API Groq</td><td>autenticare le tue richieste all'assistente AI</td></tr>
+    <tr><td>KB aziendale e risposte aziendali (pagine, immagini, file)</td><td>consultare la documentazione della tua azienda o del cliente; <strong>non vengono mai inviate all'assistente AI</strong></td></tr>
+    <tr><td>Allegati dell'archivio (PDF, immagini, file)</td><td>aprirli in anteprima e ritrovarli collegati alle voci</td></tr>
+    <tr><td>Versioni precedenti e voci archiviate</td><td>recuperare una voce modificata o archiviata per errore</td></tr>
   </table>
 
   <p>Puoi cancellarli in qualsiasi momento eliminando i singoli elementi dal pannello, oppure rimuovendo l'estensione: la disinstallazione cancella tutto l'archivio locale.</p>
@@ -67,6 +71,20 @@
   <p>La richiesta parte <strong>dal tuo browser e va direttamente a Groq</strong>: non passa da alcun sistema intermedio. Il trattamento dei dati da parte di Groq è regolato dalle sue condizioni, che ti invitiamo a leggere: <a href="https://groq.com/privacy-policy/" target="_blank" rel="noopener">groq.com/privacy-policy</a>.</p>
 
   <p>Se non configuri una chiave API, l'estensione non contatta alcun server: knowledge base, risposte e frasi funzionano completamente offline.</p>
+
+  <p>Le voci della <strong>KB aziendale</strong> e le <strong>risposte aziendali</strong> non fanno mai parte di ciò che viene inviato a Groq: vivono in un archivio separato che nessuna funzione dell'assistente AI legge.</p>
+
+  <h2>La sincronizzazione fra colleghi (facoltativa)</h2>
+
+  <p>È spenta finché non scegli tu una cartella, con il selettore di cartelle del browser. Una volta attivata, ogni pochi minuti SlothDesk scrive in quella cartella, dentro <code>SlothDesk-sincronizzazione</code>:</p>
+
+  <ul>
+    <li>le voci della KB aziendale e delle risposte aziendali, con i loro file;</li>
+    <li>un'identità del computer: un codice casuale e un nome che puoi cambiare (di serie «Windows», «Mac» o «Linux», perché il browser non permette di leggere il vero nome del computer);</li>
+    <li>una copia al giorno, che non viene cancellata, e le voci archiviate.</li>
+  </ul>
+
+  <p>SlothDesk legge dalla stessa cartella le modifiche dei colleghi. <strong>Non effettua alcuna richiesta di rete</strong>: i file li trasporta il servizio che gestisce la cartella, alle sue condizioni. Chi ha accesso alla cartella vede quei contenuti: scegli una cartella condivisa solo con chi deve vederli.</p>
 
   <h2>Il filtro dei dati personali, e il suo limite</h2>
 
@@ -88,7 +106,9 @@
 
   <h2>Backup</h2>
 
-  <p>La funzione di backup genera un file sul tuo computer, nella cartella dei download, contenente i contenuti che hai aggiunto e la tua chiave API. Il file resta sul tuo dispositivo e non viene inviato da nessuna parte: <strong>trattalo con la stessa attenzione di una password</strong>, perché contiene la tua chiave.</p>
+  <p>La funzione di backup genera un file sul tuo computer, nella cartella dei download, contenente i contenuti che hai aggiunto (compresi gli allegati) e la tua chiave API. Il file resta sul tuo dispositivo e non viene inviato da nessuna parte: <strong>trattalo con la stessa attenzione di una password</strong>, perché contiene la tua chiave.</p>
+
+  <p>Il pulsante «Mostra nella cartella» di un allegato salva una copia del file in <code>Download/SlothDesk</code> e apre la cartella con il file evidenziato. Anche questa copia resta sul tuo computer.</p>
 
   <h2>Permessi richiesti</h2>
 
@@ -96,7 +116,9 @@
     <tr><th>Permesso</th><th>Motivo</th></tr>
     <tr><td><code>sidePanel</code></td><td>l'estensione funziona interamente nel pannello laterale</td></tr>
     <tr><td><code>storage</code></td><td>salvare in locale i tuoi contenuti e le tue preferenze</td></tr>
-    <tr><td><code>downloads</code></td><td>generare il file di backup</td></tr>
+    <tr><td><code>unlimitedStorage</code></td><td>la KB aziendale e gli allegati contengono immagini e documenti: possono superare il limite standard dell'archivio locale</td></tr>
+    <tr><td><code>downloads</code></td><td>generare il file di backup e mostrare un allegato nella sua cartella</td></tr>
+    <tr><td><code>offscreen</code></td><td>una pagina nascosta che, se hai scelto una cartella, tiene aggiornata la sincronizzazione anche a pannello chiuso; senza cartella non accede a nessun file</td></tr>
     <tr><td><code>api.groq.com</code></td><td>unico host contattato, solo quando usi l'assistente AI</td></tr>
   </table>
 
