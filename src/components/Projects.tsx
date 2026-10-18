@@ -35,6 +35,21 @@ const projects: Project[] = [
     features: ['Import 6.4K asset', 'Registro attività + backup', 'Health endpoint', 'Deploy ibrido Docker/IIS'],
   },
   {
+    id: 16,
+    name: 'METIS',
+    tagline: 'Hub con accesso unico ai portali aziendali: un login, tutte le app',
+    description:
+      "Portale di accesso unico che riunisce gli strumenti del team in una home a tessere. Un solo login con MFA TOTP scritto da zero, dispositivi fidati e sessione di 30 giorni con refresh token rotante; se un token già usato viene ripresentato, si chiude l'intera sessione. Clic sulla tessera e si è dentro il portale senza un secondo login: un biglietto monouso da 30 secondi viene scambiato server-to-server, e il gettone non passa mai dall'URL. METIS governa anche gli account: chiede al portale di creare l'utente tramite API, senza mai scrivere nei database altrui, e gli propaga il ruolo. Pannello superadmin con la matrice utenti×tessere, home personale con tessere proprie, tema navy/oro condiviso da tutti i portali.",
+    stack: ['Node.js', 'Express', 'SQLite', 'JWT', 'TOTP (RFC 6238)', 'bcrypt'],
+    category: 'Enterprise',
+    marketApp:
+      'Per PMI con più strumenti interni: un ingresso solo al posto di cinque password, e chi lascia il team si disattiva in un punto solo',
+    status: 'Live',
+    color: 'purple',
+    icon: '\u{1F3DB}\uFE0F',
+    features: ['SSO a biglietto monouso', 'MFA + dispositivi fidati', 'Provisioning account', 'Home a tessere'],
+  },
+  {
     id: 2,
     name: 'Sudo Support IT',
     tagline: 'IT Helpdesk con AI integrata e gestione spostamenti',

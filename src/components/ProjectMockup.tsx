@@ -1298,6 +1298,53 @@ function IwsAssistantMockup() {
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 
+// ─── Mockup 16: METIS ────────────────────────────────────────────────────────
+
+const metisTiles = [
+  { name: 'Asset', icon: '🏗️', live: true },
+  { name: 'Roster', icon: '🗓️', live: true },
+  { name: 'Spot', icon: '📍', live: true },
+  { name: 'Event', icon: '📦', live: true },
+  { name: 'Logbook', icon: '📋', live: true },
+  { name: 'SlothDesk', icon: '\u{1F9A5}', live: false },
+]
+
+function MetisMockup() {
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    const t = setInterval(() => setActive((p) => (p + 1) % metisTiles.length), 1400)
+    return () => clearInterval(t)
+  }, [])
+
+  const gold = '#D4AF37'
+  return (
+    <div style={{ background: 'linear-gradient(160deg, #0B1530 0%, #12224A 100%)', borderRadius: 6, padding: '5px 7px', fontFamily: 'Georgia, serif' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, color: gold }}>METIS</span>
+        <span style={{ fontSize: 7, color: '#9FB0D8', fontFamily: 'monospace', border: `1px solid ${gold}55`, borderRadius: 3, padding: '1px 4px' }}>🔐 MFA · sessione 30 gg</span>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 4 }}>
+        {metisTiles.map((t, i) => (
+          <motion.div
+            key={t.name}
+            animate={{ scale: i === active ? 1.06 : 1, borderColor: i === active ? gold : 'rgba(212,175,55,0.25)' }}
+            transition={{ duration: 0.3 }}
+            style={{ border: '1px solid', borderRadius: 4, padding: '2px 2px', textAlign: 'center', background: 'rgba(255,255,255,0.04)' }}
+          >
+            <div style={{ fontSize: 9, lineHeight: 1.2 }}>{t.icon}</div>
+            <div style={{ fontSize: 7.5, lineHeight: 1.2, color: '#E8ECF8', fontFamily: 'monospace' }}>{t.name}</div>
+            <div style={{ fontSize: 6.5, lineHeight: 1.2, color: t.live ? '#5DCAA5' : '#9FB0D8', fontFamily: 'monospace' }}>{t.live ? '● SSO' : '○ link'}</div>
+          </motion.div>
+        ))}
+      </div>
+      <div style={{ marginTop: 4, fontSize: 7, color: '#9FB0D8', fontFamily: 'monospace' }}>
+        → {metisTiles[active].name}: biglietto monouso 30 s · scambio server-to-server
+      </div>
+    </div>
+  )
+}
+
 interface ProjectMockupProps {
   projectId: number
 }
@@ -1316,6 +1363,7 @@ const urlMap: Record<number, string> = {
   11: 'app.example.com/bugreport',
   12: 'github.com/claude-statusline',
   13: 'chrome://extensions/iws-it-assistant',
+  16: 'app.example.com/hub',
 }
 
 export default function ProjectMockup({ projectId }: ProjectMockupProps) {
@@ -1336,6 +1384,7 @@ export default function ProjectMockup({ projectId }: ProjectMockupProps) {
       case 11: return <BugReportMockup />
       case 12: return <StatusLineMockup />
       case 13: return <IwsAssistantMockup />
+      case 16: return <MetisMockup />
       default: return null
     }
   }
