@@ -133,6 +133,7 @@
     </div>
     <nav>
       <a href="./" aria-current="page">Home</a>
+      <a href="#novita">Novità</a>
       <a href="assistenza.html">Assistenza</a>
       <a href="privacy.html">Privacy</a>
           <a class="nav-store" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec" target="_blank" rel="noopener">Installa</a>
@@ -249,7 +250,7 @@
     </div>
     <div class="card">
       <h3>Sincronizzazione fra colleghi</h3>
-      <p>Facoltativa. La KB aziendale si tiene allineata attraverso una cartella condivisa che scegli tu: nessun server, nessun account.</p>
+      <p>Facoltativa. La KB aziendale si tiene allineata attraverso una cartella condivisa che scegli tu: nessun server, nessun account. <a href="#sincronizzazione">Come si attiva</a></p>
     </div>
     <div class="card">
       <h3>Rete di sicurezza</h3>
@@ -269,6 +270,24 @@
     </div>
   </div>
 
+  <h2 id="sincronizzazione">Come si attiva la sincronizzazione</h2>
+
+  <p>Serve una cartella che tutto il team vede sul proprio computer: di solito una cartella di SharePoint o di Teams sincronizzata con OneDrive, quella che trovi in Esplora file. SlothDesk scrive lì dei file, OneDrive li porta ai colleghi.</p>
+
+  <ol>
+    <li>Apri <strong>⚙ Impostazioni → Sincronizzazione con i colleghi</strong> e dai un nome a questo computer (per esempio «Marco – portatile»): è il nome che vedono gli altri.</li>
+    <li>Premi <strong>Scegli la cartella condivisa</strong>, scegli la cartella del team e consenti a Chrome di modificarla. Se nella cartella ci sono già altri computer, SlothDesk ti chiede se questo è uno di loro: serve quando reinstalli, così riprendi la tua identità invece di comparire come un computer nuovo.</li>
+    <li>I colleghi fanno lo stesso, ognuno sul suo computer, scegliendo <strong>la stessa cartella</strong>.</li>
+    <li>Da quel momento l'allineamento è automatico, ogni due minuti, anche a pannello chiuso finché Chrome è aperto. Se non vuoi aspettare, nella KB aziendale c'è <strong>🔄 Sincronizza</strong>.</li>
+  </ol>
+
+  <p><strong>Cosa viaggia:</strong> le pagine e le risposte aziendali scritte o modificate a mano, con le loro sezioni, immagini e file. La documentazione importata da file non viaggia voce per voce: chi ha il pacchetto lo mette nella cartella con <strong>📤 Pubblica un file .slothdesk</strong> e i colleghi lo importano con un clic, senza perdere quello che hanno scritto a mano.</p>
+
+  <div class="nota">
+    <p><strong>Perché non si pestano i piedi.</strong> Ogni computer scrive solo il proprio file, quindi OneDrive non crea copie in conflitto. Se due persone modificano la stessa voce vince la modifica più recente, e anche le cancellazioni arrivano agli altri. Se da un computer finiscono nel cestino più di dieci voci tutte insieme, gli altri non le tolgono da soli: prima chiedono. Ogni giorno resta una copia nella cartella, e la trovi in Impostazioni con <strong>📅 Mostra le copie giornaliere</strong>.</p>
+    <p>Quando Chrome si riavvia può chiedere di nuovo il permesso sulla cartella: compare la barra «Sincronizzazione in pausa», premi <strong>Riattiva</strong>. Finché non lo fai le modifiche restano sul tuo computer e partono appena riattivi.</p>
+  </div>
+
   <h2>L'AI è l'unica cosa che esce, e decidi tu</h2>
 
   <p>Knowledge base, KB aziendale, allegati, risposte e frasi funzionano <strong>completamente offline</strong>: senza chiave, senza connessione, senza che un solo byte lasci il tuo computer. Se attivi la sincronizzazione, SlothDesk scrive soltanto file nella cartella che hai scelto tu.</p>
@@ -285,6 +304,42 @@
   <p>Niente abbonamento, niente valutazione da parte dell'ufficio acquisti, niente integrazione da far approvare. Non entra nei sistemi di nessuno e non manda dati da nessuna parte: <strong>è uno strumento tuo, sul tuo browser, come lo sarebbe un blocco note.</strong></p>
 
   <p>Lo installi perché ti serve, e se non ti serve lo disinstalli — portandoti via il backup.</p>
+
+  <h2 id="novita">Novità</h2>
+
+  <div class="versioni">
+    <h3>1.0.10 <span class="versione-data">9 ottobre 2026</span></h3>
+    <ul>
+      <li>Le voci della knowledge base si modificano in una finestra grande: immagini dove vuoi, anche affiancate.</li>
+      <li>Tabelle come in Excel: scegli le celle, unisci e separi, incolli da Excel, aggiungi righe e colonne.</li>
+      <li>Annulla e Ripeti per ogni passo, anche per immagini e tabelle.</li>
+    </ul>
+
+    <h3>1.0.9 <span class="versione-data">9 ottobre 2026</span></h3>
+    <ul>
+      <li>KB aziendale: una wiki separata per la documentazione dell'azienda o del cliente, che l'assistente AI non vede mai. Anche le risposte possono essere aziendali.</li>
+      <li>Sincronizzazione facoltativa fra colleghi attraverso una cartella condivisa, per esempio su OneDrive (<a href="#sincronizzazione">come si attiva</a>).</li>
+      <li>Rete di sicurezza: le voci si archiviano invece di sparire, e ognuna conserva le versioni precedenti.</li>
+    </ul>
+
+    <h3>1.0.6 – 1.0.8 <span class="versione-data">8 ottobre 2026</span></h3>
+    <ul>
+      <li>Archivio degli allegati: PDF, immagini e file collegati alle voci, con anteprima e «Mostra nella cartella».</li>
+      <li>Ricerca nella knowledge base più precisa (singolare e plurale, categorie, sigle).</li>
+      <li>Nella voce nuova si scelgono subito il livello e gli allegati.</li>
+      <li>La barra in alto resta dentro il pannello anche quando è stretto.</li>
+    </ul>
+
+    <details>
+      <summary>Versioni precedenti</summary>
+      <h3>1.0.5 <span class="versione-data">1 ottobre 2026</span></h3>
+      <ul><li>Email composte dall'assistente AI come le scrive un tecnico: saluto, paragrafi, richieste una per riga.</li></ul>
+      <h3>1.0.3 – 1.0.4 <span class="versione-data">25 agosto 2026</span></h3>
+      <ul><li>L'assistente AI sceglie da solo un modello disponibile: Groq aveva ritirato quelli usati prima.</li></ul>
+      <h3>1.0.0 – 1.0.2 <span class="versione-data">luglio 2026</span></h3>
+      <ul><li>Prima versione pubblica sul Chrome Web Store.</li></ul>
+    </details>
+  </div>
 
   <h2>Licenza</h2>
 

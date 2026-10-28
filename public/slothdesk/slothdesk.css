@@ -525,3 +525,13 @@ footer {
 @media (max-width: 480px) {
   .btn-store { width: 100%; }
 }
+
+/* Come si attiva la sincronizzazione: passi numerati */
+ol { padding-left: 22px; }
+ol li { margin: 9px 0; }
+
+/* Novità: una versione per blocco, le vecchie chiuse */
+.versioni h3 { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.versione-data { font-size: 14px; font-weight: 400; color: var(--muted); }
+.versioni details { margin-top: 22px; }
+.versioni summary { cursor: pointer; color: var(--cream); font-weight: 600; }
