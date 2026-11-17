@@ -1,501 +1,502 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SlothDesk — La tua wiki personale per l'assistenza IT</title>
-<meta name="description" content="Estensione Chrome per tecnici IT: la tua knowledge base personale, le tue risposte pronte e un assistente AI. Tutto resta sul tuo computer, non tocca le pagine web, nessun account e nessun abbonamento.">
+<meta name="description" content="SlothDesk è un'estensione per Chrome: knowledge base, risposte pronte, wiki aziendale e assistente AI in un pannello accanto al ticket. Gratis, senza account, tutto sul tuo computer.">
 <link rel="icon" href="logo.png">
-<link rel="stylesheet" href="slothdesk.css">
+<link rel="canonical" href="https://marcosimone.tech/slothdesk/">
+<link rel="preload" href="fonts/inter-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Inter, il font di METIS, sul nostro server: la pagina non chiama nessun servizio esterno */
+  @font-face { font-family: "Inter"; font-style: normal; font-weight: 400 800; font-display: swap; src: url(fonts/inter-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-style: italic; font-weight: 400 800; font-display: swap; src: url(fonts/inter-italic.woff2) format("woff2"); }
+
+  /* palette di METIS: blu notte e ambra */
+  :root {
+    --bg: #0a1120; --bg2: #0e1830; --panel: #13203c; --panel2: #182a4d;
+    --card: rgba(23, 38, 66, .55); --line: rgba(120, 150, 200, .16); --line2: rgba(120, 150, 200, .28);
+    --fg: #eef2f9; --muted: #9fb0cc; --light: #64748f;
+    --accent: #e8a33d; --accent-dark: #c9852a; --accent-soft: rgba(232, 163, 61, .14); --glow: 0 10px 34px rgba(232, 163, 61, .28);
+    --ok: #4bb98a;
+    --serif: "Inter", system-ui, -apple-system, sans-serif;
+    --sans: "Inter", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16.5px/1.65 var(--sans); overflow-x: hidden; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  h1, h2, h3 { font-family: var(--sans); font-weight: 700; letter-spacing: -.025em; margin: 0; }
+  em.accent { font-style: italic; color: var(--accent); }
+  .eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+  .muted { color: var(--muted); }
+  code, .tag { font-family: var(--sans); }
+
+  /* ---------- barra in alto ---------- */
+  .top { position: sticky; top: 0; z-index: 20; background: rgba(10, 17, 32, .82); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; }
+  .top .wrap { display: flex; align-items: center; gap: 28px; height: 76px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; flex: none; }
+  .brand img { width: 42px; height: 42px; border-radius: 50%; }
+  .brand b { display: block; font: 700 21px/1 var(--sans); letter-spacing: -.02em; }
+  .brand b i { color: var(--accent); font-style: normal; font-weight: 700; }
+  .brand small { display: block; font-size: 10.5px; letter-spacing: .18em; color: var(--muted); margin-top: 4px; text-transform: uppercase; }
+  .top nav { display: flex; gap: 28px; margin: 0 auto; }
+  .top nav a { text-decoration: none; color: var(--muted); font-size: 15.5px; }
+  .top nav a:hover { color: var(--fg); }
+  .metis { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; padding: 9px 16px; border: 1px solid var(--line2); border-radius: 999px; transition: border-color .15s; }
+  .metis:hover { border-color: var(--accent); }
+  .metis span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .metis img { height: 16px; width: auto; }
+  .pill { display: inline-flex; align-items: center; gap: 9px; padding: 9px 16px; border: 1px solid var(--line2); border-radius: 999px; font-size: 14px; white-space: nowrap; }
+  .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; border: 1px solid transparent; transition: transform .15s, background .15s, border-color .15s; white-space: nowrap; cursor: pointer; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #1a1205; box-shadow: var(--glow); }
+  .btn.primary:hover { background: #f0b356; }
+  .btn.outline { border-color: var(--line2); color: var(--fg); background: rgba(255,255,255,.02); }
+  .btn.outline:hover { border-color: var(--muted); }
+  .btn.small { padding: 11px 22px; font-size: 15px; }
+  .btn svg { width: 17px; height: 17px; }
+
+  /* ---------- hero: centrato, schermate sotto ---------- */
+  .hero { position: relative; padding: 70px 0 0; text-align: center; overflow: hidden;
+    background: radial-gradient(1100px 600px at 50% -10%, rgba(232,163,61,.13), transparent 65%),
+                radial-gradient(800px 500px at 50% 110%, rgba(120,150,200,.10), transparent 70%); }
+  .hero .wrap { max-width: 980px; }
+  .etichetta { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 8px; border-radius: 999px; border: 1px solid var(--line2); background: rgba(19,32,60,.6); font-size: 14px; color: var(--muted); margin-bottom: 34px; }
+  .etichetta b { padding: 3px 10px; border-radius: 999px; background: var(--accent); color: #1a1205; font-size: 11.5px; letter-spacing: .1em; }
+  .prima { font: italic 500 clamp(20px, 2.4vw, 28px)/1.2 var(--sans); color: var(--muted); margin: 0 0 8px; letter-spacing: -.01em; }
+  .hero h1 { font: 800 clamp(44px, 7.2vw, 92px)/1 var(--sans); letter-spacing: -.045em; margin: 0 0 28px; }
+  .hero h1 span { color: var(--accent); }
+  .lead { font-size: 19px; color: var(--muted); max-width: 680px; margin: 0 auto 36px; }
+  .lead strong { color: var(--fg); font-weight: 600; }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .numeri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 760px; margin: 50px auto 0; }
+  .numeri div { padding: 18px 16px; border-radius: 16px; border: 1px solid var(--line); background: rgba(19,32,60,.45); }
+  .numeri b { display: block; font: 700 32px/1 var(--sans); letter-spacing: -.02em; color: var(--fg); margin-bottom: 6px; }
+  .numeri span { display: block; font-size: 14px; color: var(--muted); line-height: 1.4; }
+
+  /* le schermate: un «desktop» largo sotto il titolo, che sfuma verso la sezione dopo */
+  .palco { position: relative; max-width: 1080px; margin: 64px auto 0; padding: 0 28px; }
+  .schermo { position: relative; border-radius: 18px 18px 0 0; border: 1px solid var(--line2); border-bottom: 0; background: var(--panel); box-shadow: 0 -20px 90px rgba(232,163,61,.10), 0 40px 120px rgba(0,0,0,.6); overflow: hidden; height: 470px; }
+  .schermo .barra { display: flex; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .schermo .barra i { width: 11px; height: 11px; border-radius: 50%; background: var(--line2); }
+  .schermo .grande { width: 100%; }
+  .schermo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 170px; background: linear-gradient(transparent, var(--bg2)); }
+  .palco .pannello { position: absolute; left: -10px; top: 70px; width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(232,163,61,.5); box-shadow: 0 30px 70px rgba(0,0,0,.65); z-index: 2; }
+  .segno { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: rgba(10,17,32,.9); border: 1px solid var(--line2); backdrop-filter: blur(8px); font-size: 14px; white-space: nowrap; box-shadow: 0 14px 40px rgba(0,0,0,.45); }
+  .segno .pt { width: 9px; height: 9px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(75,185,138,.18); }
+  .segno.uno { right: 0; top: 110px; }
+  .segno.due { right: 60px; top: 300px; }
+  .segno.due .pt { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+
+  /* ---------- sezioni ---------- */
+  section { padding: 110px 0; }
+  .alt { background: var(--bg2); }
+  .testa { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; margin-bottom: 54px; }
+  .testa.sola { grid-template-columns: 1fr; max-width: 760px; }
+  .testa h2 { font-size: clamp(32px, 4.2vw, 52px); line-height: 1.1; }
+  .testa h2 em { font-style: normal; color: var(--accent); }
+  .testa p { margin: 0; color: var(--muted); font-size: 17px; }
+  .testa .eyebrow, .licenza .eyebrow { color: var(--accent); margin-bottom: 14px; font-size: 12.5px; }
+
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 30px 30px 32px; }
+  .griglia3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .funz .ico { width: 48px; height: 48px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 26px; }
+  .funz .ico svg { width: 20px; height: 20px; }
+  .funz h3 { font-size: 23px; margin-bottom: 12px; }
+  .funz p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.65; }
+
+  /* galleria */
+  .galleria { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .galleria figure { margin: 0; }
+  .galleria button { all: unset; cursor: zoom-in; display: block; border-radius: 16px; overflow: hidden; border: 1px solid var(--line2); background: var(--panel); transition: transform .2s, border-color .2s; }
+  .galleria button:hover, .galleria button:focus-visible { transform: translateY(-3px); border-color: var(--accent); }
+  .galleria .largo { grid-column: span 2; }
+  .galleria .largo img { aspect-ratio: 16 / 9; object-fit: cover; object-position: top left; width: 100%; }
+  .galleria .alto img { aspect-ratio: 4 / 7; object-fit: cover; object-position: top; width: 100%; }
+  .galleria figcaption { margin-top: 12px; font-size: 14.5px; color: var(--muted); }
+  .galleria figcaption b { color: var(--fg); font-weight: 600; display: block; font-size: 15.5px; }
+
+  /* righe come i «tasti rapidi»: i permessi */
+  .righe { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .riga { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .riga span { font-size: 16.5px; }
+  .riga small { display: block; color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .tag { display: inline-flex; align-items: center; padding: 5px 11px; border-radius: 8px; font-size: 12.5px; font-weight: 700; background: var(--panel2); border: 1px solid var(--line2); box-shadow: 0 2px 0 rgba(0,0,0,.35); white-space: nowrap; }
+  .tag.no { color: var(--ok); background: rgba(75,185,138,.1); border-color: rgba(75,185,138,.35); }
+  .tag.si { color: var(--accent); background: var(--accent-soft); border-color: rgba(232,163,61,.4); }
+  .frase { font: 600 clamp(22px, 2.4vw, 30px)/1.35 var(--sans); letter-spacing: -.02em; margin: 56px 0 0; max-width: 900px; }
+  .frase em { font-style: normal; color: var(--accent); }
+
+  /* due colonne di testo */
+  .duecol { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .duecol .card h3 { font-size: 25px; margin-bottom: 14px; }
+  .duecol .card p { color: var(--muted); margin: 0 0 12px; font-size: 16px; }
+  .duecol .card p:last-child { margin-bottom: 0; }
+  .duecol .card strong { color: var(--fg); }
+  .attenzione { border-color: rgba(232,163,61,.45); background: linear-gradient(180deg, rgba(232,163,61,.07), var(--card)); }
+
+  /* passi numerati */
+  ol.passi { list-style: none; counter-reset: p; margin: 22px 0 0; padding: 0; display: grid; gap: 14px; }
+  ol.passi li { counter-increment: p; display: grid; grid-template-columns: 34px 1fr; gap: 14px; align-items: start; color: var(--muted); font-size: 15.5px; }
+  ol.passi li::before { content: counter(p); width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--line2); display: grid; place-items: center; font: 500 15px/1 var(--serif); color: var(--fg); }
+  ol.passi strong { color: var(--fg); }
+  .k { display: inline-block; padding: 2px 9px; border-radius: 7px; background: var(--panel2); border: 1px solid var(--line2); color: var(--fg); font-size: 14px; font-weight: 600; white-space: nowrap; }
+
+  /* installa */
+  .installa { display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; align-items: stretch; }
+  .installa .principale { border-color: rgba(232,163,61,.45); }
+  .installa h3 { font-size: 30px; margin-bottom: 10px; }
+  .installa p { color: var(--muted); margin: 0 0 26px; }
+  .novita-breve h3 { font-size: 24px; margin-bottom: 4px; }
+  .ver { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .ver:last-of-type { border-bottom: 0; }
+  .ver b { font-family: var(--serif); font-weight: 600; font-size: 17px; }
+  .ver time { float: right; font-size: 13px; color: var(--light); }
+  .ver p { margin: 6px 0 0; font-size: 14.5px; color: var(--muted); line-height: 1.55; }
+
+  /* storico completo */
+  .storico { display: grid; gap: 14px; }
+  details.v { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 24px; }
+  details.v summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  details.v summary::-webkit-details-marker { display: none; }
+  details.v summary b { font: 600 19px/1.3 var(--serif); }
+  details.v summary time { font-size: 13.5px; color: var(--light); }
+  details.v summary b::before { content: "+"; display: inline-block; width: 22px; color: var(--accent); }
+  details.v[open] summary b::before { content: "−"; }
+  details.v ul { margin: 14px 0 4px; padding-left: 22px; color: var(--muted); font-size: 15.5px; }
+  details.v li { margin-bottom: 6px; }
+
+  /* piede */
+  footer { border-top: 1px solid var(--line); padding: 40px 0 50px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  footer p { margin: 0; font-size: 14px; color: var(--muted); }
+  .metis-piede { display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; opacity: .9; transition: opacity .15s; }
+  .metis-piede:hover { opacity: 1; }
+  .metis-piede small { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--light); }
+  .metis-piede img { width: 170px; height: auto; }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--fg); }
+  .licenza { font-size: 14.5px; color: var(--muted); max-width: 900px; }
+  .licenza strong { color: var(--fg); }
+
+  /* lightbox */
+  .lb { position: fixed; inset: 0; z-index: 50; background: rgba(5,9,18,.92); display: none; align-items: center; justify-content: center; padding: 30px; }
+  .lb.su { display: flex; }
+  .lb img { max-height: 88vh; max-width: 92vw; border-radius: 12px; border: 1px solid var(--line2); }
+  .lb button { position: absolute; top: 18px; right: 22px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line2); background: var(--panel); color: var(--fg); font-size: 22px; cursor: pointer; }
+
+  @media (max-width: 980px) {
+    .top nav { display: none; }
+    .testa, .installa, .duecol { grid-template-columns: 1fr; }
+    .schermo { height: 360px; }
+    .palco .pannello { width: 190px; left: 6px; }
+    .segno.due { display: none; }
+    .griglia3 { grid-template-columns: 1fr 1fr; }
+    .galleria { grid-template-columns: 1fr 1fr; }
+    .righe { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .wrap { padding: 0 18px; }
+    .top .metis span { display: none; }
+    .top .metis { padding: 9px 12px; }
+    .top .wrap { gap: 12px; }
+    .griglia3, .galleria { grid-template-columns: 1fr; }
+    .galleria .largo { grid-column: auto; }
+    section { padding: 80px 0; }
+    .riga { flex-wrap: wrap; }
+    .hero { padding-top: 44px; }
+    .numeri { grid-template-columns: 1fr; gap: 10px; }
+    .numeri div { display: flex; align-items: center; gap: 14px; text-align: left; padding: 14px 16px; }
+    .numeri b { margin: 0; min-width: 56px; }
+    .palco { padding: 0 14px; margin-top: 44px; }
+    .schermo { height: 260px; }
+    .palco .pannello { width: 132px; top: 50px; }
+    .segno.uno { right: 6px; top: auto; bottom: 30px; font-size: 12.5px; padding: 8px 12px; white-space: normal; max-width: 210px; }
+    .etichetta { font-size: 12px; gap: 8px; white-space: nowrap; }
+    .k { white-space: normal; }
+    .card { padding: 24px 20px 26px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .btn, .galleria button { transition: none; } }
+</style>
 </head>
 <body>
 
-<!-- Splash: dura 4,6s, si salta con un clic e non torna nella stessa sessione.
-     La sparizione è affidata al CSS, così sparisce anche se lo script non parte.
-     La scena è SVG animato: nessun video, nessuna gif, si ridimensiona senza sgranare. -->
-<div class="splash" id="splash" role="status" aria-label="Caricamento">
-  <div class="splash-inner">
-
-    <svg class="scena" viewBox="0 0 280 220" role="img" aria-label="Un bradipo con le cuffie lavora alla scrivania, molto lentamente">
-      <defs>
-        <radialGradient id="bagliore" cx="50%" cy="50%">
-          <stop offset="0%" stop-color="#5fd3b4" stop-opacity=".55"/>
-          <stop offset="100%" stop-color="#5fd3b4" stop-opacity="0"/>
-        </radialGradient>
-        <clipPath id="tagliaOcchioSx"><ellipse cx="118" cy="86" rx="13" ry="11"/></clipPath>
-        <clipPath id="tagliaOcchioDx"><ellipse cx="162" cy="86" rx="13" ry="11"/></clipPath>
-      </defs>
-
-      <!-- alone dello schermo che illumina la scena -->
-      <ellipse class="bagliore" cx="140" cy="150" rx="130" ry="70" fill="url(#bagliore)"/>
-
-      <!-- monitor, visto di spalle -->
-      <g class="monitor">
-        <rect x="176" y="96" width="76" height="54" rx="6" fill="#2b2d36"/>
-        <rect x="181" y="101" width="66" height="44" rx="4" fill="#22242c"/>
-        <rect x="205" y="150" width="18" height="12" fill="#2b2d36"/>
-        <rect x="192" y="160" width="44" height="6" rx="3" fill="#33363f"/>
-        <rect class="spia" x="240" y="140" width="4" height="4" rx="2" fill="#5fd3b4"/>
-      </g>
-
-      <!-- il bradipo -->
-      <g class="sloth">
-        <!-- busto, respira -->
-        <g class="busto">
-          <ellipse cx="140" cy="152" rx="46" ry="38" fill="#cbb89e"/>
-          <ellipse cx="140" cy="150" rx="40" ry="33" fill="#e2d2ba"/>
-        </g>
-
-        <!-- braccio sinistro, fermo sul piano -->
-        <g class="braccio-sx">
-          <path d="M104 146 q-22 8 -26 26" stroke="#cbb89e" stroke-width="15" stroke-linecap="round" fill="none"/>
-          <path d="M76 170 l-7 7 M80 173 l-6 8 M84 175 l-5 8" stroke="#6c4c34" stroke-width="3" stroke-linecap="round"/>
-        </g>
-
-        <!-- braccio destro: batte un tasto ogni tanto, senza fretta -->
-        <g class="braccio-dx">
-          <path d="M176 146 q22 8 26 26" stroke="#cbb89e" stroke-width="15" stroke-linecap="round" fill="none"/>
-          <path d="M204 170 l7 7 M200 173 l6 8 M196 175 l5 8" stroke="#6c4c34" stroke-width="3" stroke-linecap="round"/>
-        </g>
-
-        <!-- testa, dondola pianissimo -->
-        <g class="testa">
-          <!-- archetto cuffie -->
-          <path d="M104 84 q36 -40 72 0" stroke="#2b2d36" stroke-width="9" fill="none" stroke-linecap="round"/>
-
-          <ellipse cx="140" cy="90" rx="42" ry="38" fill="#cbb89e"/>
-          <ellipse cx="140" cy="88" rx="40" ry="36" fill="#e2d2ba"/>
-
-          <!-- macchie oculari -->
-          <ellipse cx="118" cy="86" rx="15" ry="13" fill="#6c4c34" transform="rotate(-18 118 86)"/>
-          <ellipse cx="162" cy="86" rx="15" ry="13" fill="#6c4c34" transform="rotate(18 162 86)"/>
-
-          <!-- occhi aperti + palpebra che scende piano -->
-          <g>
-            <circle cx="118" cy="87" r="5" fill="#3a2a1e"/>
-            <circle cx="119.5" cy="85.5" r="1.6" fill="#fff" opacity=".9"/>
-            <rect class="palpebra" x="103" y="60" width="30" height="26" fill="#6c4c34" clip-path="url(#tagliaOcchioSx)"/>
-          </g>
-          <g>
-            <circle cx="162" cy="87" r="5" fill="#3a2a1e"/>
-            <circle cx="163.5" cy="85.5" r="1.6" fill="#fff" opacity=".9"/>
-            <rect class="palpebra" x="147" y="60" width="30" height="26" fill="#6c4c34" clip-path="url(#tagliaOcchioDx)"/>
-          </g>
-
-          <!-- muso -->
-          <ellipse cx="140" cy="104" rx="20" ry="14" fill="#efe4d0"/>
-          <ellipse cx="140" cy="100" rx="6" ry="4.5" fill="#3a2a1e"/>
-          <path d="M133 108 q7 6 14 0" stroke="#3a2a1e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-          <!-- padiglioni e microfono -->
-          <rect x="94" y="78" width="14" height="26" rx="7" fill="#2b2d36"/>
-          <rect x="172" y="78" width="14" height="26" rx="7" fill="#2b2d36"/>
-          <path d="M100 104 q14 22 34 16" stroke="#2b2d36" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <circle cx="136" cy="121" r="4.5" fill="#ff8a3d"/>
-        </g>
-      </g>
-
-      <!-- scrivania -->
-      <rect x="10" y="178" width="260" height="9" rx="4" fill="#33363f"/>
-      <rect x="10" y="187" width="260" height="5" rx="2" fill="#262932"/>
-
-      <!-- tastiera -->
-      <g class="tastiera">
-        <rect x="96" y="168" width="88" height="12" rx="3" fill="#3b3f49"/>
-        <rect x="102" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
-        <rect x="116" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
-        <rect class="tasto" x="130" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
-        <rect x="144" y="171" width="10" height="3" rx="1.5" fill="#565b68"/>
-        <rect x="158" y="171" width="18" height="3" rx="1.5" fill="#565b68"/>
-      </g>
-
-      <!-- tazza: il vapore sale piano -->
-      <g class="tazza">
-        <path class="vapore" d="M42 158 q5 -8 0 -15 q-5 -7 0 -14" stroke="#96bab0" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".6"/>
-        <rect x="30" y="160" width="26" height="18" rx="3" fill="#e2d2ba"/>
-        <path d="M56 165 q9 4 0 9" stroke="#e2d2ba" stroke-width="3.5" fill="none"/>
-        <rect x="33" y="163" width="20" height="4" rx="2" fill="#6c4c34"/>
-      </g>
-    </svg>
-
-    <p class="splash-msg" id="splashMsg">Mi sto svegliando…</p>
-    <div class="splash-bar"><span></span></div>
-    <p class="splash-skip">clicca se hai fretta</p>
-  </div>
-</div>
-
 <header class="top">
-  <div class="top-inner">
-    <img src="logo.png" alt="SlothDesk">
-    <div>
-      <h1>SlothDesk</h1>
-      <p class="claim">Lento di nome. Velocissimo sui ticket.</p>
-    </div>
-    <nav>
-      <a href="./" aria-current="page">Home</a>
+  <div class="wrap">
+    <a class="brand" href="./">
+      <img src="logo.png" alt="" width="42" height="42">
+      <span><b>Sloth<i>Desk</i></b><small>Assistenza IT</small></span>
+    </a>
+    <nav aria-label="Sezioni">
+      <a href="#funzioni">Funzioni</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#sincronizzazione">Sincronizzazione</a>
       <a href="#novita">Novità</a>
-      <a href="assistenza.html">Assistenza</a>
-      <a href="privacy.html">Privacy</a>
-          <a class="nav-store" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec" target="_blank" rel="noopener">Installa</a>
     </nav>
+    <a class="metis" href="https://metis.marcosimone.tech/" title="Vai a METIS"><span>powered by</span><img src="metis-wordmark.png" alt="METIS" width="96" height="18"></a>
+    <a class="btn primary small" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec">Installa</a>
   </div>
 </header>
 
-<main class="wrap">
-
-  <p class="lead">La procedura ufficiale del cliente sta nel suo sistema documentale, dove deve stare. Ma <strong>il tuo</strong> modo di leggerla, le tue scorciatoie, la frase che usi sempre per chiudere un ticket — quelli dove stanno? In un file di testo sul desktop, in venti segnalibri, in tre note sparse.</p>
-
-  <p>SlothDesk è la casa di quella roba lì. Una wiki personale che ti costruisci nel tempo, dentro un pannello laterale del browser, accanto al gestionale che stai già usando.</p>
-
-  <p class="cta">
-    <a class="btn-store" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec" target="_blank" rel="noopener">
-      <span class="btn-store-ico" aria-hidden="true">🦥</span>
-      <span>
-        <strong>Installa da Chrome Web Store</strong>
-        <em>gratis · nessun account · nessun abbonamento</em>
-      </span>
-    </a>
-  </p>
-
-  <div class="vetrina">
-    <figure>
-      <button type="button" class="lente" data-img="schermata-risposte.png" data-txt="Risposte pronte">
-        <img src="schermata-risposte.png" alt="Elenco delle risposte pronte, generiche o aziendali, con i filtri per livello e categoria" loading="lazy">
-        <span class="zoom">ingrandisci</span>
-      </button>
-      <figcaption><strong>Risposte pronte</strong>Generiche o aziendali, primo e secondo livello, italiano e inglese: copia con un clic.</figcaption>
-    </figure>
-    <figure>
-      <button type="button" class="lente" data-img="schermata-kb.png" data-txt="Knowledge base">
-        <img src="schermata-kb.png" alt="Knowledge base con la ricerca e i filtri per livello e categoria" loading="lazy">
-        <span class="zoom">ingrandisci</span>
-      </button>
-      <figcaption><strong>Knowledge base</strong>Voci tecniche cercabili per titolo, categoria e testo. Ogni voce è modificabile.</figcaption>
-    </figure>
-    <figure>
-      <button type="button" class="lente" data-img="schermata-ai.png" data-txt="Assistente AI">
-        <img src="schermata-ai.png" alt="Configurazione dell'assistente AI con la propria chiave Groq" loading="lazy">
-        <span class="zoom">ingrandisci</span>
-      </button>
-      <figcaption><strong>Assistente AI</strong>Si attiva in quattro passi con la tua chiave Groq gratuita. È facoltativo.</figcaption>
-    </figure>
-    <figure>
-      <button type="button" class="lente" data-img="schermata-wiki.png" data-txt="KB aziendale">
-        <img src="schermata-wiki.png" alt="KB aziendale con le sezioni e la sincronizzazione" loading="lazy">
-        <span class="zoom">ingrandisci</span>
-      </button>
-      <figcaption><strong>KB aziendale</strong>La documentazione della tua azienda, separata dall'AI, sincronizzabile fra colleghi.</figcaption>
-    </figure>
-  </div>
-
-  <div class="vetrina vetrina-larga">
-    <figure>
-      <button type="button" class="lente" data-img="schermata-finestra.png" data-txt="Le voci in una finestra grande">
-        <img src="schermata-finestra.png" alt="Una voce della knowledge base aperta nella finestra grande, accanto al pannello" loading="lazy">
-        <span class="zoom">ingrandisci</span>
-      </button>
-      <figcaption><strong>Le voci in una finestra grande</strong>Testo formattato, immagini e tabelle in una finestra regolabile, accanto al pannello.</figcaption>
-    </figure>
-    <figure>
-      <button type="button" class="lente" data-img="schermata-tabelle.png" data-txt="Tabelle come in Excel">
-        <img src="schermata-tabelle.png" alt="La finestra per modificare le tabelle: righe, colonne, unisci e separa celle" loading="lazy">
-        <span class="zoom">ingrandisci</span>
-      </button>
-      <figcaption><strong>Tabelle come in Excel</strong>Scegli le celle, unisci e separi, incolli da Excel. Con Annulla e Ripeti.</figcaption>
-    </figure>
-  </div>
-
-  <h2>Perché puoi installarlo anche dove gli altri sono vietati</h2>
-
-  <p>Gli strumenti simili leggono la pagina che hai aperto per capire su quale ticket stai lavorando. È comodo, ed è esattamente il motivo per cui in molti contesti <strong>non sono installabili</strong>: se gestisci l'infrastruttura di un cliente, un'estensione che legge il contenuto del ticketing legge anche i dati di quel cliente, e la sicurezza interna dice no.</p>
-
-  <p><strong>SlothDesk non legge le pagine web. Non può farlo.</strong> Non ha il permesso di accedervi e non inserisce codice da nessuna parte: vive solo dentro il proprio pannello. Costa qualche copia-incolla in più, e in cambio è uno strumento che puoi installare senza che nessuno debba valutare cosa vede.</p>
-
-  <div class="nota">
-    <p>I permessi che chiede sono sei, e nessuno riguarda le pagine che visiti: il pannello laterale in cui gira, l'archivio locale del browser per salvare le tue cose (anche oltre il limite standard, perché allegati e documentazione aziendale pesano), i download per il backup e per mostrarti un allegato nella sua cartella, una pagina nascosta che tiene aggiornata la sincronizzazione con i colleghi se la attivi, e un unico host — quello del servizio AI, contattato solo se decidi di usarlo.</p>
-  </div>
-
-  <h2>Quello che scrivi resta sul tuo computer</h2>
-
-  <p>Non esiste alcun server di SlothDesk. Non c'è un account da creare e non c'è un'azienda che custodisce i tuoi contenuti. Se vuoi condividere la documentazione con i colleghi, la sincronizzazione passa da una cartella che scegli tu — per esempio quella OneDrive del tuo team: il trasporto lo fa il servizio di file della tua azienda, non SlothDesk.</p>
-
-  <p>Le voci che aggiungi vivono nell'archivio locale del tuo browser. Nessuno le vede, nemmeno chi sviluppa l'estensione, e <strong>nessun fornitore può perderle in una violazione dei dati</strong> — perché non le ha.</p>
-
-  <p>È una differenza che conta soprattutto se lavori per conto di clienti: le tue annotazioni parlano delle loro infrastrutture, e ogni servizio esterno che le custodisce è un soggetto in più nella catena. Quando il problema capita al fornitore, a risponderne davanti al cliente ci vai tu.</p>
-
-  <h2>È tua, e ti segue</h2>
-
-  <p>La knowledge base che ti costruisci non appartiene all'azienda per cui lavori oggi né alla piattaforma di un fornitore: è un file che esporti quando vuoi e reimporti dove vuoi. Cambi computer, cambi cliente, cambi lavoro — le tue procedure vengono con te.</p>
-
-  <p>Ed è personale sul serio: la base di partenza è la stessa per tutti, ma ognuno lavora a modo suo. Puoi riscrivere le voci, nascondere quelle che non ti servono, aggiungere le tue e mettere il logo della tua azienda o un tuo avatar al posto del bradipo.</p>
-
-  <h2>Cosa trovi dentro</h2>
-
-  <div class="griglia">
-    <div class="card">
-      <h3>Knowledge base</h3>
-      <p>Voci tecniche su account, posta, rete, stampa, dispositivi e sistemi, divise fra primo e secondo livello. Cercabili mentre lavori, e tue da modificare: ne aggiungi di nuove scegliendo il livello e allegando subito i file.</p>
+<main>
+<section class="hero">
+  <div class="wrap">
+    <span class="etichetta"><b>GRATIS</b>Estensione per Chrome · nessun account</span>
+    <p class="prima">Lento di nome.</p>
+    <h1><span>Velocissimo</span> sui ticket.</h1>
+    <p class="lead">Una wiki personale che ti costruisci nel tempo, in un pannello accanto al gestionale che usi già: soluzioni pronte, risposte in italiano e inglese, la documentazione del team e, se vuoi, un assistente AI. <strong>Tutto resta sul tuo computer.</strong></p>
+    <div class="cta">
+      <a class="btn primary" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec">Installa da Chrome Web Store
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn outline" href="#funzioni">Scopri le funzioni</a>
     </div>
-    <div class="card">
-      <h3>Editor e tabelle</h3>
-      <p>Le voci si scrivono in una finestra grande: immagini dove vuoi, anche affiancate, e tabelle che funzionano come in Excel — incolli le celle, unisci e separi, aggiungi righe e colonne. Con Annulla e Ripeti per ogni passo.</p>
-    </div>
-    <div class="card">
-      <h3>KB aziendale</h3>
-      <p>Una wiki separata per la documentazione della tua azienda o del cliente: pagine con testo, immagini e file nel punto giusto, da leggere in una finestra grande. L'assistente AI non la vede mai.</p>
-    </div>
-    <div class="card">
-      <h3>Archivio degli allegati</h3>
-      <p>PDF, screenshot, file di configurazione: collegati alle voci a cui servono, con il numero sulla scheda e l'anteprima a un clic. «Mostra nella cartella» e lo alleghi al ticket.</p>
-    </div>
-    <div class="card">
-      <h3>Sincronizzazione fra colleghi</h3>
-      <p>Facoltativa. La KB aziendale si tiene allineata attraverso una cartella condivisa che scegli tu: nessun server, nessun account. <a href="#sincronizzazione">Come si attiva</a></p>
-    </div>
-    <div class="card">
-      <h3>Rete di sicurezza</h3>
-      <p>Le voci non si cancellano, si archiviano e si ripristinano quando vuoi. Ogni voce conserva le versioni precedenti, compresa quella originale.</p>
-    </div>
-    <div class="card">
-      <h3>Risposte pronte</h3>
-      <p>Testi già scritti in italiano e in inglese, con i segnaposto da adattare. Presa in carico, richiesta dettagli, chiusura, phishing, disservizio.</p>
-    </div>
-    <div class="card">
-      <h3>Frasi ricorrenti</h3>
-      <p>I pezzi di testo che riscrivi ogni giorno, copiati con un clic.</p>
-    </div>
-    <div class="card">
-      <h3>Assistente AI</h3>
-      <p>Compone la risposta partendo dal testo del ticket, traduce fra italiano e inglese, riformula. Facoltativo.</p>
+    <div class="numeri">
+      <div><b>286</b><span>soluzioni pronte nella knowledge base</span></div>
+      <div><b>0</b><span>server, account o abbonamenti</span></div>
+      <div><b>0</b><span>pagine web lette: non ha il permesso</span></div>
     </div>
   </div>
-
-  <h2 id="sincronizzazione">Come si attiva la sincronizzazione</h2>
-
-  <p>Serve una cartella che tutto il team vede sul proprio computer: di solito una cartella di SharePoint o di Teams sincronizzata con OneDrive, quella che trovi in Esplora file. SlothDesk scrive lì dei file, OneDrive li porta ai colleghi.</p>
-
-  <ol>
-    <li>Apri <strong>⚙ Impostazioni → Sincronizzazione con i colleghi</strong> e dai un nome a questo computer (per esempio «Marco – portatile»): è il nome che vedono gli altri.</li>
-    <li>Premi <strong>Scegli la cartella condivisa</strong>, scegli la cartella del team e consenti a Chrome di modificarla. Se nella cartella ci sono già altri computer, SlothDesk ti chiede se questo è uno di loro: serve quando reinstalli, così riprendi la tua identità invece di comparire come un computer nuovo.</li>
-    <li>I colleghi fanno lo stesso, ognuno sul suo computer, scegliendo <strong>la stessa cartella</strong>.</li>
-    <li>Da quel momento l'allineamento è automatico, ogni due minuti, anche a pannello chiuso finché Chrome è aperto. Se non vuoi aspettare, nella KB aziendale c'è <strong>🔄 Sincronizza</strong>.</li>
-  </ol>
-
-  <p><strong>Cosa viaggia:</strong> le pagine e le risposte aziendali scritte o modificate a mano, con le loro sezioni, immagini e file. La documentazione importata da file non viaggia voce per voce: chi ha il pacchetto lo mette nella cartella con <strong>📤 Pubblica un file .slothdesk</strong> e i colleghi lo importano con un clic, senza perdere quello che hanno scritto a mano.</p>
-
-  <div class="nota">
-    <p><strong>Perché non si pestano i piedi.</strong> Ogni computer scrive solo il proprio file, quindi OneDrive non crea copie in conflitto. Se due persone modificano la stessa voce vince la modifica più recente, e anche le cancellazioni arrivano agli altri. Se da un computer finiscono nel cestino più di dieci voci tutte insieme, gli altri non le tolgono da soli: prima chiedono. Ogni giorno resta una copia nella cartella, e la trovi in Impostazioni con <strong>📅 Mostra le copie giornaliere</strong>.</p>
-    <p>Quando Chrome si riavvia può chiedere di nuovo il permesso sulla cartella: compare la barra «Sincronizzazione in pausa», premi <strong>Riattiva</strong>. Finché non lo fai le modifiche restano sul tuo computer e partono appena riattivi.</p>
+  <div class="palco" aria-hidden="true">
+    <div class="schermo"><div class="barra"><i></i><i></i><i></i></div><img class="grande" src="schermata-finestra.png" alt=""></div>
+    <img class="pannello" src="schermata-risposte.png" alt="">
+    <span class="segno uno"><span class="pt"></span>Dati personali mascherati prima dell'AI</span>
+    <span class="segno due"><span class="pt"></span>Versione 1.0.13 · si aggiorna da sola</span>
   </div>
+</section>
 
-  <h2>L'AI è l'unica cosa che esce, e decidi tu</h2>
-
-  <p>Knowledge base, KB aziendale, allegati, risposte e frasi funzionano <strong>completamente offline</strong>: senza chiave, senza connessione, senza che un solo byte lasci il tuo computer. Se attivi la sincronizzazione, SlothDesk scrive soltanto file nella cartella che hai scelto tu.</p>
-
-  <p>L'assistente AI è l'unica funzione che comunica con l'esterno. Usa <strong>la tua chiave</strong> Groq — gratuita, si ottiene in pochi minuti senza carta di credito — e la richiesta parte dal tuo browser verso Groq direttamente, senza passare da nessun sistema intermedio. Se non configuri la chiave, l'estensione non contatta nulla e tutto il resto continua a funzionare.</p>
-
-  <div class="nota">
-    <p><strong>E qui va detto il limite, perché è il punto in cui devi stare attento tu.</strong> Prima di ogni invio SlothDesk maschera in automatico email, telefoni, codici fiscali, IBAN e partite IVA, e ti mostra cosa ha trovato. <strong>I nomi di persona no</strong>: te li segnala, ma restano nel testo.</p>
-    <p>Riconoscerli in automatico produrrebbe troppi errori — verrebbero mascherati anche "Active Directory" o "Task Manager". Significa che su cosa esce verso l'AI l'ultima parola è sempre la tua. Se il ticket è delicato, l'AI puoi semplicemente non usarla.</p>
+<section class="alt" id="funzioni">
+  <div class="wrap">
+    <div class="testa">
+      <div>
+        <p class="eyebrow">Funzioni</p>
+        <h2>Tutto quello che apri dieci volte al giorno, in <em>un pannello</em>.</h2>
+      </div>
+      <p>La procedura ufficiale del cliente sta nel suo sistema, dove deve stare. Ma il tuo modo di leggerla, le scorciatoie, la frase che usi sempre per chiudere un ticket: quelle vivono qui.</p>
+    </div>
+    <div class="griglia3">
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>
+        <h3>Knowledge base</h3><p>Voci tecniche su account, posta, rete, stampa, dispositivi e sistemi, divise fra primo e secondo livello. Cercabili mentre lavori, e tue da modificare.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v14H4zM4 10h16M10 10v9"/></svg></span>
+        <h3>Editor e tabelle</h3><p>Le voci si scrivono in una finestra grande: immagini dove vuoi, anche affiancate, e tabelle come in Excel. Con Annulla e Ripeti per ogni passo.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>
+        <h3>KB aziendale</h3><p>Una wiki separata per la documentazione dell'azienda o del cliente: testo, immagini e file nel punto giusto. L'assistente AI non la vede mai.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8l1 3h3v13H4V7h3z"/><path d="M9 13h6"/></svg></span>
+        <h3>Risposte pronte</h3><p>Testi già scritti in italiano e in inglese, con i segnaposto da adattare: presa in carico, richiesta dettagli, chiusura, phishing, disservizio.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></span>
+        <h3>Frasi ricorrenti</h3><p>I pezzi di testo che riscrivi ogni giorno, copiati con un clic. Anche con immagini e file, che restano nella voce.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12l-8.5 8.5a5 5 0 0 1-7-7L14 5a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 8"/></svg></span>
+        <h3>Archivio degli allegati</h3><p>PDF, screenshot, file di configurazione collegati alle voci, con l'anteprima a un clic. «Mostra nella cartella» e lo alleghi al ticket.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span>
+        <h3>Sincronizzazione</h3><p>Facoltativa. La KB aziendale si allinea fra colleghi attraverso una cartella condivisa che scegli tu, per esempio su OneDrive. Nessun server.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span>
+        <h3>Rete di sicurezza</h3><p>Le voci non si cancellano: si archiviano e si ripristinano. Ognuna conserva le versioni precedenti, e il backup automatico ne salva una copia al giorno.</p></div>
+      <div class="card funz"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/><circle cx="12" cy="12" r="3"/></svg></span>
+        <h3>Assistente AI</h3><p>Compone la risposta partendo dal testo del ticket, traduce fra italiano e inglese, riformula. Facoltativo, con la tua chiave gratuita.</p></div>
+    </div>
   </div>
+</section>
 
-  <h2>Non devi chiedere il permesso a nessuno</h2>
-
-  <p>Niente abbonamento, niente valutazione da parte dell'ufficio acquisti, niente integrazione da far approvare. Non entra nei sistemi di nessuno e non manda dati da nessuna parte: <strong>è uno strumento tuo, sul tuo browser, come lo sarebbe un blocco note.</strong></p>
-
-  <p>Lo installi perché ti serve, e se non ti serve lo disinstalli — portandoti via il backup.</p>
-
-  <h2 id="novita">Novità</h2>
-
-  <div class="versioni">
-    <h3>1.0.13 <span class="versione-data">31 ottobre 2026</span></h3>
-    <ul>
-      <li>Gli aggiornamenti dallo Store si installano da soli, senza dover chiudere e riaprire Chrome.</li>
-      <li>Con il pannello aperto compare «Aggiornamento pronto» con «Aggiorna ora»; se è aperta la finestra grande con una modifica in corso, aspetta che la chiudi.</li>
-      <li>Dopo l'aggiornamento un avviso ti dice a quale versione sei passato.</li>
-    </ul>
-
-    <h3>1.0.12 <span class="versione-data">31 ottobre 2026</span></h3>
-    <ul>
-      <li>Backup automatico: scegli una cartella una volta (per esempio su OneDrive) e dopo ogni modifica il backup completo, allegati compresi, si scrive da solo. Un file al giorno, gli ultimi 30 giorni.</li>
-      <li>Con la cartella scelta non compare più l'avviso «fai un backup»; se Chrome chiede di nuovo il permesso, basta «Riattiva».</li>
-    </ul>
-
-    <h3>1.0.11 <span class="versione-data">28 ottobre 2026</span></h3>
-    <ul>
-      <li>Risposte (generiche e aziendali) e frasi pronte si scrivono nella finestra grande, con immagini, file e tabelle. Le risposte hanno le linguette Italiano / Inglese.</li>
-      <li>Un clic su una risposta o una frase copia solo il testo: immagini e file restano nella voce, e il pulsante 📎 li mostra sotto la frase.</li>
-      <li>Anche le voci nuove della knowledge base si scrivono nella finestra grande.</li>
-      <li>Nell'Archivio ogni file mostra anche la risposta o la frase a cui è collegato.</li>
-      <li>Corretto: il testo scritto su una riga vuota poteva perdersi al salvataggio.</li>
-    </ul>
-
-    <h3>1.0.10 <span class="versione-data">9 ottobre 2026</span></h3>
-    <ul>
-      <li>Le voci della knowledge base si modificano in una finestra grande: immagini dove vuoi, anche affiancate.</li>
-      <li>Tabelle come in Excel: scegli le celle, unisci e separi, incolli da Excel, aggiungi righe e colonne.</li>
-      <li>Annulla e Ripeti per ogni passo, anche per immagini e tabelle.</li>
-    </ul>
-
-    <h3>1.0.9 <span class="versione-data">9 ottobre 2026</span></h3>
-    <ul>
-      <li>KB aziendale: una wiki separata per la documentazione dell'azienda o del cliente, che l'assistente AI non vede mai. Anche le risposte possono essere aziendali.</li>
-      <li>Sincronizzazione facoltativa fra colleghi attraverso una cartella condivisa, per esempio su OneDrive (<a href="#sincronizzazione">come si attiva</a>).</li>
-      <li>Rete di sicurezza: le voci si archiviano invece di sparire, e ognuna conserva le versioni precedenti.</li>
-    </ul>
-
-    <h3>1.0.6 – 1.0.8 <span class="versione-data">8 ottobre 2026</span></h3>
-    <ul>
-      <li>Archivio degli allegati: PDF, immagini e file collegati alle voci, con anteprima e «Mostra nella cartella».</li>
-      <li>Ricerca nella knowledge base più precisa (singolare e plurale, categorie, sigle).</li>
-      <li>Nella voce nuova si scelgono subito il livello e gli allegati.</li>
-      <li>La barra in alto resta dentro il pannello anche quando è stretto.</li>
-    </ul>
-
-    <details>
-      <summary>Versioni precedenti</summary>
-      <h3>1.0.5 <span class="versione-data">1 ottobre 2026</span></h3>
-      <ul><li>Email composte dall'assistente AI come le scrive un tecnico: saluto, paragrafi, richieste una per riga.</li></ul>
-      <h3>1.0.3 – 1.0.4 <span class="versione-data">25 agosto 2026</span></h3>
-      <ul><li>L'assistente AI sceglie da solo un modello disponibile: Groq aveva ritirato quelli usati prima.</li></ul>
-      <h3>1.0.0 – 1.0.2 <span class="versione-data">luglio 2026</span></h3>
-      <ul><li>Prima versione pubblica sul Chrome Web Store.</li></ul>
-    </details>
+<section>
+  <div class="wrap">
+    <div class="testa">
+      <div>
+        <p class="eyebrow">Guarda dentro</p>
+        <h2>Un pannello stretto, una <em>finestra grande</em>.</h2>
+      </div>
+      <p>Il pannello resta aperto accanto al ticket. Quando serve spazio, la voce si apre in una finestra regolabile, con immagini e tabelle.</p>
+    </div>
+    <div class="galleria">
+      <figure class="alto"><button type="button" data-img="schermata-risposte.png"><img src="schermata-risposte.png" alt="Le risposte pronte nel pannello"></button><figcaption><b>Risposte pronte</b>Generiche o aziendali, italiano e inglese.</figcaption></figure>
+      <figure class="alto"><button type="button" data-img="schermata-kb.png"><img src="schermata-kb.png" alt="La knowledge base nel pannello"></button><figcaption><b>Knowledge base</b>Cerchi per titolo, categoria e testo.</figcaption></figure>
+      <figure class="alto"><button type="button" data-img="schermata-wiki.png"><img src="schermata-wiki.png" alt="La KB aziendale nel pannello"></button><figcaption><b>KB aziendale</b>Separata dall'AI, condivisibile.</figcaption></figure>
+      <figure class="alto"><button type="button" data-img="schermata-ai.png"><img src="schermata-ai.png" alt="L'assistente AI nel pannello"></button><figcaption><b>Assistente AI</b>Si attiva in quattro passi. Facoltativo.</figcaption></figure>
+      <figure class="largo"><button type="button" data-img="schermata-finestra.png"><img src="schermata-finestra.png" alt="Una voce aperta nella finestra grande"></button><figcaption><b>Le voci in una finestra grande</b>Testo formattato, immagini e tabelle, accanto al pannello.</figcaption></figure>
+      <figure class="largo"><button type="button" data-img="schermata-tabelle.png"><img src="schermata-tabelle.png" alt="Una tabella modificata come in Excel"></button><figcaption><b>Tabelle come in Excel</b>Scegli le celle, unisci e separi, incolli da Excel.</figcaption></figure>
+    </div>
   </div>
+</section>
 
-  <h2>Licenza</h2>
-
-  <p>SlothDesk è rilasciato sotto <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" target="_blank" rel="noopener">PolyForm Noncommercial License 1.0.0</a>, che copre sia il codice sia i contenuti della knowledge base e delle risposte.</p>
-
-  <div class="nota">
-    <p><strong>Libero per te.</strong> Puoi usarlo per il tuo lavoro di assistenza, modificarlo, riscriverne i contenuti e tenertelo per sempre. Nessun costo, nessuna scadenza, nessuna registrazione.</p>
-    <p><strong>Non per farci soldi sopra.</strong> Rivenderlo, distribuirlo a pagamento, includerlo in un prodotto o in un servizio a pagamento, o qualsiasi impiego che generi ricavi, richiede una licenza commerciale separata: in quel caso si passa da me.</p>
+<section class="alt" id="privacy">
+  <div class="wrap">
+    <div class="testa">
+      <div>
+        <p class="eyebrow">Privacy</p>
+        <h2>Non legge le pagine. <em>Non può.</em></h2>
+      </div>
+      <p>Gli strumenti simili leggono il ticket aperto per capire su cosa stai lavorando: per questo in molte aziende non si possono installare. SlothDesk vive solo dentro il suo pannello.</p>
+    </div>
+    <div class="righe">
+      <div class="riga"><span>Le pagine che visiti<small>ticketing, posta, portali del cliente</small></span><span class="tag no">non le vede</span></div>
+      <div class="riga"><span>Il pannello laterale<small>è l'unico posto in cui gira</small></span><span class="tag">permesso</span></div>
+      <div class="riga"><span>L'archivio locale del browser<small>le tue voci, gli allegati, la documentazione</small></span><span class="tag">permesso</span></div>
+      <div class="riga"><span>I download<small>per il backup e per «Mostra nella cartella»</small></span><span class="tag">permesso</span></div>
+      <div class="riga"><span>Una pagina nascosta<small>tiene allineata la sincronizzazione, se la attivi</small></span><span class="tag">permesso</span></div>
+      <div class="riga"><span>Un solo indirizzo esterno<small>il servizio AI, solo se decidi di usarlo</small></span><span class="tag si">facoltativo</span></div>
+    </div>
+    <p class="frase">Non esiste un server di SlothDesk. Le tue voci vivono nel tuo browser: nessun fornitore può perderle in una violazione dei dati, <em>perché non le ha</em>.</p>
   </div>
+</section>
 
-  <p class="aggiornato">Required Notice: Copyright © 2026 Marco Simone · <a href="https://polyformproject.org/licenses/noncommercial/1.0.0" target="_blank" rel="noopener">testo integrale della licenza</a></p>
+<section>
+  <div class="wrap">
+    <div class="testa sola">
+      <p class="eyebrow">Assistente AI</p>
+      <h2>L'AI è l'unica cosa che esce, e <em>decidi tu</em>.</h2>
+    </div>
+    <div class="duecol">
+      <div class="card">
+        <h3>Tutto il resto funziona offline</h3>
+        <p>Knowledge base, KB aziendale, allegati, risposte e frasi funzionano <strong>senza chiave e senza connessione</strong>: non un solo byte lascia il tuo computer.</p>
+        <p>L'assistente usa <strong>la tua chiave Groq</strong>, gratuita e senza carta di credito. La richiesta parte dal tuo browser verso Groq, senza sistemi intermedi. Senza chiave, l'estensione non contatta nulla.</p>
+      </div>
+      <div class="card attenzione">
+        <h3>Il limite, detto chiaro</h3>
+        <p>Prima di ogni invio SlothDesk maschera email, telefoni, codici fiscali, IBAN e partite IVA, e ti mostra cosa ha trovato.</p>
+        <p><strong>I nomi di persona no:</strong> te li segnala, ma restano nel testo. Riconoscerli da soli produrrebbe troppi errori: verrebbero mascherati anche «Active Directory» o «Task Manager».</p>
+        <p>Su cosa esce verso l'AI l'ultima parola è tua. Se il ticket è delicato, l'AI puoi semplicemente non usarla.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
+<section class="alt" id="sincronizzazione">
+  <div class="wrap">
+    <div class="testa">
+      <div>
+        <p class="eyebrow">Sincronizzazione</p>
+        <h2>Il team allineato, <em>senza server</em>.</h2>
+      </div>
+      <p>Serve una cartella che tutto il team vede sul proprio computer, di solito una cartella di SharePoint o Teams sincronizzata con OneDrive. SlothDesk scrive lì, OneDrive porta ai colleghi.</p>
+    </div>
+    <div class="duecol">
+      <div class="card">
+        <h3>Come si attiva</h3>
+        <ol class="passi">
+          <li><span>Apri <span class="k">⚙ Impostazioni → Sincronizzazione con i colleghi</span> e dai un nome a questo computer, per esempio «Marco – portatile».</span></li>
+          <li><span>Premi <span class="k">Scegli la cartella condivisa</span>, scegli la cartella del team e consenti a Chrome di modificarla.</span></li>
+          <li><span>I colleghi fanno lo stesso, ognuno sul suo computer, scegliendo <strong>la stessa cartella</strong>.</span></li>
+          <li><span>Da quel momento è automatica, ogni due minuti. Se non vuoi aspettare c'è <span class="k">🔄 Sincronizza</span>.</span></li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Perché non si pestano i piedi</h3>
+        <p>Ogni computer scrive solo il proprio file, quindi OneDrive non crea copie in conflitto. Se due persone modificano la stessa voce vince la modifica più recente, e anche le cancellazioni arrivano agli altri.</p>
+        <p>Se da un computer finiscono nel cestino più di dieci voci insieme, gli altri <strong>prima chiedono</strong>. Ogni giorno resta una copia nella cartella.</p>
+        <p>Quando Chrome si riavvia può chiedere di nuovo il permesso: compare «Sincronizzazione in pausa», premi <span class="k">Riattiva</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="installa">
+  <div class="wrap">
+    <div class="testa">
+      <div>
+        <p class="eyebrow">Installa</p>
+        <h2>Pronto in <em>un minuto</em>.</h2>
+      </div>
+      <p>Niente abbonamento, niente ufficio acquisti, niente integrazione da far approvare. È uno strumento tuo, sul tuo browser, come lo sarebbe un blocco note.</p>
+    </div>
+    <div class="installa">
+      <div class="card principale">
+        <h3>Dal Chrome Web Store</h3>
+        <p>Gratis, nessun account. Gli aggiornamenti arrivano da soli.</p>
+        <a class="btn primary" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec">Installa SlothDesk
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
+        <ol class="passi">
+          <li><span>Premi <strong>Aggiungi a Chrome</strong> e conferma.</span></li>
+          <li><span>Fissa l'icona del bradipo nella barra delle estensioni.</span></li>
+          <li><span>Cliccala: il pannello si apre accanto alla pagina che stai usando.</span></li>
+        </ol>
+      </div>
+      <div class="card novita-breve">
+        <h3>Ultime novità</h3>
+        <div class="ver"><b>1.0.13</b><time>31 ottobre 2026</time><p>Gli aggiornamenti dallo Store si installano da soli, senza chiudere e riaprire Chrome.</p></div>
+        <div class="ver"><b>1.0.12</b><time>31 ottobre 2026</time><p>Backup automatico in una cartella che scegli tu: un file al giorno, gli ultimi 30 giorni.</p></div>
+        <div class="ver"><b>1.0.11</b><time>28 ottobre 2026</time><p>Risposte e frasi nella finestra grande, con immagini, file e tabelle.</p></div>
+        <a class="btn outline small" href="#novita" style="margin-top:14px">Tutte le novità</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="novita">
+  <div class="wrap">
+    <div class="testa sola">
+      <p class="eyebrow">Novità</p>
+      <h2>Come è <em>cresciuto</em>.</h2>
+    </div>
+    <div class="storico">
+      <details class="v" open><summary><b>1.0.13</b><time>31 ottobre 2026</time></summary><ul>
+        <li>Gli aggiornamenti dallo Store si installano da soli, senza dover chiudere e riaprire Chrome.</li>
+        <li>Con il pannello aperto compare «Aggiornamento pronto» con «Aggiorna ora»; se è aperta la finestra grande con una modifica in corso, aspetta che la chiudi.</li>
+        <li>Dopo l'aggiornamento un avviso ti dice a quale versione sei passato.</li></ul></details>
+      <details class="v"><summary><b>1.0.12</b><time>31 ottobre 2026</time></summary><ul>
+        <li>Backup automatico: scegli una cartella una volta (per esempio su OneDrive) e dopo ogni modifica il backup completo, allegati compresi, si scrive da solo. Un file al giorno, gli ultimi 30 giorni.</li>
+        <li>Con la cartella scelta non compare più l'avviso «fai un backup»; se Chrome chiede di nuovo il permesso, basta «Riattiva».</li></ul></details>
+      <details class="v"><summary><b>1.0.11</b><time>28 ottobre 2026</time></summary><ul>
+        <li>Risposte (generiche e aziendali) e frasi pronte si scrivono nella finestra grande, con immagini, file e tabelle. Le risposte hanno le linguette Italiano / Inglese.</li>
+        <li>Un clic su una risposta o una frase copia solo il testo: immagini e file restano nella voce, e il pulsante 📎 li mostra sotto la frase.</li>
+        <li>Anche le voci nuove della knowledge base si scrivono nella finestra grande.</li>
+        <li>Nell'Archivio ogni file mostra anche la risposta o la frase a cui è collegato.</li>
+        <li>Corretto: il testo scritto su una riga vuota poteva perdersi al salvataggio.</li></ul></details>
+      <details class="v"><summary><b>1.0.10</b><time>9 ottobre 2026</time></summary><ul>
+        <li>Le voci della knowledge base si modificano in una finestra grande: immagini dove vuoi, anche affiancate.</li>
+        <li>Tabelle come in Excel: scegli le celle, unisci e separi, incolli da Excel, aggiungi righe e colonne.</li>
+        <li>Annulla e Ripeti per ogni passo, anche per immagini e tabelle.</li></ul></details>
+      <details class="v"><summary><b>1.0.9</b><time>9 ottobre 2026</time></summary><ul>
+        <li>KB aziendale: una wiki separata per la documentazione dell'azienda o del cliente, che l'assistente AI non vede mai. Anche le risposte possono essere aziendali.</li>
+        <li>Sincronizzazione facoltativa fra colleghi attraverso una cartella condivisa, per esempio su OneDrive.</li>
+        <li>Rete di sicurezza: le voci si archiviano invece di sparire, e ognuna conserva le versioni precedenti.</li></ul></details>
+      <details class="v"><summary><b>1.0.6 – 1.0.8</b><time>8 ottobre 2026</time></summary><ul>
+        <li>Archivio degli allegati: PDF, immagini e file collegati alle voci, con anteprima e «Mostra nella cartella».</li>
+        <li>Ricerca nella knowledge base più precisa (singolare e plurale, categorie, sigle).</li>
+        <li>Nella voce nuova si scelgono subito il livello e gli allegati.</li>
+        <li>La barra in alto resta dentro il pannello anche quando è stretto.</li></ul></details>
+      <details class="v"><summary><b>1.0.5</b><time>1 ottobre 2026</time></summary><ul>
+        <li>Email composte dall'assistente AI come le scrive un tecnico: saluto, paragrafi, richieste una per riga.</li></ul></details>
+      <details class="v"><summary><b>1.0.3 – 1.0.4</b><time>25 agosto 2026</time></summary><ul>
+        <li>L'assistente AI sceglie da solo un modello disponibile: Groq aveva ritirato quelli usati prima.</li></ul></details>
+      <details class="v"><summary><b>1.0.0 – 1.0.2</b><time>luglio 2026</time></summary><ul>
+        <li>Prima versione pubblica sul Chrome Web Store.</li></ul></details>
+    </div>
+
+    <div class="licenza" style="margin-top:70px">
+      <p class="eyebrow">Licenza</p>
+      <p>SlothDesk è rilasciato sotto <a href="https://polyformproject.org/licenses/noncommercial/1.0.0">PolyForm Noncommercial License 1.0.0</a>, che copre sia il codice sia i contenuti della knowledge base e delle risposte.</p>
+      <p><strong>Libero per te.</strong> Puoi usarlo per il tuo lavoro di assistenza, modificarlo, riscriverne i contenuti e tenertelo per sempre. Nessun costo, nessuna scadenza, nessuna registrazione.</p>
+      <p><strong>Non per farci soldi sopra.</strong> Rivenderlo, distribuirlo a pagamento, includerlo in un prodotto o in un servizio a pagamento, o qualsiasi impiego che generi ricavi, richiede una licenza commerciale separata: in quel caso si passa da me.</p>
+      <p>Required Notice: Copyright © 2026 Marco Simone</p>
+    </div>
+  </div>
+</section>
 </main>
 
-<footer>SlothDesk — <a href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec" target="_blank" rel="noopener">Chrome Web Store</a> · <a href="assistenza.html">Assistenza</a> · <a href="privacy.html">Privacy</a></footer>
+<footer>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="logo.png" alt="" width="34" height="34" style="width:34px;height:34px"><span><b style="font-size:19px">Sloth<i>Desk</i></b></span></a>
+    <a class="metis-piede" href="https://metis.marcosimone.tech/" title="Vai a METIS"><small>Powered by</small><img src="metis-logo.png" alt="METIS · People. Services. Ideas." width="200" height="71"></a>
+    <p>La tua wiki personale per l'assistenza IT · <a href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec">Chrome Web Store</a> · <a href="assistenza.html">Assistenza</a> · <a href="privacy.html">Privacy</a></p>
+  </div>
+</footer>
 
-<!-- Ingranditore delle schermate -->
-<div class="lightbox" id="lightbox" hidden>
-  <button type="button" class="lb-chiudi" id="lbChiudi" aria-label="Chiudi">&times;</button>
-  <button type="button" class="lb-nav lb-prec" id="lbPrec" aria-label="Precedente">&#8249;</button>
-  <img id="lbImg" src="" alt="">
-  <button type="button" class="lb-nav lb-succ" id="lbSucc" aria-label="Successiva">&#8250;</button>
-  <p class="lb-txt" id="lbTxt"></p>
-</div>
-
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Schermata ingrandita"><button type="button" aria-label="Chiudi">×</button><img alt=""></div>
 <script>
-(function () {
-  var box   = document.getElementById('lightbox');
-  var img   = document.getElementById('lbImg');
-  var txt   = document.getElementById('lbTxt');
-  var lenti = Array.prototype.slice.call(document.querySelectorAll('.lente'));
-  if (!box || !lenti.length) return;
-
-  var i = 0;
-
-  function mostra(n) {
-    i = (n + lenti.length) % lenti.length;      // gira in tondo
-    var b = lenti[i];
-    img.src = b.dataset.img;
-    img.alt = b.querySelector('img').alt;
-    txt.textContent = b.dataset.txt + '  (' + (i + 1) + ' di ' + lenti.length + ')';
-  }
-
-  function apri(n) {
-    mostra(n);
-    box.hidden = false;
-    document.body.style.overflow = 'hidden';
-    document.getElementById('lbChiudi').focus();
-  }
-
-  function chiudi() {
-    box.hidden = true;
-    document.body.style.overflow = '';
-    if (lenti[i]) lenti[i].focus();
-  }
-
-  lenti.forEach(function (b, n) {
-    b.addEventListener('click', function () { apri(n); });
-  });
-
-  document.getElementById('lbChiudi').addEventListener('click', chiudi);
-  document.getElementById('lbPrec').addEventListener('click', function (e) { e.stopPropagation(); mostra(i - 1); });
-  document.getElementById('lbSucc').addEventListener('click', function (e) { e.stopPropagation(); mostra(i + 1); });
-
-  // clic sullo sfondo: chiude. Sull'immagine: no, altrimenti si chiude per sbaglio
-  box.addEventListener('click', function (e) { if (e.target === box) chiudi(); });
-
-  document.addEventListener('keydown', function (e) {
-    if (box.hidden) return;
-    if (e.key === 'Escape')     chiudi();
-    if (e.key === 'ArrowLeft')  mostra(i - 1);
-    if (e.key === 'ArrowRight') mostra(i + 1);
-  });
-})();
+  (function () {
+    var lb = document.getElementById('lb'), img = lb.querySelector('img'), chiudi = lb.querySelector('button'), prima = null;
+    document.querySelectorAll('.galleria button').forEach(function (b) {
+      b.addEventListener('click', function () { prima = b; img.src = b.dataset.img; img.alt = b.querySelector('img').alt; lb.classList.add('su'); chiudi.focus(); });
+    });
+    function via() { lb.classList.remove('su'); if (prima) prima.focus(); }
+    chiudi.addEventListener('click', via);
+    lb.addEventListener('click', function (e) { if (e.target === lb) via(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && lb.classList.contains('su')) via(); });
+  })();
 </script>
-
-<script>
-(function () {
-  var splash = document.getElementById('splash');
-  if (!splash) return;
-
-  // Già visto in questa sessione, o l'utente preferisce meno animazioni: via subito.
-  var saltalo = sessionStorage.getItem('slothdesk-splash') === 'visto' ||
-                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (saltalo) { splash.remove(); return; }
-
-  var msg = document.getElementById('splashMsg');
-
-  // Il mazzo: se ne pescano due a caso, così la durata resta la stessa
-  // e chi torna non rilegge sempre le solite.
-  var mazzo = [
-    'Ancora cinque minuti…',
-    'Cerco le cuffie…',
-    'Ci ha scritto un ticket?',
-    'Un attimo che controllo…',
-    'Ha provato a riavviare?',
-    'Guardo se è già capitato ad altri…',
-    'Sto cercando la procedura…',
-    'Era in spam, come sempre…',
-    'Giro al reparto competente…',
-    'Due minuti e le rispondo…'
-  ];
-  for (var i = mazzo.length - 1; i > 0; i--) {        // mescola
-    var j = Math.floor(Math.random() * (i + 1));
-    var t = mazzo[i]; mazzo[i] = mazzo[j]; mazzo[j] = t;
-  }
-
-  var battute = [
-    [1250, mazzo[0]],
-    [2450, mazzo[1]],
-    [3500, 'Eccomi. Dimmi pure.']
-  ];
-  var timer = battute.map(function (b) {
-    return setTimeout(function () {
-      if (!msg) return;
-      msg.textContent = b[1];
-      msg.classList.remove('cambia');
-      void msg.offsetWidth;          // forza il riavvio dell'animazione
-      msg.classList.add('cambia');
-    }, b[0]);
-  });
-
-  function chiudi() {
-    timer.forEach(clearTimeout);
-    splash.classList.add('via');
-    setTimeout(function () { splash.remove(); }, 400);
-  }
-
-  sessionStorage.setItem('slothdesk-splash', 'visto');
-  splash.addEventListener('click', chiudi);
-  document.addEventListener('keydown', chiudi, { once: true });
-  setTimeout(chiudi, 4600);
-})();
-</script>
-
 </body>
 </html>
