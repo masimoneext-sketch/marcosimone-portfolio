@@ -234,6 +234,7 @@
     </a>
     <nav aria-label="Sezioni">
       <a href="#funzioni">Funzioni</a>
+      <a href="#importa-kb">Importa</a>
       <a href="#privacy">Privacy</a>
       <a href="#sincronizzazione">Sincronizzazione</a>
       <a href="#novita">Novità</a>
@@ -317,6 +318,70 @@
       <figure class="alto"><button type="button" data-img="schermata-ai.png"><img src="schermata-ai.png" alt="L'assistente AI nel pannello"></button><figcaption><b>Assistente AI</b>Si attiva in quattro passi. Facoltativo.</figcaption></figure>
       <figure class="largo"><button type="button" data-img="schermata-finestra.png"><img src="schermata-finestra.png" alt="Una voce aperta nella finestra grande"></button><figcaption><b>Le voci in una finestra grande</b>Testo formattato, immagini e tabelle, accanto al pannello.</figcaption></figure>
       <figure class="largo"><button type="button" data-img="schermata-tabelle.png"><img src="schermata-tabelle.png" alt="Una tabella modificata come in Excel"></button><figcaption><b>Tabelle come in Excel</b>Scegli le celle, unisci e separi, incolli da Excel.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="importa-kb">
+  <div class="wrap">
+    <div class="testa">
+      <div>
+        <p class="eyebrow">Importa</p>
+        <h2>Le tue procedure, <em>in un clic</em>.</h2>
+      </div>
+      <p>Hai già tutto in Word o in un file di testo? Non serve ricopiare niente: SlothDesk legge il documento, lo divide in voci, ti mostra l'anteprima e le mette dove scegli tu. Il file non lascia il tuo computer. Dalla versione 1.0.14.</p>
+    </div>
+    <div class="duecol">
+      <div class="card principale" style="border-color:rgba(232,163,61,.45)">
+        <h3>Parti dal modello</h3>
+        <p>Tre voci d'esempio già scritte nel modo giusto (due per la knowledge base, una per la KB aziendale): le guardi, le sostituisci con le tue e importi.</p>
+        <div class="cta" style="justify-content:flex-start;margin-top:18px">
+          <a class="btn primary small" href="modelli/SlothDesk-modello-KB.docx" download>Modello Word (.docx)
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></a>
+          <a class="btn outline small" href="modelli/SlothDesk-modello-KB.txt" download>Modello di testo (.txt)</a>
+        </div>
+        <ol class="passi">
+          <li><span>Apri il modello e <strong>cancella le voci d'esempio</strong>.</span></li>
+          <li><span>Per ogni procedura scrivi un titolo con lo stile <span class="k">Titolo 1</span>: ogni titolo diventa una voce.</span></li>
+          <li><span>Sotto il titolo scrivi la procedura come faresti di solito: grassetti, elenchi, tabelle e immagini entrano così come sono.</span></li>
+          <li><span>Salva in <strong>.docx</strong>, apri SlothDesk e premi <span class="k">📥 Importa</span> nella knowledge base o nella KB aziendale.</span></li>
+          <li><span>Nell'anteprima controlla i titoli, togli la spunta a quello che non vuoi e premi <span class="k">Importa</span>.</span></li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Le righe facoltative sotto il titolo</h3>
+        <p>Se le scrivi subito sotto il titolo, SlothDesk le usa come dati della voce e non le mette nel testo. Se non le scrivi, li scegli nell'anteprima per tutte le voci insieme.</p>
+        <div class="righe" style="grid-template-columns:1fr">
+          <div class="riga"><span>Categoria: Account<small>la categoria nella knowledge base</small></span><span class="tag">knowledge base</span></div>
+          <div class="riga"><span>Livello: 1<small>1° o 2° livello</small></span><span class="tag">knowledge base</span></div>
+          <div class="riga"><span>Domanda: come si reimposta la password?<small>la frase con cui la cerchi</small></span><span class="tag">knowledge base</span></div>
+          <div class="riga"><span>Sezione: Portali<small>la sezione della wiki in cui va la pagina</small></span><span class="tag si">KB aziendale</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="righe" style="margin-top:46px">
+      <div class="riga"><span>Titolo 1<small>il titolo più grande del documento</small></span><span class="tag si">una voce</span></div>
+      <div class="riga"><span>Titolo 2 e Titolo 3<small>dentro una procedura</small></span><span class="tag">sottotitoli</span></div>
+      <div class="riga"><span>Lo stile «Titolo» in cima<small>il nome di tutto il documento</small></span><span class="tag">categoria proposta</span></div>
+      <div class="riga"><span>Il testo prima del primo titolo<small>un'introduzione, una nota</small></span><span class="tag">senza spunta</span></div>
+      <div class="riga"><span>Nei file .txt e .md<small>le righe che cominciano con #</small></span><span class="tag si">una voce</span></div>
+      <div class="riga"><span>Un documento senza titoli<small>prende il nome del file</small></span><span class="tag">una voce sola</span></div>
+    </div>
+
+    <div class="duecol" style="margin-top:46px">
+      <div class="card">
+        <h3>Buono a sapersi</h3>
+        <p><strong>Un file, una destinazione.</strong> Le procedure generiche vanno nella knowledge base; quelle del cliente nella KB aziendale, che l'assistente AI non vede. Se le hai mescolate, fai due file.</p>
+        <p><strong>Niente doppioni.</strong> Se una voce con lo stesso titolo c'è già, nell'anteprima scegli tu: non importarla, sostituirla o aggiungerla come nuova.</p>
+        <p><strong>I dati del cliente li vedo prima io.</strong> Se una voce diretta alla knowledge base contiene email, telefoni, indirizzi o parole come «password», l'anteprima te lo dice prima di importare.</p>
+      </div>
+      <div class="card attenzione">
+        <h3>Cosa non si importa</h3>
+        <p><strong>Il vecchio .doc</strong>: in Word scegli <span class="k">File → Salva con nome → Documento di Word (.docx)</span> e importa quello.</p>
+        <p><strong>I PDF</strong>: si leggono male e le voci verrebbero spezzate a caso. Apri il PDF con Word, salvalo in .docx e controlla i titoli.</p>
+        <p><strong>Le immagini EMF o WMF</strong> (i vecchi disegni di Office) vengono saltate: incolla al loro posto uno screenshot.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -416,9 +481,9 @@
       </div>
       <div class="card novita-breve">
         <h3>Ultime novità</h3>
+        <div class="ver"><b>1.0.14</b><time>in arrivo</time><p>Importa le tue procedure da Word o da un file di testo, con l'anteprima.</p></div>
         <div class="ver"><b>1.0.13</b><time>31 ottobre 2026</time><p>Gli aggiornamenti dallo Store si installano da soli, senza chiudere e riaprire Chrome.</p></div>
         <div class="ver"><b>1.0.12</b><time>31 ottobre 2026</time><p>Backup automatico in una cartella che scegli tu: un file al giorno, gli ultimi 30 giorni.</p></div>
-        <div class="ver"><b>1.0.11</b><time>28 ottobre 2026</time><p>Risposte e frasi nella finestra grande, con immagini, file e tabelle.</p></div>
         <a class="btn outline small" href="#novita" style="margin-top:14px">Tutte le novità</a>
       </div>
     </div>
@@ -432,7 +497,11 @@
       <h2>Come è <em>cresciuto</em>.</h2>
     </div>
     <div class="storico">
-      <details class="v" open><summary><b>1.0.13</b><time>31 ottobre 2026</time></summary><ul>
+      <details class="v" open><summary><b>1.0.14</b><time>in arrivo sul Chrome Web Store</time></summary><ul>
+        <li>Importa da Word (.docx), da file di testo (.txt) e Markdown (.md): ogni titolo diventa una voce, con anteprima, spunte e controllo dei doppioni.</li>
+        <li>Le voci vanno nella knowledge base o nella KB aziendale, a scelta; immagini, elenchi e tabelle restano.</li>
+        <li>Sul sito il modello da scaricare e la guida su come si compila.</li></ul></details>
+      <details class="v"><summary><b>1.0.13</b><time>31 ottobre 2026</time></summary><ul>
         <li>Gli aggiornamenti dallo Store si installano da soli, senza dover chiudere e riaprire Chrome.</li>
         <li>Con il pannello aperto compare «Aggiornamento pronto» con «Aggiorna ora»; se è aperta la finestra grande con una modifica in corso, aspetta che la chiudi.</li>
         <li>Dopo l'aggiornamento un avviso ti dice a quale versione sei passato.</li></ul></details>

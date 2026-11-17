@@ -1,0 +1,34 @@
+# Reset della password di un utente
+Categoria: Account
+Livello: 1
+Domanda: come si reimposta la password di un utente?
+
+Prima di tutto verifica l'identità dell'utente, poi apri **Utenti e computer di Active Directory**.
+
+1. Cerca l'utente per nome o per account.
+2. Tasto destro sull'utente → «Reimposta password».
+3. Spunta «L'utente deve cambiare la password all'accesso successivo».
+4. Comunica la password temporanea all'utente a voce, mai per email.
+
+## Se l'account è bloccato
+
+Nella scheda «Account» togli la spunta «Sblocca account», poi reimposta la password.
+
+# La stampante non stampa
+Categoria: Stampanti
+Livello: 1
+
+| Cosa vedi | Cosa fare |
+|---|---|
+| Lavori fermi in coda | Riavvia il servizio «Spooler di stampa» |
+| Stampante «offline» | Controlla cavo di rete e alimentazione |
+| Stampa caratteri strani | Reinstalla il driver giusto per il modello |
+
+# Accesso al portale del cliente
+Sezione: Portali
+
+Questa voce è un esempio per la **KB aziendale**: la riga «Sezione:» dice in quale sezione della wiki va.
+
+- Apri il portale dal preferito del browser.
+- Entra con le credenziali di dominio.
+- Se non entri, prova in una finestra in incognito.
