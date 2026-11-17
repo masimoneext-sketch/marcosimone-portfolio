@@ -59,39 +59,37 @@
   .btn.small { padding: 11px 22px; font-size: 15px; }
   .btn svg { width: 17px; height: 17px; }
 
-  /* ---------- hero ---------- */
-  .hero { position: relative; padding: 46px 0 150px;
-    background: radial-gradient(900px 520px at 78% 30%, rgba(232,163,61,.10), transparent 70%),
-                radial-gradient(700px 400px at 10% 0%, rgba(120,150,200,.07), transparent 70%); }
-  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
-  .kicker { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
-  .kicker b { color: var(--accent); letter-spacing: .2em; font-size: 12.5px; }
-  .hero h1 { font-size: clamp(46px, 6.2vw, 82px); line-height: 1.02; margin-bottom: 26px; }
-  .hero h1 em { font-style: italic; color: var(--accent); position: relative; white-space: nowrap; }
-  .hero h1 em::after { content: ""; position: absolute; left: -2%; right: -2%; bottom: .04em; height: .09em; border-radius: 9px; background: var(--accent); opacity: .55; transform: rotate(-1.2deg); }
-  .lead { font-size: 18.5px; color: var(--muted); max-width: 560px; margin: 0 0 34px; }
+  /* ---------- hero: centrato, schermate sotto ---------- */
+  .hero { position: relative; padding: 70px 0 0; text-align: center; overflow: hidden;
+    background: radial-gradient(1100px 600px at 50% -10%, rgba(232,163,61,.13), transparent 65%),
+                radial-gradient(800px 500px at 50% 110%, rgba(120,150,200,.10), transparent 70%); }
+  .hero .wrap { max-width: 980px; }
+  .etichetta { display: inline-flex; align-items: center; gap: 10px; padding: 7px 16px 7px 8px; border-radius: 999px; border: 1px solid var(--line2); background: rgba(19,32,60,.6); font-size: 14px; color: var(--muted); margin-bottom: 34px; }
+  .etichetta b { padding: 3px 10px; border-radius: 999px; background: var(--accent); color: #1a1205; font-size: 11.5px; letter-spacing: .1em; }
+  .prima { font: italic 400 clamp(22px, 2.6vw, 30px)/1.2 var(--serif); color: var(--muted); margin: 0 0 6px; }
+  .hero h1 { font: 700 clamp(46px, 7.4vw, 96px)/1 var(--sans); letter-spacing: -.035em; margin: 0 0 28px; }
+  .hero h1 span { color: var(--accent); }
+  .lead { font-size: 19px; color: var(--muted); max-width: 680px; margin: 0 auto 36px; }
   .lead strong { color: var(--fg); font-weight: 600; }
-  .cta { display: flex; gap: 14px; flex-wrap: wrap; }
-  .note { font-size: 13.5px; color: var(--light); margin-top: 14px; }
-  .stats { display: flex; gap: 46px; margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--line); flex-wrap: wrap; }
-  .stats b { display: block; font: 500 34px/1 var(--serif); margin-bottom: 8px; }
-  .stats span { font-size: 13.5px; color: var(--muted); line-height: 1.35; display: block; }
+  .cta { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .numeri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 760px; margin: 50px auto 0; }
+  .numeri div { padding: 18px 16px; border-radius: 16px; border: 1px solid var(--line); background: rgba(19,32,60,.45); }
+  .numeri b { display: block; font: 700 32px/1 var(--sans); letter-spacing: -.02em; color: var(--fg); margin-bottom: 6px; }
+  .numeri span { display: block; font-size: 14px; color: var(--muted); line-height: 1.4; }
 
-  /* la vetrina: finestra grande + pannello laterale + due bollini */
-  .vetrina { position: relative; height: 520px; }
-  .vetrina .grande { position: absolute; right: 0; top: 30px; width: 88%; border-radius: 16px; overflow: hidden; border: 1px solid var(--line2); box-shadow: 0 30px 80px rgba(0,0,0,.55); transform: rotate(1.2deg); }
-  .vetrina .pannello { position: absolute; left: 0; top: 70px; width: 37%; border-radius: 16px; overflow: hidden; border: 1px solid var(--line2); box-shadow: 0 30px 70px rgba(0,0,0,.6); transform: rotate(-2.5deg); }
-  .bollino { position: absolute; display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 16px; background: rgba(19,32,60,.92); border: 1px solid var(--line2); backdrop-filter: blur(10px); box-shadow: 0 20px 50px rgba(0,0,0,.5); }
-  .bollino .ico { width: 42px; height: 42px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; flex: none; }
-  .bollino .ico svg { width: 20px; height: 20px; }
-  .bollino small { display: block; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-  .bollino b { display: block; font: 600 18px/1.25 var(--serif); }
-  .bollino em { font-style: normal; font-size: 12.5px; color: var(--accent); }
-  .bollino.versione { right: -10px; top: -6px; }
-  .bollino.privacy { left: 22%; bottom: -26px; }
-  .bollino.privacy .ico { background: rgba(75,185,138,.14); color: var(--ok); }
-  .stellina { position: absolute; color: var(--accent); opacity: .8; font-size: 18px; }
-  .onda { position: absolute; left: 0; bottom: -1px; width: 100%; height: 90px; display: block; }
+  /* le schermate: un «desktop» largo sotto il titolo, che sfuma verso la sezione dopo */
+  .palco { position: relative; max-width: 1080px; margin: 64px auto 0; padding: 0 28px; }
+  .schermo { position: relative; border-radius: 18px 18px 0 0; border: 1px solid var(--line2); border-bottom: 0; background: var(--panel); box-shadow: 0 -20px 90px rgba(232,163,61,.10), 0 40px 120px rgba(0,0,0,.6); overflow: hidden; height: 470px; }
+  .schermo .barra { display: flex; gap: 7px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  .schermo .barra i { width: 11px; height: 11px; border-radius: 50%; background: var(--line2); }
+  .schermo .grande { width: 100%; }
+  .schermo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 170px; background: linear-gradient(transparent, var(--bg2)); }
+  .palco .pannello { position: absolute; left: -10px; top: 70px; width: 250px; border-radius: 14px; overflow: hidden; border: 1px solid rgba(232,163,61,.5); box-shadow: 0 30px 70px rgba(0,0,0,.65); z-index: 2; }
+  .segno { position: absolute; z-index: 3; display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 999px; background: rgba(10,17,32,.9); border: 1px solid var(--line2); backdrop-filter: blur(8px); font-size: 14px; white-space: nowrap; box-shadow: 0 14px 40px rgba(0,0,0,.45); }
+  .segno .pt { width: 9px; height: 9px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px rgba(75,185,138,.18); }
+  .segno.uno { right: 0; top: 110px; }
+  .segno.due { right: 60px; top: 300px; }
+  .segno.due .pt { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
 
   /* ---------- sezioni ---------- */
   section { padding: 110px 0; }
@@ -188,8 +186,10 @@
 
   @media (max-width: 980px) {
     .top nav { display: none; }
-    .hero .wrap, .testa, .installa, .duecol { grid-template-columns: 1fr; }
-    .vetrina { height: 440px; margin-top: 20px; }
+    .testa, .installa, .duecol { grid-template-columns: 1fr; }
+    .schermo { height: 360px; }
+    .palco .pannello { width: 190px; left: 6px; }
+    .segno.due { display: none; }
     .griglia3 { grid-template-columns: 1fr 1fr; }
     .galleria { grid-template-columns: 1fr 1fr; }
     .righe { grid-template-columns: 1fr; }
@@ -198,19 +198,19 @@
     .wrap { padding: 0 18px; }
     .top .pill { display: none; }
     .top .wrap { gap: 12px; }
-    .hero { padding-bottom: 120px; }
-    .stats { gap: 28px; }
-    .vetrina { height: 330px; }
-    .bollino { padding: 10px 12px; gap: 10px; }
-    .bollino b { font-size: 15px; }
-    .bollino.privacy { left: 4%; bottom: -34px; }
-    .bollino.versione { right: 0; top: -14px; }
-    .kicker { flex-wrap: wrap; gap: 4px 10px; }
-    .kicker .punto, .kicker .sotto { display: none; }
     .griglia3, .galleria { grid-template-columns: 1fr; }
     .galleria .largo { grid-column: auto; }
     section { padding: 80px 0; }
     .riga { flex-wrap: wrap; }
+    .hero { padding-top: 44px; }
+    .numeri { grid-template-columns: 1fr; gap: 10px; }
+    .numeri div { display: flex; align-items: center; gap: 14px; text-align: left; padding: 14px 16px; }
+    .numeri b { margin: 0; min-width: 56px; }
+    .palco { padding: 0 14px; margin-top: 44px; }
+    .schermo { height: 260px; }
+    .palco .pannello { width: 132px; top: 50px; }
+    .segno.uno { right: 6px; top: auto; bottom: 30px; font-size: 12.5px; padding: 8px 12px; white-space: normal; max-width: 210px; }
+    .etichetta { font-size: 13px; }
     .k { white-space: normal; }
     .card { padding: 24px 20px 26px; }
   }
@@ -237,43 +237,29 @@
 </header>
 
 <main>
-<section class="hero" style="padding-top:46px">
+<section class="hero">
   <div class="wrap">
-    <div>
-      <div class="kicker"><b>ESTENSIONE PER CHROME</b><span class="punto">·</span><span class="sotto">pannello laterale, accanto al ticket</span></div>
-      <h1>Lento di nome.<br><em>Velocissimo</em> sui ticket.</h1>
-      <p class="lead">Una wiki personale che ti costruisci nel tempo, dentro il browser, accanto al gestionale che usi già: soluzioni pronte, risposte in italiano e inglese, la documentazione del team e, se vuoi, un assistente AI. <strong>Tutto resta sul tuo computer.</strong></p>
-      <div class="cta">
-        <a class="btn primary" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec">Installa da Chrome Web Store
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="btn outline" href="#funzioni">Scopri le funzioni</a>
-      </div>
-      <div class="stats">
-        <div><b>286</b><span>soluzioni pronte<br>nella knowledge base</span></div>
-        <div><b>0</b><span>server, account<br>o abbonamenti</span></div>
-        <div><b>0</b><span>pagine web lette:<br>non ha il permesso</span></div>
-      </div>
+    <span class="etichetta"><b>GRATIS</b>Estensione per Chrome · nessun account</span>
+    <p class="prima">Lento di nome.</p>
+    <h1><span>Velocissimo</span> sui ticket.</h1>
+    <p class="lead">Una wiki personale che ti costruisci nel tempo, in un pannello accanto al gestionale che usi già: soluzioni pronte, risposte in italiano e inglese, la documentazione del team e, se vuoi, un assistente AI. <strong>Tutto resta sul tuo computer.</strong></p>
+    <div class="cta">
+      <a class="btn primary" href="https://chromewebstore.google.com/detail/ohinomcdpgcogakagdmdcibgbonnmlec">Installa da Chrome Web Store
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn outline" href="#funzioni">Scopri le funzioni</a>
     </div>
-
-    <div class="vetrina" aria-hidden="true">
-      <span class="stellina" style="right:34%;top:0">✦</span>
-      <span class="stellina" style="left:8%;top:40%">✦</span>
-      <img class="grande" src="schermata-finestra.png" alt="" loading="eager">
-      <img class="pannello" src="schermata-risposte.png" alt="" loading="eager">
-      <div class="bollino versione">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg></span>
-        <span><small>Ultima versione</small><b>SlothDesk 1.0.13</b><em>si aggiorna da sola</em></span>
-      </div>
-      <div class="bollino privacy">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-        <span><small>Dati personali</small><b>Mascherati prima dell'AI</b></span>
-      </div>
+    <div class="numeri">
+      <div><b>286</b><span>soluzioni pronte nella knowledge base</span></div>
+      <div><b>0</b><span>server, account o abbonamenti</span></div>
+      <div><b>0</b><span>pagine web lette: non ha il permesso</span></div>
     </div>
   </div>
-  <svg class="onda" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 40 C 360 0, 720 80, 1080 40 S 1440 30, 1440 30 L1440 90 L0 90 Z" fill="rgba(232,163,61,.14)"/>
-    <path d="M0 60 C 360 25, 720 95, 1080 58 S 1440 50, 1440 50 L1440 90 L0 90 Z" fill="#0e1830"/>
-  </svg>
+  <div class="palco" aria-hidden="true">
+    <div class="schermo"><div class="barra"><i></i><i></i><i></i></div><img class="grande" src="schermata-finestra.png" alt=""></div>
+    <img class="pannello" src="schermata-risposte.png" alt="">
+    <span class="segno uno"><span class="pt"></span>Dati personali mascherati prima dell'AI</span>
+    <span class="segno due"><span class="pt"></span>Versione 1.0.13 · si aggiorna da sola</span>
+  </div>
 </section>
 
 <section class="alt" id="funzioni">
